@@ -1,0 +1,87 @@
+<server description="Sample Liberty server">
+
+  <featureManager>
+    <feature>jaxrs-2.0</feature>
+    <feature>jsonp-1.0</feature>
+    <feature>cdi-1.2</feature>
+    <feature>jsf-2.2</feature>
+    <!-- FOR SECURITY -->
+    <feature>appSecurity-2.0</feature>
+    <feature>servlet-3.1</feature>
+    <feature>mpJwt-1.0</feature>
+    <feature>jwt-1.0</feature>
+    <feature>ssl-1.0</feature>
+    <feature>jpa-2.1</feature>
+  </featureManager>
+
+  <!-- <quickStartSecurity userName="Bob" userPassword="bobpwd" /> -->
+  <!-- The line above is equivalent to create user Bob and assigning admin role to Bob -->
+
+  <!-- <administrator-role>
+   <user>Bob</user>
+   <group>myAdmins</group>
+  </administrator-role> -->
+
+
+  <basicRegistry id="basic" realm="WebRealm">
+      <user name="bob" password="{xor}Lyg7" />  <!-- pwd -->
+      <user name="alice" password="{xor}PjM2PDovKDs=" />  <!-- alicepwd -->
+      <user name="carl" password="{xor}PD4tMy8oOw==" />   <!-- carlpwd -->
+
+      <group name="myAdmins">
+        <member name="bob" />
+      </group>
+
+      <group name="myUsers">
+        <member name="bob" />
+        <member name="alice" />
+        <member name="carl" />
+      </group>
+    </basicRegistry>
+
+
+    <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
+      id="defaultHttpEndpoint" host="*" />
+
+    <application location="io.openliberty.guides.eventapp.war" type="war"
+      id="io.openliberty.guides.eventapp" name="io.openliberty.guides.eventapp"
+      context-root="/">
+      <application-bnd>
+        <security-role name="eventAdministrator">
+          <group name="myAdmins" />
+        </security-role>
+        <security-role name="registeredUser">
+          <group name="myUsers" />
+        </security-role>
+      </application-bnd>
+    </application>
+
+    <keyStore id="defaultKeyStore" password="app-pass"
+		location="${server.config.dir}/key.jks" />
+
+    <!-- <keyStore id="defaultTrustStore" password="trust-pass"
+		location="${server.config.dir}/truststore.jks" /> -->
+
+    <!-- Configure the default keystore to trust the OP -->
+	<!-- <ssl id="defaultSSLConfig" keyStoreRef="defaultKeyStore"
+		trustStoreRef="defaultTrustStore" serverKeyAlias="jwtsampleapp" /> -->
+
+    <jwtBuilder id="jwtBuilder"
+      jwkEnabled="false"
+      keyStoreRef="defaultKeyStore"
+	  	keyAlias="jwtsampleapp"
+	  />
+
+    <!-- <jwtConsumer id="jwtConsumer"
+				 signatureAlgorithm="RS256"
+				 issuer="http://localhost:9080/jwtBuilder"
+				 trustStoreRef="defaultTrustStore"
+				 trustedAlias="jwtsampleapp"
+	/> -->
+
+    <!-- <mpJwt id="mpjwt"
+     issuer="http://localhost:9080/jwtBuilder"
+     audiences="http://localhost:9080/event/jwt">
+    </mpJwt> -->
+
+</server>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+  xmlns:jsf="http://xmlns.jcp.org/jsf"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head jsf:id="head">
+<title>WebAppJSF</title>
+</head>
+<body jsf:id="body">
+  <ui:composition>
+    <div class="forms">
+      <div class="forms_title" style="line-height: 0;">
+        <h2>Log In</h2>
+      </div>
+      <br />
+
+      <h:form id="loginform">
+        <p>
+          Username
+          <h:inputText id="username" value="#{loginBean.username}" required="true"/>
+        </p>
+        <p>
+          Password
+          <h:inputSecret id="password" value="#{loginBean.password}" required="true"/>
+        </p>
+        <p>
+          <h:commandButton value="Submit" type="submit"
+            action="#{loginBean.doLogIn()}">
+            <f:ajax execute="loginform" render=":sidebar content header" resetValues="true" />
+          </h:commandButton>
+           <br /> <br /> <input
+            type="reset" value="Reset" />
+        </p>
+      </h:form>
+
+    </div>
+  </ui:composition>
+</body>
+</html>

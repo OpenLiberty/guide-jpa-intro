@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<h:head>
+  <title>WebAppJSF</title>
+</h:head>
+<h:body>
+  <ui:composition>
+    <div class="forms">
+      <div class="forms_title" style="line-height: 0;">
+        <h2 style="text-transform: capitalize;">Event Details</h2>
+      </div>
+      <br />
+      <h:outputText class="eventDetailsHeaders" value="  Name  " />
+      <br />
+      <h:outputText class="eventDetails"
+        value="#{eventBean.retrieveSelectedEvent().name}" />
+      <br /> <br />
+      <h:outputText class="eventDetailsHeaders" value="  Location  " />
+      <br />
+      <h:outputText class="eventDetails"
+        value="#{eventBean.retrieveSelectedEvent().location}" />
+      <br /> <br />
+      <h:outputText class="eventDetails" value="  Time  " />
+      <br />
+      <h:outputText class="eventDetails"
+        value="#{eventBean.retrieveSelectedEvent().time}" />
+      <br /> <br />
+      <h:outputText class="eventDetailsHeaders" value="Registered Users" />
+      <br />
+      <h:form id="detailform">
+
+        <h:dataTable
+          style="margin:auto; text-align:center; font-size: 1.1vw; text-transform: capitalize;"
+          value="#{eventBean.retrieveUserList(eventBean.retrieveSelectedEvent().id)}"
+          var="user" rendered="#{userBean.roleIsAdmin}">
+          <h:column>
+            #{user.name}
+        </h:column>
+        </h:dataTable>
+        <h:panelGroup rendered="#{userBean.roleIsAdmin}">
+          <h:outputText style="text-transform: none;" class="eventDetails"
+            value="No user has registered for this event."
+            rendered="#{empty eventBean.retrieveUserList(eventBean.retrieveSelectedEvent().id)}" />
+        </h:panelGroup>
+        <h:outputText style="text-transform: none;" class="eventDetails"
+          value="You are not authorized to view the user list"
+          rendered="#{!userBean.roleIsAdmin}" />
+        <br />
+        <br />
+        <h:commandButton value="Go Back"
+          action="#{pageDispatcher.showMainPage()}">
+          <f:ajax execute="detailform" render=":content header" />
+        </h:commandButton>
+      </h:form>
+    </div>
+  </ui:composition>
+</h:body>
+</html>

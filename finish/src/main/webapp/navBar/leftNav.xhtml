@@ -1,0 +1,38 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head></h:head>
+<h:body>
+  <ui:composition>
+    <h:form>
+      <h:commandButton class="button" value="Events"
+        action="#{pageDispatcher.showMainPage}">
+        <f:ajax render=":content header" />
+      </h:commandButton>
+    </h:form>
+    <h:form>
+      <h:commandButton class="button" value="Create Event"
+        rendered="#{userBean.authenticated}"
+        action="#{pageDispatcher.showEventForm}">
+        <f:ajax render=":sidebar content header" />
+        <f:actionListener binding="#{eventBean.displayError(false)}" />
+      </h:commandButton>
+    </h:form>
+    <h:form>
+      <h:commandButton class="button" value="Register"
+        rendered="#{!userBean.authenticated}"
+        action="#{pageDispatcher.showUserForm}">
+        <f:actionListener binding="#{eventBean.removeSelectedId()}" />
+        <f:ajax render=":content header" />
+      </h:commandButton>
+    </h:form>
+    <h:form>
+      <h:commandButton class="button" value="User Profile"
+        rendered="#{userBean.authenticated}"
+        action="#{pageDispatcher.showUserProfile}">
+        <f:ajax render=":sidebar content header" />
+      </h:commandButton>
+    </h:form>
+  </ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,51 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core" xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<h:body>
+  <ui:composition>
+    <h:panelGroup id="screen">
+      <div class="forms">
+        <div class="forms_title" style="line-height: 0;">
+          <h2>User Profile</h2>
+        </div>
+        <br/>
+        <br/>
+        <h:form>
+          <f:param name="name" value="#{userBean.userInSession.name}" />
+          <h:panelGrid class="table" columns="2" border="3">
+            <h:panelGroup>Name:</h:panelGroup>
+            <h:panelGroup>#{userBean.userInSession.name}</h:panelGroup>
+            <h:panelGroup>Password:</h:panelGroup>
+            <h:panelGroup>******</h:panelGroup>
+            <h:panelGroup>Email:</h:panelGroup>
+            <h:panelGroup>#{userBean.userInSession.email}</h:panelGroup>
+            <h:panelGroup>Role:</h:panelGroup>
+            <h:panelGroup>#{userBean.userInSession.role}</h:panelGroup>
+          </h:panelGrid>
+          <br />
+          <div>
+            <h2 class="events_attending">Events Attending</h2>
+          </div>
+          <h:outputText style="font-size: 0.9vw;"
+            value="You are not registered for any event."
+            rendered="#{empty userBean.userInSession.events}" />
+          <h:dataTable style="margin:auto; text-align:center;"
+            value="#{userBean.userInSession.events}" var="eventId"
+            columnClasses="columnEvents"
+            rendered="#{not empty userBean.userInSession.events}">
+            <h:column>
+              <f:facet name="header">
+              </f:facet>
+            #{eventBean.retrieveEventByCurrentId(eventId).name}
+  					id: #{eventId}
+  			</h:column>
+          </h:dataTable>
+        </h:form>
+      </div>
+    </h:panelGroup>
+  </ui:composition>
+
+</h:body>
+</html>

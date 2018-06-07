@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://xmlns.jcp.org/jsf/core"
+  xmlns:h="http://xmlns.jcp.org/jsf/html"
+  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+  xmlns:jsf="http://xmlns.jcp.org/jsf"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+  xmlns:p="http://primefaces.org/ui">
+<head jsf:id="head">
+<title>WebAppJSF</title>
+</head>
+<body jsf:id="body">
+  <ui:composition>
+    <div class="forms">
+      <div class="forms_title" style="line-height: 0;">
+        <h2>Register For Event</h2>
+      </div>
+      <h:form id="userform">
+        <div class="formSpacing">User Name</div>
+        <div class="formSpacing">
+          <h:outputText rendered="#{userBean.authenticated}"
+            value="#{userBean.name}">
+          </h:outputText>
+          <h:inputText id="usernameField" rendered="#{!userBean.authenticated}"
+            value="#{userBean.name}" maxlength="65" required="true"
+            requiredMessage="Username is required" />
+          <h:message for="usernameField" style="color:red" />
+          <p></p>
+        </div>
+         User Email
+       <div class="formSpacing">
+          <h:inputText id="userEmailField" pt:type="email"
+            value="#{userBean.email}" maxlength="65" required="true"
+            requiredMessage="Email is required"
+            validatorMessage="Invalid email format">
+            <f:validateRegex
+              pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+          </h:inputText>
+          <h:message for="userEmailField" style="color:red" />
+          <p></p>
+        </div>
+         Event Name
+        <div class="formSpacing">
+          <h:outputText style="word-wrap: break-word;"
+            value="#{eventBean.retrieveSelectedEvent().name}"
+            rendered="#{not empty eventBean.retrieveSelectedEvent()}" />
+          #{userBean.setEventName(eventBean.retrieveSelectedEvent().name)}
+          #{userBean.setEventId(eventBean.retrieveSelectedEvent().id)}
+          <h:selectOneMenu id="eventOptions" required="true"
+            requiredMessage="Select an event name" class="select_events"
+            style="width: 100%;"
+            rendered="#{empty eventBean.retrieveSelectedEvent()}"
+            valueChangeListener="#{userBean.valueChangeMethod}">
+            <f:selectItem itemLabel="Choose an event" noSelectionOption="true" />
+            <f:selectItems value="#{eventBean.retrieveEventList()}" var="event"
+              itemLabel="#{event.name}" itemValue="#{event.id}" />
+          </h:selectOneMenu>
+          <h:message for="eventOptions" style="color:red" />
+          <br />
+        </div>
+        <h:commandButton value="Submit" type="submit"
+          action="#{userBean.submitToService()}">
+          <f:ajax execute="userform" render=":content header" resetValues="true" />
+        </h:commandButton>
+      </h:form>
+    </div>
+  </ui:composition>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+  xmlns:jsf="http://xmlns.jcp.org/jsf"
+  xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<head jsf:id="head">
+<title>WebAppJSF</title>
+</head>
+<body jsf:id="body">
+  <ui:composition>
+  <div class="forms">
+  <h:form>
+  <h2>Invalid user name or password.</h2>
+
+  <p>Please enter a user name or password that is authorized to access
+    this application.</p>
+    <h:commandButton value="Try Again" type="submit"
+        action="#{pageDispatcher.showLogin}">
+      <f:ajax render=":sidebar content header" />
+    </h:commandButton>
+    </h:form>
+  </div>
+  </ui:composition>
+</body>
+</html>
