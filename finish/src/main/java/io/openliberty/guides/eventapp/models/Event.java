@@ -1,83 +1,102 @@
 package io.openliberty.guides.eventapp.models;
 
-import java.util.ArrayList;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Event", schema="JPAINTRO")
-@NamedQuery(name="Event.findAll",query="SELECT e FROM Event e")
-//WHERE e.name LIKE '%Ahmad%'
-public class Event {
+@Table(name = "Event")
+@NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e")
+@NamedQuery(name = "Event.findByName", query = "SELECT e FROM Event e WHERE e.name LIKE :name")
+@NamedQuery(name = "Event.findByLocationTime", query = "SELECT e FROM Event e WHERE e.location LIKE :location AND e.time LIKE :time")
+public class Event implements Serializable{
+    private static final long serialVersionUID = 1L;
 
-  @Id
-  @Column(name="eventId")
-  private int id;
-  @Column(name="eventName")
-	private String name;
-  @Column(name="eventLocation")
-	private String location;
-  @Column(name="eventTime")
-	private String time;
-  @Transient
-	private ArrayList<User> users;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Id @Column(name = "eventId") private int id;
 
-	public Event(String name, String location, String time, int id) {
-		users = new ArrayList<User>();
-		this.name = name;
-		this.location = location;
-		this.time = time;
-		this.id = id;
-	}
+    @Column(name = "eventLocation")
+    private String location;
+    @Column(name = "eventTime")
+    private String time;
 
-	public Event() {}
+    @Column(name = "eventName")
+    private String name;
 
-	public int getId() {
-		return id;
-	}
+    @ManyToMany(cascade = { 
+                CascadeType.PERSIST, 
+                CascadeType.MERGE})
+    @JoinTable(name = "event_user",
+        joinColumns = @JoinColumn(name = "eventId"),
+        inverseJoinColumns = @JoinColumn(name = "userName"))
+    private Set<User> users = new HashSet<User>();
 
-  public void setId(int id){
-    this.id = id;
-  }
+    public Event() { }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public Event(String name, String location, String time) {
+        this.name = name;
+        this.location = location;
+        this.time = time;
+    }
 
-	public void setLocation(String location) {
-		this.location = location;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setTime(String time) {
-		this.time = time;
-	}
+    public String getLocation() {
+        return location;
+    }
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getTime() {
+        return time;
+    }
+    public void setTime(String time) {
+        this.time = time;
+    }
 
-	public String getLocation() {
-		return location;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
+    public String getName() {
+        return name;
+    }
 
-	public String getTime() {
-		return time;
-	}
+    public Set<User> getUsers() {
+        return users;
+    }
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 
-	public void addUser(User user) {
-		users.add(user);
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Event other = (Event) obj;
+        if (location == null) {
+            if (other.location != null)
+                return false;
+        } else if (!location.equals(other.location))
+            return false;
+        if (time == null) {
+            if (other.time != null)
+                return false;
+        } else if (!time.equals(other.time))
+            return false;
+        return true;
+    }
 
-	public ArrayList<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(ArrayList<User> users) {
-		this.users = users;
-	}
-
-  @Override
-  public String toString() {
-    return "Event [id=" + id + ", location=" + location
-        + ", name=" + name + ", time=" + time + "]";
-  }
+    @Override
+    public String toString() {
+        return "Event [name=" + name + ", location=" + location + ", time=" + time + "]";
+    }
 }
