@@ -75,16 +75,16 @@
     </library>
 
     <!-- Datasource Configuration -->
-    <dataSource id="jdbc/samplejpadatasource" 
+    <dataSource id="jdbc/samplejpadatasource"
                 jndiName="jdbc/samplejpadatasource">
         <jdbcDriver libraryRef="mysqlJDBCLib" />
-        <properties serverName="localhost" databaseName="test" user="root" password="password" />
+        <properties serverName="localhost" databaseName="JPAIntro" user="root" password="pass" />
     </dataSource>
-    <dataSource id="jdbc/samplejpadatasourcenonjta" 
-                jndiName="jdbc/samplejpadatasourcenonjta" 
+    <dataSource id="jdbc/samplejpadatasourcenonjta"
+                jndiName="jdbc/samplejpadatasourcenonjta"
                 transactional="false">
         <jdbcDriver libraryRef="mysqlJDBCLib" />
-        <properties serverName="localhost" databaseName="test" user="root" password="password" />
+        <properties serverName="localhost" databaseName="JPAIntro" user="root" password="pass" />
     </dataSource>
 
     <application id="io.openliberty.guides.eventapp" name="io.openliberty.guides.eventapp" type="war" location="io.openliberty.guides.eventapp.war" context-root="/">
