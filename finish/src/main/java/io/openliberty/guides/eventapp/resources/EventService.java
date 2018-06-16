@@ -3,7 +3,6 @@ package io.openliberty.guides.eventapp.resources;
 import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
 import javax.json.JsonArray;
-import javax.json.JsonObject;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.transaction.Transactional;

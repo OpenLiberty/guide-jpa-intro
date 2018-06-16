@@ -37,8 +37,6 @@ public class ServiceUtil {
         JsonArray jr = retrieveFromService();
         Set<Event> events = jr.stream().map(eventJson -> {
             Event event = new Event(((JsonObject) eventJson).getString("name"), ((JsonObject) eventJson).getString("location"), ((JsonObject) eventJson).getString("time"));
-            // JsonArray userJr = ((JsonObject) eventJson).getJsonArray("users");
-            // event.setUsers(retrieveUsersFromJsonArray(userJr));
             return event;
         }).collect(Collectors.toSet());
 
