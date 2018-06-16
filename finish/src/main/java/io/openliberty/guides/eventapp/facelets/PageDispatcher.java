@@ -30,39 +30,9 @@ public class PageDispatcher {
         pageLoader.setCurrentPage("Event Creation");
     }
 
-    public void showDetails() {
-        pageLoader.setContent("content/eventDetail.xhtml");
-        pageLoader.setCurrentPage("Event Details");
-    }
-
-    public void showUserForm() {
-        pageLoader.setContent("content/userForm.xhtml");
-        pageLoader.setCurrentPage("Registration");
-    }
-
-    public void showUserProfile() {
-        pageLoader.setContent("content/userProfile.xhtml");
-        pageLoader.setCurrentPage("User Profile");
-    }
-
     public void showMainPage() {
         pageLoader.setContent("content/mainPage.xhtml");
         pageLoader.setCurrentPage("Events");
-    }
-
-    public void showLogin() {
-        pageLoader.setContent("content/logInSection.xhtml");
-        pageLoader.setCurrentPage("Login");
-    }
-
-    public void showLogError() {
-        pageLoader.setContent("content/logErrorSection.xhtml");
-        pageLoader.setCurrentPage("Login Error");
-    }
-
-    public void showLogBlocked() {
-        pageLoader.setContent("content/logBlockedSection.xhtml");
-        pageLoader.setCurrentPage("Login Blocked");
     }
 
 }
