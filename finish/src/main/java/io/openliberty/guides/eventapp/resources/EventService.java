@@ -1,8 +1,11 @@
 package io.openliberty.guides.eventapp.resources;
 
 import javax.enterprise.context.RequestScoped;
-import javax.inject.Inject;
+import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
+import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -12,98 +15,66 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.openliberty.guides.eventapp.lists.EventList;
+import io.openliberty.guides.eventapp.dao.EventDao;
 import io.openliberty.guides.eventapp.models.Event;
+import io.openliberty.guides.eventapp.models.User;
 
-import org.eclipse.microprofile.jwt.Claim;
-import org.eclipse.microprofile.jwt.JsonWebToken;
-
-import java.security.Principal;
-import java.util.Set;
+import java.util.List;
 
 import javax.annotation.security.DeclareRoles;
-import javax.annotation.security.DenyAll;
-import javax.annotation.security.RolesAllowed;
+import javax.ejb.EJB;
 
-import javax.enterprise.inject.Instance;
-import javax.inject.Inject;
-import javax.ws.rs.core.Context;
-import javax.ws.rs.core.SecurityContext;
-
-@DeclareRoles({"registeredUser", "eventAdministrator"})
+@DeclareRoles({ "registeredUser", "eventAdministrator" })
 @RequestScoped
 @Path("events")
 public class EventService {
 
-  public static EventList eventList;
-  public static int counter = 0;
+    @EJB private EventDao eventDAO;
 
-
-   @Context
-   private SecurityContext securityContext;
-
-
-  @Inject
-  public void setController() {
-    eventList = new EventList();
-  }
-
-  public static EventList getController() {
-    return eventList;
-  }
-
-
-  @GET
-  @Produces(value = "text/plain")
-  @Path("token")
-  @RolesAllowed({"registeredUser", "eventAdministrator"})
-  public String getList() {
-    // retrieve the authentication scheme that was used(e.g. BASIC)
-    String authnScheme = securityContext.getAuthenticationScheme();
-    // retrieve the name of the Principal that invoked the resource
-    String username = securityContext.getUserPrincipal().getName();
-    // check if the current user is in Role1
-    Boolean isUserInRole = securityContext.isUserInRole("eventAdministrator");
-    String result = "";
-
-    if (isUserInRole) {
-      result = authnScheme + " " + username + " " + "eventAdministrator";
-    } else {
-      result = authnScheme + " " + username + " " + "registeredUser";
+    /**
+     * This method creates a new event from the submitted data (name, time and
+     * location) by the user.
+     */
+    @POST
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Transactional
+    public void addNewEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location) {
+        Event newEvent = new Event(name, location, time);
+        //Depends on how unique an Event is. Perhaps "time" and "location" are enough to identify an Event?
+        List<Event> events = this.eventDAO.readEventsByLocationTime(location, time);
+        if(events.isEmpty()) {
+            this.eventDAO.createEvent(newEvent);
+        }
     }
 
-    return result;
-  }
+    /**
+     * This method displays a specific existing/stored event in Json format
+     */
+    @GET
+    @Path("{name}")
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public Event getEvent(@PathParam("id") int eventId) {
+        return this.eventDAO.readEvent(eventId);
+    }
 
-  /**
-   * This method creates a new event from the submitted data (name, time and
-   * location) by the user.
-   */
-  @POST
-  @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-  public void addNewEvent(@FormParam("name") String name,
-      @FormParam("time") String time, @FormParam("location") String location) {
-    eventList.addEvent(name, time, location, counter);
-    EventService.counter++;
-  }
-
-  /**
-   * This method displays the existing/stored events in Json format
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  public JsonArray getEvents() {
-    return eventList.getEvents();
-  }
-
-  /**
-   * This method displays a specific existing/stored event in Json format
-   */
-  @GET
-  @Produces(MediaType.APPLICATION_JSON)
-  @Path("{name}")
-  public Event getEventByName(@PathParam("name") String eventName) {
-    return eventList.getEventByName(eventName);
-  }
-
+    /**
+     * This method displays the existing/stored events in Json format
+     */
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Transactional
+    public JsonArray getEvents() {
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        JsonArrayBuilder jArray = Json.createArrayBuilder();
+        JsonArrayBuilder finalArray = Json.createArrayBuilder();
+        for (Event event : this.eventDAO.readAllEvents()) {
+            builder.add("name", event.getName()).add("time", event.getTime()).add("location", event.getLocation());
+            for (User user : event.getUsers()) {
+                jArray.add(Json.createObjectBuilder().add("name", user.getName()).add("email", user.getEmail()).build());
+            }
+            finalArray.add(builder.add("users", jArray.build()).build());
+        }
+        return finalArray.build();
+    }
 }

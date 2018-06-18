@@ -10,8 +10,11 @@
     <feature>servlet-3.1</feature>
     <feature>mpJwt-1.0</feature>
     <feature>jwt-1.0</feature>
-    <feature>ssl-1.0</feature>
+    <!-- Change this to jpa-2.2 with the 18.0.0.2 change in pom.xml -->
     <feature>jpa-2.1</feature>
+    <feature>jdbc-4.1</feature>
+    <feature>localConnector-1.0</feature>
+    <feature>javaee-7.0</feature>
   </featureManager>
 
   <!-- <quickStartSecurity userName="Bob" userPassword="bobpwd" /> -->
@@ -43,21 +46,7 @@
     <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
       id="defaultHttpEndpoint" host="*" />
 
-    <application location="io.openliberty.guides.eventapp.war" type="war"
-      id="io.openliberty.guides.eventapp" name="io.openliberty.guides.eventapp"
-      context-root="/">
-      <application-bnd>
-        <security-role name="eventAdministrator">
-          <group name="myAdmins" />
-        </security-role>
-        <security-role name="registeredUser">
-          <group name="myUsers" />
-        </security-role>
-      </application-bnd>
-    </application>
-
-    <keyStore id="defaultKeyStore" password="app-pass"
-		location="${server.config.dir}/key.jks" />
+    <keyStore id="defaultKeyStore" password="app-pass" location="${server.config.dir}/key.jks" />
 
     <!-- <keyStore id="defaultTrustStore" password="trust-pass"
 		location="${server.config.dir}/truststore.jks" /> -->
@@ -66,11 +55,7 @@
 	<!-- <ssl id="defaultSSLConfig" keyStoreRef="defaultKeyStore"
 		trustStoreRef="defaultTrustStore" serverKeyAlias="jwtsampleapp" /> -->
 
-    <jwtBuilder id="jwtBuilder"
-      jwkEnabled="false"
-      keyStoreRef="defaultKeyStore"
-	  	keyAlias="jwtsampleapp"
-	  />
+    <!-- <jwtBuilder id="jwtBuilder" jwkEnabled="false" keyStoreRef="defaultKeyStore" keyAlias="jwtsampleapp" /> -->
 
     <!-- <jwtConsumer id="jwtConsumer"
 				 signatureAlgorithm="RS256"
@@ -83,5 +68,34 @@
      issuer="http://localhost:9080/jwtBuilder"
      audiences="http://localhost:9080/event/jwt">
     </mpJwt> -->
+
+    <!-- MySQL Library Configuration -->
+    <library id="mysqlJDBCLib">
+        <fileset dir="${shared.resource.dir}" includes="mysql-connector-java*.jar"/>
+    </library>
+
+    <!-- Datasource Configuration -->
+    <dataSource id="jdbc/samplejpadatasource" 
+                jndiName="jdbc/samplejpadatasource">
+        <jdbcDriver libraryRef="mysqlJDBCLib" />
+        <properties serverName="localhost" databaseName="test" user="root" password="password" />
+    </dataSource>
+    <dataSource id="jdbc/samplejpadatasourcenonjta" 
+                jndiName="jdbc/samplejpadatasourcenonjta" 
+                transactional="false">
+        <jdbcDriver libraryRef="mysqlJDBCLib" />
+        <properties serverName="localhost" databaseName="test" user="root" password="password" />
+    </dataSource>
+
+    <application id="io.openliberty.guides.eventapp" name="io.openliberty.guides.eventapp" type="war" location="io.openliberty.guides.eventapp.war" context-root="/">
+      <application-bnd>
+        <security-role name="eventAdministrator">
+          <group name="myAdmins" />
+        </security-role>
+        <security-role name="registeredUser">
+          <group name="myUsers" />
+        </security-role>
+      </application-bnd>
+    </application>
 
 </server>

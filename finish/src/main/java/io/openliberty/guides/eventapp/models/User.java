@@ -1,66 +1,80 @@
 package io.openliberty.guides.eventapp.models;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.*;
+
+@Entity
+@NamedQuery(name = "User.findAll", query = "SELECT u FROM User u")
+@NamedQuery(name = "User.findByName", query = "SELECT u FROM User u WHERE u.name LIKE :name")
 public class User {
-  private String name;
-  private String email;
-  private String password;
-  private String role;
-  private ArrayList<Integer> events;
 
-  public User(String name, String email, String password, String role) {
-      events = new ArrayList<Integer>();
-      this.name = name;
-      this.email = email;
-      this.password = password;
-      this.role = role;
+    @Id @Column(name = "userName")
+    private String name;
+    @Column(name = "userEmail")
+    private String email;
+    @Column(name = "userPassword")
+    private String password;
+    @Column(name = "userRole")
+    private String role;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Event> events = new HashSet<Event>();
+
+    public User(String name, String email, String password, String role) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.role = role;
     }
 
-  public void setRole(String role) {
-    this.role = role;
-  }
+    public User() { }
 
-  public String getRole() {
-    return this.role;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public void setName(String name) {
-    this.name = name;
-  }
+    public void setName(String name) {
+        this.name = name;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getPassword() {
+        return password;
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public String getRole() {
+        return role;
+    }
 
-  public void addEvent(int eventId) {
-    events.add(eventId);
-  }
+    public void setRole(String role) {
+        this.role = role;
+    }
 
-  public ArrayList<Integer> getEvents() {
-    return events;
-  }
+    public Set<Event> getEvents() {
+        return events;
+    }
 
-  public String toString() {
-    return this.name + " " + this.password + " " + this.email + " " + this.role + " "
-        + Arrays.toString(this.events.toArray());
-  }
+    public void setEvents(Set<Event> events) {
+        this.events = events;
+    }
+
+    public String toString() {
+        return this.name + " " + this.password + " " + this.email + " " + this.role + " "
+                + Arrays.toString(this.events.toArray());
+    }
 
 }
