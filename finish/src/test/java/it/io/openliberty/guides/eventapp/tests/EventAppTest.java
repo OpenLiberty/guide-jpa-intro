@@ -21,15 +21,14 @@ import org.junit.Test;
 public class EventAppTest {
 
     public static final String EVENTS_URL = "http://localhost:9080/events";
-    public static final String SOCCER_EVENT_URL = "http://localhost:9080/events/soccer";
 
     public static final String JSONFIELD_LOCATION = "location";
     public static final String JSONFIELD_NAME = "name";
     public static final String JSONFIELD_EVENT = "event";
     public static final String JSONFIELD_TIME = "time";
-    public static final String EVENT_TIME = "1 1 2017 0";
-    public static final String EVENT_LOCATION = "public park";
-    public static final String EVENT_NAME = "soccer";
+    public static final String EVENT_TIME = "12:00 PM, January 1 2018";
+    public static final String EVENT_LOCATION = "IBM";
+    public static final String EVENT_NAME = "JPA Guide";
     public static final String EVENT_ID = "0";
 
     private Form form;
