@@ -8,17 +8,8 @@
     <h:outputText class="list tab"
       value="&#8226; &#8201; See list of current events" />
     <br />
-    <h:panelGroup rendered="#{!userBean.authenticated}">
-      <h:outputText style="white-space: pre-wrap;" class="list tab"
-        value="&#8226; &#8201; Register to attend an event" />
-      <br />
-    </h:panelGroup>
-    <h:panelGroup rendered="#{userBean.authenticated}">
-      <h:outputText class="list tab" value="&#8226; &#8201; Create a new event" />
-      <br />
-      <h:outputText class="list tab" value="&#8226; &#8201; View your profile" />
-      <br />
-    </h:panelGroup>
+    <h:outputText class="list tab"
+      value="&#8226; &#8201; Create a new event" />
     <br />
     <div id="listOfevents">
       <div class="forms_title" style="line-height: 0;">
@@ -43,29 +34,6 @@
           <h:column>
             <f:facet name="header">Time</f:facet>
             #{event.time}
-          </h:column>
-          <h:column>
-            <f:facet name="header"></f:facet>
-            <h:commandLink class="eventsLink" value="Register"
-              rendered="#{!userBean.isRegistered(event.id)}"
-              action="#{pageDispatcher.showUserForm}">
-              <f:actionListener binding="#{eventBean.setSelectedId(event.id)}" />
-              <f:actionListener binding="#{userBean.registerUser()}" />
-              <f:ajax execute="mainform" render=":content header" />
-            </h:commandLink>
-            <h:commandLink class="eventsLinkRegistered" value="Registered"
-              rendered="#{userBean.isRegistered(event.id)}"
-              action="#{pageDispatcher.showUserProfile}">
-              <f:ajax execute="mainform" render=":content header" />
-            </h:commandLink>
-          </h:column>
-          <h:column>
-            <f:facet name="header"></f:facet>
-            <h:commandLink class="eventsLink" value="Details"
-              action="#{pageDispatcher.showDetails}">
-              <f:actionListener binding="#{eventBean.setSelectedId(event.id)}" />
-              <f:ajax execute="mainform" render=":content header" />
-            </h:commandLink>
           </h:column>
         </h:dataTable>
       </h:form>

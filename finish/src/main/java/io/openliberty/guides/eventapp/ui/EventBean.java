@@ -9,7 +9,6 @@ import javax.faces.bean.ViewScoped;
 
 import io.openliberty.guides.eventapp.dao.EventDao;
 import io.openliberty.guides.eventapp.facelets.PageDispatcher;
-import io.openliberty.guides.eventapp.models.User;
 import io.openliberty.guides.eventapp.models.Event;
 import io.openliberty.guides.eventapp.ui.util.ServiceUtil;
 import io.openliberty.guides.eventapp.ui.util.TimeMapUtil;
@@ -137,19 +136,11 @@ public class EventBean {
     }
 
     /**
-     * Retrieve the list users for an event.
-     */
-    public static Set<User> retrieveUserList(int eventId) {
-        return ServiceUtil.retrieveUsersByEventId(eventId);
-    }
-
-    /**
      * Set a selected event name.
      */
 
     public void setSelectedId(int selectedId) {
         this.selectedId = selectedId;
-        pageDispatcher.showDetails();
     }
 
     /**

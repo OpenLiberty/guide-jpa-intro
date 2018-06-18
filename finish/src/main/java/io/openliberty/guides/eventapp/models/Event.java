@@ -15,23 +15,15 @@ public class Event implements Serializable{
     private static final long serialVersionUID = 1L;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id @Column(name = "eventId") private int id;
+    @Id @Column(name = "eventId")
+    private int id;
 
     @Column(name = "eventLocation")
     private String location;
     @Column(name = "eventTime")
     private String time;
-
     @Column(name = "eventName")
     private String name;
-
-    @ManyToMany(cascade = { 
-                CascadeType.PERSIST, 
-                CascadeType.MERGE})
-    @JoinTable(name = "event_user",
-        joinColumns = @JoinColumn(name = "eventId"),
-        inverseJoinColumns = @JoinColumn(name = "userName"))
-    private Set<User> users = new HashSet<User>();
 
     public Event() { }
 
@@ -64,13 +56,6 @@ public class Event implements Serializable{
     }
     public String getName() {
         return name;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     @Override

@@ -22,35 +22,4 @@
   </welcome-file-list>
 
 
-  <!-- SECURITY ROLES -->
-  <security-role>
-    <role-name>eventAdministrator</role-name>
-  </security-role>
-
-  <security-role>
-    <role-name>registeredUser</role-name>
-  </security-role>
-
-  <!-- SECURITY CONSTRAINTS -->
-
-  <security-constraint>
-    <web-resource-collection>
-      <web-resource-name>ViewUsers</web-resource-name>
-      <url-pattern>/users</url-pattern>
-      <http-method>GET</http-method>
-    </web-resource-collection>
-    <auth-constraint>
-      <role-name>eventAdministrator</role-name>
-    </auth-constraint>
-  </security-constraint>
-
-  <login-config id="LoginConfig_1">
-    <auth-method>FORM</auth-method>
-    <realm-name>WebRealm</realm-name>
-    <form-login-config id="FormLoginConfig_1">
-      <form-login-page>/login.jsf</form-login-page>
-      <form-error-page>/loginerror.jsf</form-error-page>
-    </form-login-config>
-  </login-config>
-
 </web-app>

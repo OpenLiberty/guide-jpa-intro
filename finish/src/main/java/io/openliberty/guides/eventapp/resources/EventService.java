@@ -17,8 +17,6 @@ import javax.ws.rs.core.MediaType;
 
 import io.openliberty.guides.eventapp.dao.EventDao;
 import io.openliberty.guides.eventapp.models.Event;
-import io.openliberty.guides.eventapp.models.User;
-
 import java.util.List;
 
 import javax.annotation.security.DeclareRoles;
@@ -70,10 +68,7 @@ public class EventService {
         JsonArrayBuilder finalArray = Json.createArrayBuilder();
         for (Event event : this.eventDAO.readAllEvents()) {
             builder.add("name", event.getName()).add("time", event.getTime()).add("location", event.getLocation());
-            for (User user : event.getUsers()) {
-                jArray.add(Json.createObjectBuilder().add("name", user.getName()).add("email", user.getEmail()).build());
-            }
-            finalArray.add(builder.add("users", jArray.build()).build());
+            finalArray.add(builder.build());
         }
         return finalArray.build();
     }
