@@ -65,7 +65,6 @@ public class ServiceUtil {
      */
     private static Builder connectToService(String URL) {
         Client client = ClientBuilder.newClient();
-        client.property("com.ibm.ws.jaxrs.client.ltpa.handler", "true");
         Builder builder = client.target(URL).request();
         client.close();
         return builder;

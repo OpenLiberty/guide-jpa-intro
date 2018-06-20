@@ -101,11 +101,6 @@
             <version>3.1.0</version>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.annotation</groupId>
-            <artifactId>jsr250-api</artifactId>
-            <version>1.0</version>
-        </dependency>
         <!-- JPA -->
         <dependency>
             <groupId>javax.persistence</groupId>
@@ -243,15 +238,15 @@
               <artifactId>liberty-maven-plugin</artifactId>
               <version>2.0</version>
               <configuration>
-                <install>
+                <!-- <install>
                   <runtimeUrl>https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/2018-06-13_1420/openliberty-all-20180613-1301.zip</runtimeUrl>
-                </install>
-                <!-- <assemblyArtifact>
+                </install> -->
+                <assemblyArtifact>
                   <groupId>io.openliberty</groupId>
                   <artifactId>openliberty-runtime</artifactId>
                   <version>18.0.0.1</version>
                   <type>zip</type>
-                </assemblyArtifact> -->
+                </assemblyArtifact>
                 <configFile>src/main/liberty/config/server.xml</configFile>
                 <packageFile>${package.file}</packageFile>
                 <include>${packaging.type}</include>

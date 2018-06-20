@@ -18,11 +18,8 @@ import javax.ws.rs.core.MediaType;
 import io.openliberty.guides.eventapp.dao.EventDao;
 import io.openliberty.guides.eventapp.models.Event;
 import java.util.List;
-
-import javax.annotation.security.DeclareRoles;
 import javax.ejb.EJB;
 
-@DeclareRoles({ "registeredUser", "eventAdministrator" })
 @RequestScoped
 @Path("events")
 public class EventService {

@@ -37,7 +37,7 @@ public class EventDao {
         TypedQuery<Event> query = this.em.createNamedQuery("Event.findByLocationTime", Event.class).setParameter("location", location).setParameter("time", time);
         return query.getResultList();
     }
-    
+
     public List<Event> readAllEvents() {
         return this.em.createNamedQuery("Event.findAll", Event.class).getResultList();
     }

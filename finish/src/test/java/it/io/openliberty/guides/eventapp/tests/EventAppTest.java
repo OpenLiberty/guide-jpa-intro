@@ -36,7 +36,6 @@ public class EventAppTest {
     private WebTarget webTarget;
     private Response response;
     private HashMap<String, String> eventForm;
-    private HashMap<String, String> userForm;
     private HashMap<String, String> actualDataStored;
 
     @Before
