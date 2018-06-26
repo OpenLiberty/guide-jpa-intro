@@ -17,7 +17,6 @@ import javax.ws.rs.core.MediaType;
 
 import io.openliberty.guides.eventapp.dao.EventDao;
 import io.openliberty.guides.eventapp.models.Event;
-import java.util.List;
 import javax.ejb.EJB;
 
 @RequestScoped
@@ -35,11 +34,7 @@ public class EventService {
     @Transactional
     public void addNewEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
-        //Depends on how unique an Event is. Perhaps "time" and "location" are enough to identify an Event?
-        List<Event> events = this.eventDAO.readEventsByLocationTime(location, time);
-        if(events.isEmpty()) {
-            this.eventDAO.createEvent(newEvent);
-        }
+        this.eventDAO.createEvent(newEvent);        
     }
 
     /**
@@ -61,7 +56,6 @@ public class EventService {
     @Transactional
     public JsonArray getEvents() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
-        JsonArrayBuilder jArray = Json.createArrayBuilder();
         JsonArrayBuilder finalArray = Json.createArrayBuilder();
         for (Event event : this.eventDAO.readAllEvents()) {
             builder.add("name", event.getName()).add("time", event.getTime()).add("location", event.getLocation());

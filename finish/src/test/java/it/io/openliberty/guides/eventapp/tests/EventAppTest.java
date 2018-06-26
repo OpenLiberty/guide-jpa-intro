@@ -93,10 +93,6 @@ public class EventAppTest {
         return array.getJsonObject(0).getString(field);
     }
 
-    private JsonArray getJsonArray(JsonArray array, String field) {
-        return array.getJsonObject(0).getJsonArray(field);
-    }
-
     private void assertData(HashMap<String, String> testedData) {
         testedData.forEach((actual, expected) -> {
             assertEquals(expected, actual);
