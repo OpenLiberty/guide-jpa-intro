@@ -1,13 +1,12 @@
 <server description="Sample Liberty server">
 
   <featureManager>
-    <feature>jaxrs-2.0</feature>
-    <feature>jsonp-1.0</feature>
-    <feature>cdi-1.2</feature>
-    <feature>jsf-2.2</feature>
+    <feature>jaxrs-2.1</feature>
+    <feature>jsonp-1.1</feature>
+    <feature>cdi-2.0</feature>
+    <feature>jsf-2.3</feature>
     <!-- Change this to jpa-2.2 with the 18.0.0.2 change in pom.xml -->
-    <feature>jpa-2.1</feature>
-    <feature>localConnector-1.0</feature>
+    <feature>jpa-2.2</feature>
     <feature>ejb-3.2</feature>
   </featureManager>
 
