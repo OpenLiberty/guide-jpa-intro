@@ -96,6 +96,9 @@ INSTRUCTION: Please remove all the instructions before `APPENDIX A` prior to com
 = Title of guide, starting with a gerund (Creating, Administering, and so on)
 // EXAMPLE: Creating a REST API for a todo list application
 
+[.hidden]
+NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
+
 // Start the introduction with "You'll explore how to..." or something similarly catchy.
 // Write no more than two sentences, with meaningful information on what the user can accomplish 
 // with this guide.
