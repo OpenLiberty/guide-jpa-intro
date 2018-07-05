@@ -1,101 +1,42 @@
 <server description="Sample Liberty server">
 
   <featureManager>
-    <feature>jaxrs-2.0</feature>
-    <feature>jsonp-1.0</feature>
-    <feature>cdi-1.2</feature>
-    <feature>jsf-2.2</feature>
-    <!-- FOR SECURITY -->
-    <feature>appSecurity-2.0</feature>
-    <feature>servlet-3.1</feature>
-    <feature>mpJwt-1.0</feature>
-    <feature>jwt-1.0</feature>
-    <!-- Change this to jpa-2.2 with the 18.0.0.2 change in pom.xml -->
-    <feature>jpa-2.1</feature>
-    <feature>jdbc-4.1</feature>
+    <feature>jaxrs-2.1</feature>
+    <feature>jsonp-1.1</feature>
+    <feature>cdi-2.0</feature>
+    <feature>jsf-2.3</feature>
+    <feature>jpa-2.2</feature>
     <feature>localConnector-1.0</feature>
-    <feature>javaee-7.0</feature>
+    <feature>ejb-3.2</feature>
   </featureManager>
-
-  <!-- <quickStartSecurity userName="Bob" userPassword="bobpwd" /> -->
-  <!-- The line above is equivalent to create user Bob and assigning admin role to Bob -->
-
-  <!-- <administrator-role>
-   <user>Bob</user>
-   <group>myAdmins</group>
-  </administrator-role> -->
-
-
-  <basicRegistry id="basic" realm="WebRealm">
-      <user name="bob" password="{xor}Lyg7" />  <!-- pwd -->
-      <user name="alice" password="{xor}PjM2PDovKDs=" />  <!-- alicepwd -->
-      <user name="carl" password="{xor}PD4tMy8oOw==" />   <!-- carlpwd -->
-
-      <group name="myAdmins">
-        <member name="bob" />
-      </group>
-
-      <group name="myUsers">
-        <member name="bob" />
-        <member name="alice" />
-        <member name="carl" />
-      </group>
-    </basicRegistry>
-
 
     <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
       id="defaultHttpEndpoint" host="*" />
 
-    <keyStore id="defaultKeyStore" password="app-pass" location="${server.config.dir}/key.jks" />
 
-    <!-- <keyStore id="defaultTrustStore" password="trust-pass"
-		location="${server.config.dir}/truststore.jks" /> -->
+    <application location="io.openliberty.guides.eventapp.war" type="war"
+      id="io.openliberty.guides.eventapp" name="io.openliberty.guides.eventapp"
+      context-root="/">
+    </application>
 
-    <!-- Configure the default keystore to trust the OP -->
-	<!-- <ssl id="defaultSSLConfig" keyStoreRef="defaultKeyStore"
-		trustStoreRef="defaultTrustStore" serverKeyAlias="jwtsampleapp" /> -->
-
-    <!-- <jwtBuilder id="jwtBuilder" jwkEnabled="false" keyStoreRef="defaultKeyStore" keyAlias="jwtsampleapp" /> -->
-
-    <!-- <jwtConsumer id="jwtConsumer"
-				 signatureAlgorithm="RS256"
-				 issuer="http://localhost:9080/jwtBuilder"
-				 trustStoreRef="defaultTrustStore"
-				 trustedAlias="jwtsampleapp"
-	/> -->
-
-    <!-- <mpJwt id="mpjwt"
-     issuer="http://localhost:9080/jwtBuilder"
-     audiences="http://localhost:9080/event/jwt">
-    </mpJwt> -->
-
-    <!-- MySQL Library Configuration -->
-    <library id="mysqlJDBCLib">
-        <fileset dir="${shared.resource.dir}" includes="mysql-connector-java*.jar"/>
+    <!-- Derby Library Configuration -->    
+    <library id="derbyJDBCLib">
+        <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
     </library>
 
     <!-- Datasource Configuration -->
-    <dataSource id="jdbc/samplejpadatasource"
+    <dataSource id="samplejpadatasource"
                 jndiName="jdbc/samplejpadatasource">
-        <jdbcDriver libraryRef="mysqlJDBCLib" />
-        <properties serverName="localhost" databaseName="JPAIntro" user="root" password="pass" />
-    </dataSource>
-    <dataSource id="jdbc/samplejpadatasourcenonjta"
-                jndiName="jdbc/samplejpadatasourcenonjta"
-                transactional="false">
-        <jdbcDriver libraryRef="mysqlJDBCLib" />
-        <properties serverName="localhost" databaseName="JPAIntro" user="root" password="pass" />
+        <jdbcDriver libraryRef="derbyJDBCLib" />
+        <properties.derby.embedded databaseName="JPAGuide" createDatabase="create"/>
     </dataSource>
 
-    <application id="io.openliberty.guides.eventapp" name="io.openliberty.guides.eventapp" type="war" location="io.openliberty.guides.eventapp.war" context-root="/">
-      <application-bnd>
-        <security-role name="eventAdministrator">
-          <group name="myAdmins" />
-        </security-role>
-        <security-role name="registeredUser">
-          <group name="myUsers" />
-        </security-role>
-      </application-bnd>
-    </application>
+    <dataSource id="samplejpadatasourcenonjta"
+                jndiName="jdbc/samplejpadatasourcenonjta"
+                transactional="false">
+        <jdbcDriver libraryRef="derbyJDBCLib" />
+        <properties.derby.embedded databaseName="JPAGuide" createDatabase="create"/>
+    </dataSource>
+
 
 </server>

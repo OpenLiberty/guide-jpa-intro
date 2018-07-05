@@ -21,9 +21,6 @@ public class PageDispatcher {
         this.pageLoader = pageLoader;
     }
 
-    public String getCurrentRole() {
-        return currentRole;
-    }
 
     public void showEventForm() {
         pageLoader.setContent("content/eventForm.xhtml");

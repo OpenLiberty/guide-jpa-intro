@@ -36,7 +36,6 @@ public class EventAppTest {
     private WebTarget webTarget;
     private Response response;
     private HashMap<String, String> eventForm;
-    private HashMap<String, String> userForm;
     private HashMap<String, String> actualDataStored;
 
     @Before
@@ -92,10 +91,6 @@ public class EventAppTest {
 
     private String getJsonFieldValue(JsonArray array, String field) {
         return array.getJsonObject(0).getString(field);
-    }
-
-    private JsonArray getJsonArray(JsonArray array, String field) {
-        return array.getJsonObject(0).getJsonArray(field);
     }
 
     private void assertData(HashMap<String, String> testedData) {

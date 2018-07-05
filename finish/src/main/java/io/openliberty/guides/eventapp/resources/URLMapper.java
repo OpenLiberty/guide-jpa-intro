@@ -9,7 +9,7 @@ import javax.servlet.annotation.WebFilter;
 
 @WebFilter(urlPatterns = "/*")
 public class URLMapper implements Filter {
-    Pattern[] endpoints = { Pattern.compile("/events.*"), Pattern.compile("/users.*") };
+    Pattern[] endpoints = { Pattern.compile("/events.*") };
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
