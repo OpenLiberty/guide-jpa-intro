@@ -5,8 +5,8 @@
     <feature>jsonp-1.1</feature>
     <feature>cdi-2.0</feature>
     <feature>jsf-2.3</feature>
-    <!-- Change this to jpa-2.2 with the 18.0.0.2 change in pom.xml -->
     <feature>jpa-2.2</feature>
+    <feature>localConnector-1.0</feature>
     <feature>ejb-3.2</feature>
   </featureManager>
 
@@ -19,22 +19,23 @@
       context-root="/">
     </application>
 
-    <!-- MySQL Library Configuration -->
-    <library id="mysqlJDBCLib">
-        <fileset dir="${shared.resource.dir}" includes="mysql-connector-java*.jar"/>
+    <!-- Derby Library Configuration -->    
+    <library id="derbyJDBCLib">
+        <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
     </library>
 
     <!-- Datasource Configuration -->
-    <dataSource id="jdbc/samplejpadatasource"
+    <dataSource id="samplejpadatasource"
                 jndiName="jdbc/samplejpadatasource">
-        <jdbcDriver libraryRef="mysqlJDBCLib" />
-        <properties serverName="localhost" databaseName="JPAIntro" user="root" password="pass" />
+        <jdbcDriver libraryRef="derbyJDBCLib" />
+        <properties.derby.embedded databaseName="JPAGuide" createDatabase="create"/>
     </dataSource>
-    <dataSource id="jdbc/samplejpadatasourcenonjta"
+
+    <dataSource id="samplejpadatasourcenonjta"
                 jndiName="jdbc/samplejpadatasourcenonjta"
                 transactional="false">
-        <jdbcDriver libraryRef="mysqlJDBCLib" />
-        <properties serverName="localhost" databaseName="JPAIntro" user="root" password="pass" />
+        <jdbcDriver libraryRef="derbyJDBCLib" />
+        <properties.derby.embedded databaseName="JPAGuide" createDatabase="create"/>
     </dataSource>
 
 
