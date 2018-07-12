@@ -1,7 +1,7 @@
 package io.openliberty.guides.eventapp.ui;
 
 import java.util.Map;
-import java.util.Set;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -129,24 +129,30 @@ public class EventBean {
     }
 
     /**
+     * Delete event form data to back end service.
+     */
+    public void deleteFromService(){
+        ServiceUtil.deleteEventService(this.selectedId);
+        pageDispatcher.showMainPage();
+    }
+
+    /**
      * Retrieve the list of events from back end service.
      */
-    public static Set<Event> retrieveEventList() {
+    public static List<Event> retrieveEventList() {
         return ServiceUtil.retrieveEvents();
     }
 
     /**
-     * Set a selected event name.
+     * Set a selected event id.
      */
-
     public void setSelectedId(int selectedId) {
         this.selectedId = selectedId;
     }
 
     /**
-     * Remove stored event name.
+     * Remove stored event id.
      */
-
     public void removeSelectedId() {
         this.selectedId = -1;
     }
@@ -170,7 +176,7 @@ public class EventBean {
      */
     public Map<String, Object> getHoursMap() {
         return TimeMapUtil.getHours();
-    }
+    } 
 
     /**
      * Gets TimeMapUtil map for days

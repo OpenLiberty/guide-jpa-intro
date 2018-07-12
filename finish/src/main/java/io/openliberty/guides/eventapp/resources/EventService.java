@@ -38,6 +38,16 @@ public class EventService {
     }
 
     /**
+     * This method deletes a specific existing/stored event 
+     */
+    @GET
+    @Path("/delete/{id}")
+    @Transactional
+    public void deleteEvent(@PathParam("id") int id) {
+        this.eventDAO.deleteEvent(this.eventDAO.readEvent(id));
+    }
+
+    /**
      * This method displays a specific existing/stored event in Json format
      */
     @GET
@@ -58,7 +68,7 @@ public class EventService {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         JsonArrayBuilder finalArray = Json.createArrayBuilder();
         for (Event event : this.eventDAO.readAllEvents()) {
-            builder.add("name", event.getName()).add("time", event.getTime()).add("location", event.getLocation());
+            builder.add("name", event.getName()).add("time", event.getTime()).add("location", event.getLocation()).add("id", event.getId());
             finalArray.add(builder.build());
         }
         return finalArray.build();

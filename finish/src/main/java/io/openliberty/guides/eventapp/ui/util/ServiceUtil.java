@@ -1,6 +1,6 @@
 package io.openliberty.guides.eventapp.ui.util;
 
-import java.util.Set;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.json.JsonArray;
@@ -19,6 +19,7 @@ public class ServiceUtil {
     // Back end service URLs
     private static String port = System.getProperty("default.http.port");
     private static String eventServiceURL = "http://localhost:" + port + "/events";
+    private static String deleteEventServiceURL = "http://localhost:" + port + "/events/delete/";
 
     /**
      * Post event form data to back end service
@@ -29,15 +30,21 @@ public class ServiceUtil {
         response.close();
     }
 
+    public static void deleteEventService(int id){
+        Response response = connectToService(deleteEventServiceURL + id).get();
+        response.close();
+    }
+
     /**
      * Retrieve list of events from back end storage.
      */
-    public static Set<Event> retrieveEvents() {
+    public static List<Event> retrieveEvents() {
         JsonArray jr = retrieveFromService();
-        Set<Event> events = jr.stream().map(eventJson -> {
+        List<Event> events = jr.stream().map(eventJson -> {
             Event event = new Event(((JsonObject) eventJson).getString("name"), ((JsonObject) eventJson).getString("location"), ((JsonObject) eventJson).getString("time"));
+            event.setId(((JsonObject) eventJson).getInt("id"));
             return event;
-        }).collect(Collectors.toSet());
+        }).collect(Collectors.toList());
 
         return events;
     }
@@ -50,7 +57,7 @@ public class ServiceUtil {
         if (eventId < 0) {
             return null;
         }
-        Set<Event> events = retrieveEvents();
+        List<Event> events = retrieveEvents();
         for (Event e : events) {
             if (e.getId() == eventId) {
                 return e;
