@@ -10,6 +10,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -38,9 +39,25 @@ public class EventService {
     }
 
     /**
+     * This method creates a new event from the submitted data (name, time and
+     * location) by the user.
+     */
+    @POST
+    @Path("/update")
+    @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    @Transactional
+    public void updateEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location, @FormParam("id") String id) {
+        Event prevEvent = this.eventDAO.readEvent(Integer.parseInt(id));
+        prevEvent.setName(name);
+        prevEvent.setLocation(location);
+        prevEvent.setTime(time);
+        this.eventDAO.updateEvent(prevEvent);        
+    }
+
+    /**
      * This method deletes a specific existing/stored event 
      */
-    @GET
+    @DELETE
     @Path("/delete/{id}")
     @Transactional
     public void deleteEvent(@PathParam("id") int id) {

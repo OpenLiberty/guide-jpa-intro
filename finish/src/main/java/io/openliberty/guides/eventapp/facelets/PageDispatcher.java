@@ -32,4 +32,9 @@ public class PageDispatcher {
         pageLoader.setCurrentPage("Events");
     }
 
+    public void showEditPage(){
+        pageLoader.setContent("content/updateEventForm.xhtml");
+        pageLoader.setCurrentPage("Edit Event");
+    }
+
 }

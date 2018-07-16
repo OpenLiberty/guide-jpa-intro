@@ -37,8 +37,16 @@
           </h:column>
           <h:column>
             <f:facet name="header"></f:facet>
+            <h:commandLink class="eventsLink" value="Update"
+              action="#{eventBean.editEvent()}">
+              <f:actionListener binding="#{eventBean.setSelectedId(event.id)}" />
+              <f:ajax execute="mainform" render=":content header" />
+            </h:commandLink>
+          </h:column>
+          <h:column>
+            <f:facet name="header"></f:facet>
             <h:commandLink class="eventsLink" value="Delete"
-              action="#{eventBean.deleteToService()}">
+              action="#{eventBean.submitDeletetoService()}">
               <f:actionListener binding="#{eventBean.setSelectedId(event.id)}" />
               <f:ajax execute="mainform" render=":content header" />
             </h:commandLink>
