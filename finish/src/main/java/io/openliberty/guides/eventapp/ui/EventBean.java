@@ -1,7 +1,7 @@
 package io.openliberty.guides.eventapp.ui;
 
 import java.util.Map;
-import java.util.Set;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
@@ -68,15 +68,15 @@ public class EventBean {
     }
 
     public String getName() {
-        return name;
+        return this.name;
     }
 
     public String getLocation() {
-        return location;
+        return this.location;
     }
 
     public String getHour() {
-        return hour;
+        return this.hour;
     }
 
     public String getDay() {
@@ -129,24 +129,55 @@ public class EventBean {
     }
 
     /**
+     * Submit updated event form data to back end service.
+     */
+    public void submitUpdateToService() {
+        String time = createStoredTime();
+        ServiceUtil.submitUpdatedEventToService(this.name, this.location, time, this.selectedId);
+        pageDispatcher.showMainPage();
+        clear();
+    }
+
+    public void editEvent(){
+        Event e = retrieveSelectedEvent();
+
+        String[] fullDateInfo = parseTime(e.getTime());
+        this.hour = fullDateInfo[0] + " " + fullDateInfo[1];
+        this.month = fullDateInfo[2];
+        this.day = fullDateInfo[3];
+        this.year = fullDateInfo[4];
+        this.name = e.getName();
+        this.location = e.getLocation();
+        this.selectedId = e.getId();
+
+        pageDispatcher.showEditPage();
+    }
+
+    /**
+     * Delete event form data to back end service.
+     */
+    public void submitDeletetoService(){
+        ServiceUtil.deleteEventService(this.selectedId);
+        pageDispatcher.showMainPage();
+    }
+
+    /**
      * Retrieve the list of events from back end service.
      */
-    public static Set<Event> retrieveEventList() {
+    public static List<Event> retrieveEventList() {
         return ServiceUtil.retrieveEvents();
     }
 
     /**
-     * Set a selected event name.
+     * Set a selected event id.
      */
-
     public void setSelectedId(int selectedId) {
         this.selectedId = selectedId;
     }
 
     /**
-     * Remove stored event name.
+     * Remove stored event id.
      */
-
     public void removeSelectedId() {
         this.selectedId = -1;
     }
@@ -228,6 +259,14 @@ public class EventBean {
      */
     public void displayError(boolean display) {
         notValidTime = display;
+    }
+
+    /**
+    * Parses time (in format: hh:mm AM, dd mm yyyy) into time, meridiem, month, day, year respectively.
+    */
+    private String[] parseTime(String time){
+      String delims = "[ ,]+";
+      return time.split(delims);
     }
 
     /**

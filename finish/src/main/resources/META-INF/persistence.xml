@@ -6,7 +6,6 @@
         <jta-data-source>jdbc/samplejpadatasource</jta-data-source>
         <non-jta-data-source>jdbc/samplejpadatasourcenonjta</non-jta-data-source>
         <class>io.openliberty.guides.eventapp.models.Event</class>
-        <class>io.openliberty.guides.eventapp.models.User</class>
         <properties>
             <!-- These properties are used for creating the database tables. 
             We are using them here to avoid users having to create a database to run this sample. 

@@ -17,7 +17,7 @@
       </div>
       <br />
       <h:form id="mainform">
-        <h:outputText style="font-size: 1.1vw;" value="No events running atm."
+        <h:outputText style="font-size: 1.1vw;" value="No events are currently running."
           rendered="#{empty eventBean.retrieveEventList()}" />
         <h:dataTable value="#{eventBean.retrieveEventList()}" var="event"
           styleClass="event-table" headerClass="event-table-header"
@@ -34,6 +34,22 @@
           <h:column>
             <f:facet name="header">Time</f:facet>
             #{event.time}
+          </h:column>
+          <h:column>
+            <f:facet name="header"></f:facet>
+            <h:commandLink class="eventsLink" value="Update"
+              action="#{eventBean.editEvent()}">
+              <f:actionListener binding="#{eventBean.setSelectedId(event.id)}" />
+              <f:ajax execute="mainform" render=":content header" />
+            </h:commandLink>
+          </h:column>
+          <h:column>
+            <f:facet name="header"></f:facet>
+            <h:commandLink class="eventsLink" value="Delete"
+              action="#{eventBean.submitDeletetoService()}">
+              <f:actionListener binding="#{eventBean.setSelectedId(event.id)}" />
+              <f:ajax execute="mainform" render=":content header" />
+            </h:commandLink>
           </h:column>
         </h:dataTable>
       </h:form>
