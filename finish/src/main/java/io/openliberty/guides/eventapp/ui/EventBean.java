@@ -138,7 +138,6 @@ public class EventBean {
         clear();
     }
 
-
     public void editEvent(){
         Event e = retrieveSelectedEvent();
 
@@ -153,8 +152,6 @@ public class EventBean {
 
         pageDispatcher.showEditPage();
     }
-
-
 
     /**
      * Delete event form data to back end service.
