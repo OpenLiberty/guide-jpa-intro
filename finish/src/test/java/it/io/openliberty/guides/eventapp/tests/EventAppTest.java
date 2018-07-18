@@ -18,18 +18,23 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import io.openliberty.guides.eventapp.models.Event;
 public class EventAppTest {
 
     public static final String EVENTS_URL = "http://localhost:9080/events";
+    public static final String DELETE_EVENTS_URL = "http://localhost:9080/events/delete/";
+    public static final String UPDATE_EVENTS_URL = "http://localhost:9080/events/update/";
 
     public static final String JSONFIELD_LOCATION = "location";
     public static final String JSONFIELD_NAME = "name";
-    public static final String JSONFIELD_EVENT = "event";
     public static final String JSONFIELD_TIME = "time";
+    public static final String JSONFIELD_ID = "id";
     public static final String EVENT_TIME = "12:00 PM, January 1 2018";
     public static final String EVENT_LOCATION = "IBM";
     public static final String EVENT_NAME = "JPA Guide";
-    public static final String EVENT_ID = "0";
+    public static final String UPDATE_EVENT_TIME = "12:00 PM, February 1 2018";
+    public static final String UPDATE_EVENT_LOCATION = "IBM Updated";
+    public static final String UPDATE_EVENT_NAME = "JPA Guide Updated";
 
     private Form form;
     private Client client;
@@ -37,6 +42,7 @@ public class EventAppTest {
     private Response response;
     private HashMap<String, String> eventForm;
     private HashMap<String, String> actualDataStored;
+    private Event e;
 
     @Before
     public void setup() {
@@ -50,47 +56,85 @@ public class EventAppTest {
         eventForm.put(JSONFIELD_NAME, EVENT_NAME);
         eventForm.put(JSONFIELD_LOCATION, EVENT_LOCATION);
         eventForm.put(JSONFIELD_TIME, EVENT_TIME);
+
+        e = new Event(EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
     }
 
     @Test
     public void runTestsInOrder() {
-        testCreatingNewEvent();
-        testShowingExistingEvents();
+        testCreatingDeletingNewEvent();
+        testUpdatingEvents();
     }
 
-    public void testCreatingNewEvent() {
-        JsonObject event = sendForm(eventForm, EVENTS_URL);
+    public void testCreatingDeletingNewEvent() {
+        sendForm(eventForm, EVENTS_URL);
+        JsonObject event = getTestEvent();
         actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
         actualDataStored.put(event.getString(JSONFIELD_LOCATION), EVENT_LOCATION);
         actualDataStored.put(event.getString(JSONFIELD_TIME), EVENT_TIME);
         assertData(actualDataStored);
+
+        deleteForm(DELETE_EVENTS_URL + event.getInt("id"));
+        assertNull(getTestEvent());
     }
 
-    public void testShowingExistingEvents() {
-        webTarget = client.target(EVENTS_URL);
-        response = webTarget.request().get();
-        JsonArray events = response.readEntity(JsonArray.class);
-        actualDataStored.put(getJsonFieldValue(events, JSONFIELD_NAME), EVENT_NAME);
-        actualDataStored.put(getJsonFieldValue(events, JSONFIELD_LOCATION), EVENT_LOCATION);
+    public void testUpdatingEvents() {
+        sendForm(eventForm, EVENTS_URL);
+        JsonObject event = getTestEvent();
+        actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
+        actualDataStored.put(event.getString(JSONFIELD_LOCATION), EVENT_LOCATION);
+        actualDataStored.put(event.getString(JSONFIELD_TIME), EVENT_TIME);
         assertData(actualDataStored);
+
+        eventForm.put(JSONFIELD_NAME, UPDATE_EVENT_NAME);
+        eventForm.put(JSONFIELD_LOCATION, UPDATE_EVENT_LOCATION);
+        eventForm.put(JSONFIELD_TIME, UPDATE_EVENT_TIME);
+        eventForm.put(JSONFIELD_ID, String.valueOf(event.getInt("id")));
+        sendForm(eventForm, UPDATE_EVENTS_URL);
+
+        e = new Event(UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
+        event = getTestEvent();
+        actualDataStored.put(event.getString(JSONFIELD_NAME), UPDATE_EVENT_NAME);
+        actualDataStored.put(event.getString(JSONFIELD_LOCATION), UPDATE_EVENT_LOCATION);
+        actualDataStored.put(event.getString(JSONFIELD_TIME), UPDATE_EVENT_TIME);
+        assertData(actualDataStored);
+
+        deleteForm(DELETE_EVENTS_URL + event.getInt("id"));
+        assertNull(getTestEvent());
     }
 
-    private JsonObject sendForm(HashMap<String, String> formDataMap, String url) {
+    private void sendForm(HashMap<String, String> formDataMap, String url) {
         formDataMap.forEach((formField, data) -> {
             form.param(formField, data);
         });
         webTarget = client.target(url);
         response = webTarget.request().post(Entity.form(form));
+        form = new Form();
+    }
+
+    private void deleteForm(String url){
+        webTarget = client.target(url);
+        response = webTarget.request().delete();
+        form = new Form();
+    }
+
+    private JsonObject getTestEvent(){
         webTarget = client.target(EVENTS_URL);
         response = webTarget.request().get();
         JsonArray eventsArray = response.readEntity(JsonArray.class);
-        JsonObject event = eventsArray.getJsonObject(0);
-        form = new Form();
-        return event;
+        JsonObject event = findTestEvent(eventsArray);
+        return event;         
     }
 
-    private String getJsonFieldValue(JsonArray array, String field) {
-        return array.getJsonObject(0).getString(field);
+    private JsonObject findTestEvent(JsonArray events){
+        for(int i = 0; i < events.size(); i++){
+            JsonObject testEvent = events.getJsonObject(i);
+            Event test = new Event(testEvent.getString("name"), testEvent.getString("location"), testEvent.getString("time"));
+            if(test.equals(e)){
+                return testEvent;
+            }
+        }
+        return null;        
     }
 
     private void assertData(HashMap<String, String> testedData) {
@@ -106,3 +150,4 @@ public class EventAppTest {
     }
 
 }
+	
