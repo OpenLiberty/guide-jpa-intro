@@ -6,7 +6,6 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Event")
 @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e")
-@NamedQuery(name = "Event.findByLocationTime", query = "SELECT e FROM Event e WHERE e.location LIKE :location AND e.time LIKE :time")
 public class Event implements Serializable{
     private static final long serialVersionUID = 1L;
 
