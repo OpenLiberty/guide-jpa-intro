@@ -1,4 +1,4 @@
-package io.openliberty.guides.eventapp.dao;
+package io.openliberty.guides.jpaguide.dao;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.TypedQuery;
 
-import io.openliberty.guides.eventapp.models.Event;
+import io.openliberty.guides.jpaguide.models.Event;
 
 @Stateless
 public class EventDao {

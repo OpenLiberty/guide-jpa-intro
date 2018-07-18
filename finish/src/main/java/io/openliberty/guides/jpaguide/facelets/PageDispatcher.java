@@ -1,4 +1,4 @@
-package io.openliberty.guides.eventapp.facelets;
+package io.openliberty.guides.jpaguide.facelets;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;

@@ -1,4 +1,4 @@
-package io.openliberty.guides.eventapp.resources;
+package io.openliberty.guides.jpaguide.resources;
 
 import java.io.IOException;
 import java.util.regex.Pattern;

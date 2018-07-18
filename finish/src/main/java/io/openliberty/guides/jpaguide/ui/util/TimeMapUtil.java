@@ -1,4 +1,4 @@
-package io.openliberty.guides.eventapp.ui.util;
+package io.openliberty.guides.jpaguide.ui.util;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;

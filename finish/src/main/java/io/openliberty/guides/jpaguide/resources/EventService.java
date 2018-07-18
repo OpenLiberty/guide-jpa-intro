@@ -1,4 +1,4 @@
-package io.openliberty.guides.eventapp.resources;
+package io.openliberty.guides.jpaguide.resources;
 
 import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
@@ -16,8 +16,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import io.openliberty.guides.eventapp.dao.EventDao;
-import io.openliberty.guides.eventapp.models.Event;
+import io.openliberty.guides.jpaguide.dao.EventDao;
+import io.openliberty.guides.jpaguide.models.Event;
 import javax.ejb.EJB;
 
 @RequestScoped

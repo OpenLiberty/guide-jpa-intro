@@ -18,7 +18,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import io.openliberty.guides.eventapp.models.Event;
+import io.openliberty.guides.jpaguide.models.Event;
 public class EventAppTest {
 
     public static final String EVENTS_URL = "http://localhost:9080/events";
