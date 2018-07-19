@@ -160,11 +160,37 @@ Create the `src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java` file
 include::finish/src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java[tags=**;]
 ----
 
-* NOTE: This section is still in progress
+Every entity object has a lifecycle that consists of four states: new, managed, removed and detached. Whenever a 
+new Event object is created its state will be new, meaning that it is not mapped to a row in the database table and
+is not associated with an EntityManger.
 
-In order to use the EntityManager at runtime, it must be injected via the `@PersistenceContext` annotation.
+The EntityManager manages the lifecycle of entity instances. Every EntityManager instance is associated with a 
+persistence context. The persistance context manages a set of entities and is aware of the different states that an entity can have.
+In this application the persistence context is container managed, meaning that the EJB container is responsible for
+opening and closing the EntityManager. The container is also responsible for transaction boundaries, which is why we do not need to explicitly
+begin, commit or rollback transactions. The EJB container will ensure that the required methods are executed within the boundaries
+of an active transaction. In order to use the EntityManager at runtime, we must inject it into our EJB component via the `@PersistenceContext` annotation.
 
-The `createEvent` method stores an instance of the Event entity class in the database. An `IllegalArgumentException` will be thrown if the argument is not an instance of the entity class.
+The `createEvent` method persists an instance of the Event entity class to the database. By calling the `persist` method on an `EntityManager`, it changes the 
+event objects instance from new to managed. This means that the entity is now mapped to a row in the database table and is being managed
+by the `EntityManager`.
+
+The `readEvent` method retrieves Event objects from the database. Entity objects are retrieved via the `find` method which requires
+both the entity class and the primary key of the object. If the `EntityManager` already manages the searched object in 
+its persistence context, then no retrieval from the database is required since the managed Event object will be returned as is.
+But, if the `EntityManager` does not already manage the object in its persistence context, a new entity object will be constructed
+with data retrieved from the database and returned in a managed state. However, if the Event object is not found in the database, `Null` is returned.
+
+The `updateEvent` method updates an Event object in the database. The EntityManager automatically tracks all managed entity objects
+in its persistence context for changes and synchronizes them with the database. The `merge` method will create a new instance of the entity object and make that new instance
+managed. However, the entity object passed into the `merge` method is no longer managed. 
+
+The `deleteEvent` method deletes an Event object from the database. By calling the `remove` method on an EntityManager,
+the managed entity will be removed from the database and the entity objects state will become removed.
+
+Not that when an entity is no longer associated with a persistence context, its changes will no longer be managed by the EntityManager and the entity
+becomes detached.
+
 
 
 
