@@ -9,28 +9,14 @@
 
 
 :page-layout: guide
-// INSTRUCTION: The project id is the part of the git repository after the guide- and must be specified
-// :projectid: github repo name without the `guide-` prefix
 :projectid: draft-guide-jpa-intro
-// INSTRUCTION: Provide an estimate of how long the guide will take to go through.
 :page-duration: 20 minutes
-// INSTRUCTION: Provide the date when the guide is published.  Format is YYYY-MM-DD.
 :page-releasedate: 2018-07-18
-// INSTRUCTION: Provide a description for the guide index page.
 :page-description: Learn how to perform CRUD operations using JPA
-// INSTUCTION: Please provide relevant tags, try to avoid inventing new ones.
 :page-tags: ['JPA']
-// INSTRUCTION: Specify the unique name of the guide that is used in the permalink.
 :page-related-guides: []
-// INSTRUCTION: Specify the slug in the website. This must be unique.
 :page-permalink: /guides/{projectid}
-// INSTRUCTION: Source the common page elements, clone git@github.com:OpenLiberty/guides-common.git.
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
-// INSTRUCTION: You can't have a new line between the attributes and the title.
-
-
-
-
 = Accessing data using Java Persistence API
 
 Learn how to perform CRUD operations using JPA
@@ -44,21 +30,19 @@ Learn how to perform CRUD operations using JPA
 == What you'll learn
 
 You will learn how to use the Java Persistence API (JPA) to map Java objects to database tables.
-JPA is a standard for Object Relational Mapping (ORM) and reduces the burden of having to write
+JPA is a standard for Object Relational Mapping (ORM) and eliminates the burden of having to write
 SQL code when performing database operations.
 
-The application that you will working with is the `Event Manager`, which provides services for creating, retrieving, updating
+The application that you will be working with is the `Event Manager`, which provides services for creating, retrieving, updating
 and deleting `Event` objects. The application uses an Embedded Derby database as a datastore for all the Event objects. If you
 would like to learn more about Embedded Derby, you can do so from the https://db.apache.org/derby/papers/DerbyTut/embedded_intro.html[official website.]
 
 You will use JPA annotations to define a Plain Old Java Object (POJO) class as an entity class whose persistent fields
 will be persisted to the datastore. Every entity object has a lifecycle that consists of different states that are managed by
 an `EntityManager`. In this application the `EntityManager` is container-managed so the EJB container will be responsible for transaction
-boundaries as well as the opening and closing of the `EntityManager`. 
-
-* This section is still in progress 
-
-
+boundaries as well as the opening and closing of the `EntityManager`. A container-managed `EntityManager` requires the use of the Java Transaction API (JTA). 
+By using JTA transactions, the `Event Manager` application does not have to pass references to EntityManager instances from one 
+component to another.
 
 
 == Getting started
@@ -199,8 +183,6 @@ Not that when an entity is no longer associated with a persistence context, its 
 becomes detached.
 
 
-
-
 == Building and running the application
 
 // Use the following include to pull in the Maven build instructions from the guides-common repo.
@@ -243,20 +225,24 @@ be `Null` since it was removed from the database.
 // Include this for info on how to run the tests
 include::{common-includes}/mvnverify.adoc[]
 
-// Including a listing block with test results here
-// Show console output of the test results
+[source, role="no_copy"]
+----
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running it.io.openliberty.guides.eventapp.tests.EventAppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.9 sec - in it.io.openliberty.guides.eventapp.tests.EventAppTest
 
+Results :
 
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+----
 
 == Great work! You're done!
 
-// Briefly summarize what the user achieved in this guide (1-2 sentences).
+You have learned how to map Java objects to database tables by defining a JPA entity class whose instances are represented as rows in the table.
 
-// OPTIONAL: briefly state what the user could do next now that they've learned the
-// technologies in this guide.
+You have have used a container-managed `EntityManager` to manage entity instances and their lifecycles. You injected the `EntityManager`
+into an EJB component and performed basic CRUD operations on the database using JPA.
 
-// Include the below from the guides-common repo to tell users how they can contribute to the guide
 include::{common-includes}/finish.adoc[]
-
-// DO NO CREATE ANYMORE SECTIONS AT THIS POINT
-// Related guides will be added in automatically here if you included them in ":page-related-guides"
