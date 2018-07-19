@@ -47,10 +47,18 @@ You will learn how to use the Java Persistence API (JPA) to map Java objects to 
 JPA is a standard for Object Relational Mapping (ORM) and reduces the burden of having to write
 SQL code when performing database operations.
 
-You will learn to use JPA annotations to define a Plain Old Java Object (POJO) class as an entity class.
+The application that you will working with is the `Event Manager`, which provides services for creating, retrieving, updating
+and deleting `Event` objects. The application uses an Embedded Derby database as a datastore for all the Event objects. If you
+would like to learn more about Embedded Derby, you can do so from the https://db.apache.org/derby/papers/DerbyTut/embedded_intro.html[official website.]
+
+You will use JPA annotations to define a Plain Old Java Object (POJO) class as an entity class whose persistent fields
+will be persisted to the datastore. Every entity object has a lifecycle that consists of different states that are managed by
+an `EntityManager`. In this application the `EntityManager` is container-managed so the EJB container will be responsible for transaction
+boundaries as well as the opening and closing of the `EntityManager`. 
+
+* This section is still in progress 
 
 
-* NOTE: This section is still in progress
 
 
 == Getting started
@@ -166,8 +174,7 @@ is not associated with an EntityManger.
 
 The EntityManager manages the lifecycle of entity instances. Every EntityManager instance is associated with a 
 persistence context. The persistance context manages a set of entities and is aware of the different states that an entity can have.
-In this application the persistence context is container managed, meaning that the EJB container is responsible for
-opening and closing the EntityManager. The container is also responsible for transaction boundaries, which is why we do not need to explicitly
+Since the container is responsible for transaction boundaries, we do not need to explicitly
 begin, commit or rollback transactions. The EJB container will ensure that the required methods are executed within the boundaries
 of an active transaction. In order to use the EntityManager at runtime, we must inject it into our EJB component via the `@PersistenceContext` annotation.
 
