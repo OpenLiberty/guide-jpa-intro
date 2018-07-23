@@ -201,11 +201,11 @@ include::{common-includes}/mvncompile.adoc[]
 
 == Testing the application
 
-Create the `EventAppTest` test class in the `finish/src/test/java/it/io/openliberty/guides/eventapp/tests/EventAppTest.java` file:
+Create the `EventAppTest` test class in the `finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventAppTest.java` file:
 
 [source, Java]
 ----
-include::finish/src/test/java/it/io/openliberty/guides/eventapp/tests/EventAppTest.java[tags=**;]
+include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventAppTest.java[tags=**;]
 ----
 
 The `testCreatingDeletingNewEvent` method creates a test event and then gets a list of events from the {get-events-url} URL to verify
@@ -228,8 +228,8 @@ include::{common-includes}/mvnverify.adoc[]
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
-Running it.io.openliberty.guides.eventapp.tests.EventAppTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.9 sec - in it.io.openliberty.guides.eventapp.tests.EventAppTest
+Running it.io.openliberty.guides.jpaguide.tests.EventAppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.9 sec - in it.io.openliberty.guides.jpaguide.tests.EventAppTest
 
 Results :
 
