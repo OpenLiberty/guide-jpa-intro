@@ -1,4 +1,4 @@
-package it.io.openliberty.guides.eventapp.tests;
+package it.io.openliberty.guides.jpaguide.tests;
 
 import static org.junit.Assert.*;
 
