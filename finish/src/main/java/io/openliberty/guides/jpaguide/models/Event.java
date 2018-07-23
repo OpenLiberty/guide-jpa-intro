@@ -76,6 +76,12 @@ public class Event implements Serializable{
                 return false;
         } else if (!time.equals(other.time))
             return false;
+        if(name == null) {
+            if(other.name != null)
+                return false;
+        }else if(!name.equals(other.name))
+            return false;    
+ 
         return true;
     }
 

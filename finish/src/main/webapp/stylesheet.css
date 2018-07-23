@@ -33,47 +33,6 @@ body {
   border-right: 10px solid black;
 }
 
-.login_div {
-  float: left;
-}
-
-.login_button {
-  height: 70%;
-  width: 5%;
-  border-radius: 50%;
-  border: 5px solid white;
-  background-color: #1D1F3C;
-  min-height: 30px;
-  font-size: 1.2vw;
-  margin-top: 1%;
-  margin-left: 2.5%;
-  padding: 0;
-  color: white;
-  font-family: 'Asap', sans-serif;
-}
-
-.login_button:hover {
-  background-color: white;
-  color: black;
-  border-color: white;
-  cursor: pointer;
-}
-
-.login_button:active {
-  background-color: #939294;
-  color: black;
-  border-color: white;
-  cursor: pointer;
-}
-
-.login_button:focus {
-  background-color: white;
-  color: black;
-  border-color: white;
-  cursor: pointer;
-  outline: 0;
-}
-
 .button {
   height: 5%;
   min-height: 40px;
@@ -223,10 +182,6 @@ label {
   padding-left: 15%;
 }
 
-.username {
-  text-transform: capitalize;
-}
-
 .list {
   font-size: 1vw;
 }
@@ -311,18 +266,6 @@ h1.list {
   margin-bottom: 1%;
 }
 
-.eventDetails {
-  word-wrap: break-word;
-  font-size: 1vw;
-  text-transform: capitalize;
-}
-
-.eventDetailsHeaders {
-  font-size: 1.1vw;
-  text-decoration: underline;
-  white-space: pre;
-}
-
 .select_events {
   border-radius: 5px;
   text-align-last: center;
@@ -337,26 +280,4 @@ h1.list {
 .columnEvents {
   font-size: 0.9vw;
   text-transform: capitalize;
-}
-
-.events_attending {
-  text-decoration: underline;
-  font-size: 1.1vw;
-  line-height: 0;
-}
-
-.eventsLinkRegistered {
-  color: purple;
-  cursor: pointer;
-  min-width: 100%;
-  font-family: 'Asap', sans-serif;
-}
-
-.eventsLinkRegistered:focus {
-  outline: 0;
-}
-
-.eventsLinkRegistered:hover {
-  color: black;
-  cursor: pointer;
 }
