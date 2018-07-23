@@ -4,8 +4,7 @@
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="jpa-unit" transaction-type="JTA">
         <jta-data-source>jdbc/samplejpadatasource</jta-data-source>
-        <non-jta-data-source>jdbc/samplejpadatasourcenonjta</non-jta-data-source>
-        <class>io.openliberty.guides.eventapp.models.Event</class>
+        <class>io.openliberty.guides.jpaguide.models.Event</class>
         <properties>
             <!-- These properties are used for creating the database tables. 
             We are using them here to avoid users having to create a database to run this sample. 

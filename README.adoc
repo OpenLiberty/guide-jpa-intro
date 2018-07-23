@@ -1,65 +1,3 @@
-= Contributing a guide
-:template-url: https://github.com/OpenLiberty/guides-template
-
-Welcome to Open Liberty! In order to contribute a guide for Open Liberty, follow the steps in this README.
-
-### Step 1: Set up your computer.
-
-- Install https://help.github.com/articles/set-up-git/[Git] and become familiar with the https://blog.github.com/2015-07-29-git-2-5-including-multiple-worktrees-and-triangular-workflows/#improved-support-for-triangular-workflows[Git triangular workflow].
-- Install and know the basics of https://maven.apache.org/index.html[Maven].
-- Install a text editor with the https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc] compiler plugin and learn the syntax of AsciiDoc.
-
-### Step 2 (Optional): Try some existing guides.
-
-Use the guides on https://openliberty.io/guides/[openliberty.io] as examples. 
-
-If you're not sure where to start, try the https://openliberty.io/guides/rest-intro.html[Creating a RESTful web service] guide followed by the  https://openliberty.io/guides/cdi-intro.html[Injecting dependencies into microservices] guide.
-
-### Step 3: Know the structure and style.
-
-- Know your audience!
-
-If the guide is introductory, explain the basic concepts of the technology. At the same time, try to avoid overwhelming the reader with too much information. If you're not sure if you've included the correct amount of info, consider asking a new user to try your guide.
-
-- Know the guide structure and the writing styles
-
-Take a look at the https://github.com/OpenLiberty/guides-template/wiki/Guidelines-for-Structure-and-Styles[Guidelines for Structure and Styles].
-
-
-### Step 4: Create a new guide.
-
-1. Clone the {template-url}[`guides-template`] to your own workspace.
-
-2. Develop your guide in your own workspace.
-
-** Develop code and write tests that are based on the project structure in the {template-url}[`guides-template`]. To start, create your project in the `finish` directory. Make a simple application that demonstrates how to use your topic.
-
-** Copy the code from the `finish` directory to the `start` directory. Then, from the copy in the `start` directory, remove the code that you want the user to focus on.
-
-** Write a guide that follows the `README.adoc` template (APPENDIX A) in the {template-url}[`guides-template`] repository. Introduce and explain the parts of code that you removed during Step B and tell the users where to copy and paste the code. Walk through how to build the `finish` directory, run the tests, and perform any other steps that users need to run your project on their own.
-
-3. Before proceeding further, you should review the https://github.com/OpenLiberty/guides-template/wiki/Self-Review-Checklist[checklist].
-
-4. Open a new issue in the https://github.com/OpenLiberty/guides-common/issues[guides-commons] repository. Describe the topic you wrote, add a link to the repository that contains the complete draft of your guide, and contact the Open Liberty team.
-
-5. You must sign the https://github.com/OpenLiberty/open-liberty/blob/master/cla/open-liberty-cla-individual.pdf[Individual Contributor License Agreement] (CLA) in order to contribute. If you are writing the guide as part of your job, you might also want your employer to sign a https://github.com/OpenLiberty/open-liberty/blob/master/cla/open-liberty-cla-corporate.pdf[Corporate Contributor License Agreement] (CCLA). Instructions for how to sign and submit these agreements are provided in each document.
-
-6. After the Open Liberty team approves your guide, request to create a draft guide repository. Name your new repository `draft-guide-{name}` in the public Open Liberty GitHub repository. After the Open Liberty team obtains the signed CLA, you can open a pull request that contains your commits for the guide, and the team will be notified for review.
-
-### Step 5: The Open Liberty team will review your guide.
-
-- You can see your feedback from the `Issues` section in your `draft-guide-{name}` repository in a few days.
-- Follow up with the team's review discussions.
-
-
-
-
-## APPENDIX A: A template README.adoc
-INSTRUCTION: Please remove all the instructions before `APPENDIX A` prior to commit. Most comments should be removed, although not the copyright.
-
-```
-// INSTRUCTION: The copyright statement must appear at the top of the file
-//
 // Copyright (c) 2018 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
@@ -71,171 +9,176 @@ INSTRUCTION: Please remove all the instructions before `APPENDIX A` prior to com
 
 
 :page-layout: guide
-// INSTRUCTION: The project id is the part of the git repository after the guide- and must be specified
-// :projectid: github repo name without the `guide-` prefix
-:projectid: template
-// INSTRUCTION: Provide an estimate of how long the guide will take to go through.
-:page-duration: 15 minutes
-// INSTRUCTION: Provide the date when the guide is published.  Format is YYYY-MM-DD.
-:page-releasedate: 2018-05-14
-// INSTRUCTION: Provide a description for the guide index page.
-:page-description: Learn how to create a todo list API as a REST service using JAX-RS, and Open Liberty.
-// INSTUCTION: Please provide relevant tags, try to avoid inventing new ones.
-:page-tags: ['REST', 'Getting Started', 'CDI', 'JAX-RS']
-// INSTRUCTION: Specify the unique name of the guide that is used in the permalink.  
-:page-related-guides: ['cdi-intro', 'rest-intro']
-// INSTRUCTION: Specify the slug in the website. This must be unique.
+:projectid: draft-guide-jpa-intro
+:page-duration: 20 minutes
+:page-releasedate: 2018-07-18
+:page-description: Learn how to perform CRUD operations using JPA
+:page-tags: ['JPA']
+:page-related-guides: []
 :page-permalink: /guides/{projectid}
-// INSTRUCTION: Source the common page elements, clone git@github.com:OpenLiberty/guides-common.git.
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
-// INSTRUCTION: You can't have a new line between the attributes and the title.
+= Accessing data using Java Persistence API
 
+Learn how to perform CRUD operations using JPA
 
-
-
-= Title of guide, starting with a gerund (Creating, Administering, and so on)
-// EXAMPLE: Creating a REST API for a todo list application
-
-[.hidden]
-NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
-
-// Start the introduction with "You'll explore how to..." or something similarly catchy.
-// Write no more than two sentences, with meaningful information on what the user can accomplish 
-// with this guide.
-// Do not start the introduction with "This guide...".
-// EXAMPLE: Learn how to create a todo list API as a REST service using JAX-RS, CDI, and Open Liberty.
+:eventapp-url: http://localhost:9080/eventmanager.jsf
+:get-events-url: http://localhost:9080/events
 
 
 
 
 == What you'll learn
 
-// Write about what the user will learn in a meaningful intro paragraph.
-// Follow the intro paragraph with more details of what the user will learn, but still keep it brief.
-// See the REST guide at as an exemplar guide.
-// https://openliberty.io/guides/rest-intro.html
-// https://github.com/OpenLiberty/guide-rest-intro
+You will learn how to use the Java Persistence API (JPA) to map Java objects to database tables.
+JPA is a standard for Object Relational Mapping (ORM) and eliminates the burden of having to write
+SQL code when performing database operations.
 
+The application that you will be working with is the `Event Manager`, which provides services for creating, retrieving, updating
+and deleting `Event` objects. The application uses an Embedded Derby database as a datastore for all the Event objects. If you
+want to learn more about Embedded Derby, you can do so from the https://db.apache.org/derby/papers/DerbyTut/embedded_intro.html[official website.]
 
-
+You will use JPA annotations to define a Plain Old Java Object (POJO) class as an entity class whose persistent fields
+are persisted to the datastore. Every entity object has a lifecycle that consists of different states that are managed by
+an `EntityManager`. In this application the `EntityManager` is container-managed so the EJB container is responsible for transaction
+boundaries as well as the opening and closing of the `EntityManager`. A container-managed `EntityManager` requires the use of the Java Transaction API (JTA). 
+By using JTA transactions, the `Event Manager` application does not have to pass references to EntityManager instances from one 
+component to another.
 
 
 == Getting started
 
-// Add this getting started section to your guide if it is applicable. 
-// Use the following include to pull in the git clone instructions from the guides-common repo.
-
 include::{common-includes}/gitclone.adoc[]
-
-
-
-
 
 === Try what you’ll build
 
-// This is a subsection of the "Getting started" section above. It should briefly walk the user 
-// through how to setup everything in the "finish" directory and try out the finished version of 
-// what they will be building.
-
 include::{common-includes}/trywhatyoubuild-intro.adoc[]
 
-// Brief explanation on how to use the finished application.
-// Describe what user expects to see after running the complete version of the application.
+Point your browser to the {eventapp-url} URL. As you can see, the event application
+currently has no events stored in the database. Go ahead and click on the `Create Event` button located in the left navigation bar. After
+entering an event name, location and time, click on `Submit` to persist your event entity to the database. The event is now
+stored in the database and is visible in the list of current events. The `Update` button located beside each event allows you to make
+modifications to the persisted entity and the `Delete` button allows you to remove entities from the database.
 
 include::{common-includes}/trywhatyoubuild-end.adoc[]
 
 
+== Defining a JPA entity class
 
+Navigate to the `start` directory to begin.
 
-== Section title for this section, starting with a gerund like Creating, Building, etc
+Before being able to use JPA to store Java objects in a database, an entity class must be defined. A JPA entity is a Java object whose
+non-transient fields will be persisted to the database. Any POJO class
+can be designated as a JPA entity. However, the class must be annotated with the `@Entity` annotation, must not be declared final and must have
+a public or protected non-argument constructor. JPA uses a database table for every entity and persisted instances will be represented
+as one row in the table.
 
-// Add the various sections that are needed for a particular guide.
-
-// Start each additional section title with a meaningful gerund such as Creating, Building, Testing.
-// Follow the gerund with a meaningful noun phrase. For example: Creating a JAX-RS application
-// Have as many sections and section titles as needed.
-// EXAMPLE: * Learning to use JAX-RS and CDI
-// EXAMPLE: * Learning how to build a REST service for a todo list application
-
-
-// Write a sentence with the context like "Navigate to the `start` directory to begin." in the section 
-// where user starts working with the implementation.
-
-
-// What to add for each section:
-// Start each section with a meaningful description about what the user is doing in the section.
-// Include code snippets.
-// Avoid making all the documentation a series of steps and tasks, bullets, or numbered lists.
-// Use tick marks around directories, files, values, class names, method names, and so on.
-// Example: `this-is-a-file`, `this/is/a/path`, `thisIsAMethod`.
-
-
-
-
-
-// EXAMPLE: The following block demostrates how different sections look like for a to do application.
-==============================================================================================================================
-== Building the model
-
-* Navigate to the `start` directory
-* Represent an entry in a todo list
-
-Create the todo model class in the `src/main/java/io/openliberty/guides/todo/models/TodoModel.java` file:
+Add the following JPA annotations to the `Event` class in the `src/main/java/io/openliberty/guides/jpaguide/models/Event.java` file:
 
 [source, Java]
 ----
-include::finish/src/main/java/io/openliberty/guides/todo/models/TodoModel.java[tags=**;!copyright;]
+include::finish/src/main/java/io/openliberty/guides/jpaguide/models/Event.java[tags=**;]
 ----
 
-* Getters, setters, and default constructor such that the model can be serialized/deserialized easily
+Let's break down the new annotations:
 
-== Creating the service
+[cols="35, 200", options="header"]
+|===
+| *Annotation*    | *Description*
+| `@Entity` | Declares the class as an entity
+| `@Table`  | Specifies details of the table such as name and schema
+| `@NamedQuery` | Specfies a query using a static name
+| `@Id`       |   Primary key of the entity
+| `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key, `strategy = GenerationType.AUTO` indicates that the persistence provider will pick a strategy depending on the database used
+| `@Column`    | Specifies that the attribute is mapped to a column in the table, `name` is optional and indicates the name of the column in the table
+|===
 
-* Create a service that is injected into the JAX-RS resource
 
-Create the todo service interface in the 
+== Accessing data using JPA
 
-`src/main/java/io/openliberty/guides/todo/services/TodoService.java` file:
+Before being able to access data using JPA, a connection to the database must be established.
+An `EntityManager` provides the functionality for performing operations on the database such as
+persisting, loading, updating and deleting entities. The `EntityManager`’s configuration is defined
+by a persistence unit specified in the `persistence.xml` file.
+
+Create the `src/main/resources/META-INF/persistence.xml` file:
+
+[source, Xml]
+----
+include::finish/src/main/resources/META-INF/persistence.xml[tags=**;]
+----
+
+The persistence unit is defined by the
+`<persistence-unit name="jpa-unit" transaction-type="JTA"></persistence-unit>` XML element.
+The `name` attribute is required and is used to identify the persistent unit. The `transaction-type=”JTA”`
+element specifies to use managed (JTA) transaction management. In a Java EE environment, the default is JTA
+if this element is not specified.
+
+A transaction type of JTA requires for a JTA data source to be provided.
+This is done via the `<jta-data-source>jdbc/samplejpadatasource</jta-data-source>` element which
+specifies the Java Naming and Directory Interface (JNDI) name of the data source that is to be used by
+the container. This means that a JDBC connection does not have to be specified in the `persistence.xml`
+file and instead the JTA data source can be preconfigured.
+
+Create the `src/main/liberty/config/server.xml` file:
+
+[source, Xml]
+----
+include::finish/src/main/liberty/config/server.xml[tags=**;]
+----
+
+A shared library is defined by the `<library id="derbyJDBCLib"></library>` element.
+This element points to the directory of the JDBC driver. The JDBC driver is what enables the
+application to interact with the database.
+
+The data source configuration is done within the
+`<dataSource id="samplejpadatasource jndiName="jdbc/samplejpadatasource"></dataSource>` element.
+The `jndiName="jdbc/samplejpadatasource"` attribute provides a JNDI name for the data source so that
+it can be looked up by a component.
+
+The data source configuration also contains properties such as the database name and whether
+to create the database if it does not already exist. These properties can vary based on the
+database that is being used.
+
+=== Performing CRUD operations using JPA
+
+CRUD is an abbreviation that defines the four basic functionalities that can be performed on a database: create, read, update and delete.
+
+Create the `src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java` file:
 
 [source, Java]
 ----
-include::finish/src/main/java/io/openliberty/guides/todo/services/TodoService.java[tags=**;!copyright;]
+include::finish/src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java[tags=**;]
 ----
 
-Next, create the sample todo service class in the 
+Every entity object has a lifecycle that consists of four states: new, managed, removed and detached. Whenever a 
+new Event object is created its state will be new, meaning that it is not mapped to a row in the database table and
+is not associated with an EntityManger.
 
-`src/main/java/io/openliberty/guides/todo/services/samples/SampleTodoService.java` file:
+The EntityManager manages the lifecycle of entity instances. Every EntityManager instance is associated with a 
+persistence context. The persistance context manages a set of entities and is aware of the different states that an entity can have.
+Since the container is responsible for transaction boundaries, we do not need to explicitly
+begin, commit or rollback transactions. The EJB container will ensure that the required methods are executed within the boundaries
+of an active transaction. In order to use the EntityManager at runtime, we must inject it into our EJB component via the `@PersistenceContext` annotation.
 
-[source, Java]
-----
-include::finish/src/main/java/io/openliberty/guides/todo/services/samples/SampleTodoService.java[tags=**;]
-----
+The `createEvent` method persists an instance of the Event entity class to the database. By calling the `persist` method on an `EntityManager`, it changes the 
+event objects instance from new to managed. This means that the entity is now mapped to a row in the database table and is being managed
+by the `EntityManager`.
 
-* Implemented basic CRUD (Create, Read, Update, and Delete) operations.
-* Service is ApplicationScoped, which essentially means that it is a singleton.
+The `readEvent` method retrieves Event objects from the database. Entity objects are retrieved via the `find` method which requires
+both the entity class and the primary key of the object. If the `EntityManager` already manages the searched object in 
+its persistence context, then no retrieval from the database is required since the managed Event object will be returned as is.
+But, if the `EntityManager` does not already manage the object in its persistence context, a new entity object will be constructed
+with data retrieved from the database and returned in a managed state. If the Event object is not found in the database, `Null` is returned.
 
-== Creating the JAX-RS resource
+The `updateEvent` method updates an Event object in the database. The `EntityManager` automatically tracks all managed entity objects
+in its persistence context for changes and synchronizes them with the database. The `merge` method will create a new instance of the entity object and make that new instance
+managed. But, the entity object passed into the `merge` method is no longer managed. 
 
-* Description of the technology, possibly with a link to learn more.
-* Use CDI to inject the todo service into the resource
+The `deleteEvent` method deletes an Event object from the database. By calling the `remove` method on an EntityManager,
+the managed entity will be removed from the database and the entity objects state becomes removed.
 
-Create the todo resource class in the 
-
-`src/main/java/io/openliberty/guides/todo/resources/TodoResource.java` file:
-
-[source, Java]
-----
-include::finish/src/main/java/io/openliberty/guides/todo/resources/TodoResource.java[tags=**;!copyright;]
-----
-
-* The resource methods are accessible via HTTP
-* Use GET, POST, PUT, and DELETE verbs to handle reading, creating, updating, and deleting resources
-* Validate data models and send appropriate response accordingly
-==============================================================================================================================
-
-
-
-
+Note that when an entity is no longer associated with a persistence context, its changes will no longer be managed by the EntityManager and the entity
+becomes detached.
 
 
 == Building and running the application
@@ -243,59 +186,61 @@ include::finish/src/main/java/io/openliberty/guides/todo/resources/TodoResource.
 // Use the following include to pull in the Maven build instructions from the guides-common repo.
 include::{common-includes}/mvnbuild.adoc[]
 
-// In between here, you should state where you application can be found now that its running. ie. urls
-// Sample usage of the application
-// Suggestions for what changes the reader can make to explore the code
+When the server is running, visit the {eventapp-url} URL to view the Event Manager application. 
 
-// Use the following include to pull in the Liberty start/stop server instructions from the 
+Using the `Create event` button in the left navigation bar you are able to create events that will be persisted to the database. Once 
+you have created an event, it will be available to view, update and delete in the `Event list` section.
+
+
+// Use the following include to pull in the Liberty start/stop server instructions from the
 // guides-common repo.
 include::{common-includes}/mvncompile.adoc[]
 
 // Instructions to rebuild the application
 
 
-
-
-
-
 == Testing the application
 
-// Show how to test your application.
+Create the `EventAppTest` test class in the `finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventAppTest.java` file:
 
-
-// EXAMPLE: Create the todo test class in the 
-// `finish/src/test/java/it/io/openliberty/guides/todo/TodoTest.java` file:
 [source, Java]
 ----
-include::finish/src/test/java/it/io/openliberty/guides/todo/TodoTest.java[tags=**;!copyright;]
+include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventAppTest.java[tags=**;]
 ----
 
+The `testCreatingDeletingNewEvent` method creates a test event and then gets a list of events from the {get-events-url} URL to verify
+that the test event was actually persisted to the database. Next, the test event will be deleted from the database and the method will
+get a list of events from the {get-events-url} URL once more. This time, when attempting to retrieve the test event, the return value will
+be `Null` since it was removed from the database.
+
+The `testUpdatingEvents` method also creates a test event and then gets a list of events from the {get-events-url} URL to verify
+that the test event was actually persisted to the database. Next, the method will update the test event with a new name, location and time.
+A list of events will be retrieved from the {get-events-url} once again to verify that the event was successfully updated in the database.
+Lastly, the updated test event will be deleted from the database and the method will
+get a list of events from the {get-events-url} URL one final time. As expected, when attempting to retrieve the test event, the return value will
+be `Null` since it was removed from the database.
 
 // Include this for info on how to run the tests
 include::{common-includes}/mvnverify.adoc[]
 
-// Including a listing block with test results here
-// Show console output of the test results
+[source, role="no_copy"]
+----
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running it.io.openliberty.guides.jpaguide.tests.EventAppTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.9 sec - in it.io.openliberty.guides.jpaguide.tests.EventAppTest
 
-// OPTIONAL: after listing the test results, mention a simple change a user can make/introduce that 
-// will cause the tests to fail. Be brief and don't give the users all of the instructions. 
-// At this point, they should be comfortable enough to figure it out on their own.
+Results :
 
-
-
-
-
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+----
 
 == Great work! You're done!
 
-// Briefly summarize what the user achieved in this guide (1-2 sentences).
+You have learned how to map Java objects to database tables by defining a JPA entity class whose instances are represented as rows in the table.
 
-// OPTIONAL: briefly state what the user could do next now that they've learned the 
-// technologies in this guide.
+You have have used a container-managed `EntityManager` to manage entity instances and their lifecycles. You injected the `EntityManager`
+into an EJB component and performed basic CRUD operations on the database using JPA.
 
-// Include the below from the guides-common repo to tell users how they can contribute to the guide
 include::{common-includes}/finish.adoc[]
-
-// DO NO CREATE ANYMORE SECTIONS AT THIS POINT
-// Related guides will be added in automatically here if you included them in ":page-related-guides"
-```

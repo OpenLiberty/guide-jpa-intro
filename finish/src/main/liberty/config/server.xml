@@ -14,8 +14,8 @@
       id="defaultHttpEndpoint" host="*" />
 
 
-    <application location="io.openliberty.guides.eventapp.war" type="war"
-      id="io.openliberty.guides.eventapp" name="io.openliberty.guides.eventapp"
+    <application location="io.openliberty.guides.jpaguide.war" type="war"
+      id="io.openliberty.guides.jpaguide" name="io.openliberty.guides.jpaguide"
       context-root="/">
     </application>
 
@@ -30,13 +30,5 @@
         <jdbcDriver libraryRef="derbyJDBCLib" />
         <properties.derby.embedded databaseName="JPAGuide" createDatabase="create"/>
     </dataSource>
-
-    <dataSource id="samplejpadatasourcenonjta"
-                jndiName="jdbc/samplejpadatasourcenonjta"
-                transactional="false">
-        <jdbcDriver libraryRef="derbyJDBCLib" />
-        <properties.derby.embedded databaseName="JPAGuide" createDatabase="create"/>
-    </dataSource>
-
-
+    
 </server>
