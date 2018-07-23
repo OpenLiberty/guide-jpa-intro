@@ -1,5 +1,0 @@
-<beans>
-    <alternatives>
-        <class>io.openliberty.guides.todo.services.samples.SampleTodoService</class>
-    </alternatives>
-</beans>
