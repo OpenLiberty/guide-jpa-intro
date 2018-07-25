@@ -9,7 +9,7 @@
 
 
 :page-layout: guide
-:projectid: draft-guide-jpa-intro
+:projectid: jpa-intro
 :page-duration: 20 minutes
 :page-releasedate: 2018-07-18
 :page-description: Learn how to perform CRUD operations using JPA
