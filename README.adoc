@@ -14,17 +14,17 @@
 :page-releasedate: 2018-07-18
 :page-description: Learn how to perform CRUD operations using JPA
 :page-tags: ['JPA']
-:page-related-guides: []
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 = Accessing data using Java Persistence API
 
-Learn how to perform CRUD operations using JPA
+[.hidden]
+NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
+
+Learn how to map Java Objects to database tables and perform CRUD operations using JPA
 
 :eventapp-url: http://localhost:9080/eventmanager.jsf
 :get-events-url: http://localhost:9080/events
-
-
 
 
 == What you'll learn
