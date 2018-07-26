@@ -6,26 +6,24 @@
 // Contributors:
 //     IBM Corporation
 //
-
-
 :page-layout: guide
 :projectid: jpa-intro
 :page-duration: 20 minutes
 :page-releasedate: 2018-07-18
 :page-description: Learn how to perform CRUD operations using JPA
 :page-tags: ['JPA']
-:page-related-guides: []
+:page-related-guides: ['rest-intro']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 = Accessing data using Java Persistence API
 
-Learn how to perform CRUD operations using JPA
+[.hidden]
+NOTE: This repository contains the guide documentation source. To view the guide in published form, view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
+
+Learn how to map Java Objects to database tables and perform CRUD operations using JPA
 
 :eventapp-url: http://localhost:9080/eventmanager.jsf
 :get-events-url: http://localhost:9080/events
-
-
-
 
 == What you'll learn
 
@@ -44,7 +42,6 @@ boundaries as well as the opening and closing of the `EntityManager`. A containe
 By using JTA transactions, the `Event Manager` application does not have to pass references to EntityManager instances from one 
 component to another.
 
-
 == Getting started
 
 include::{common-includes}/gitclone.adoc[]
@@ -60,7 +57,6 @@ stored in the database and is visible in the list of current events. The `Update
 modifications to the persisted entity and the `Delete` button allows you to remove entities from the database.
 
 include::{common-includes}/trywhatyoubuild-end.adoc[]
-
 
 == Defining a JPA entity class
 
@@ -91,7 +87,6 @@ Let's break down the new annotations:
 | `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key, `strategy = GenerationType.AUTO` indicates that the persistence provider will pick a strategy depending on the database used
 | `@Column`    | Specifies that the attribute is mapped to a column in the table, `name` is optional and indicates the name of the column in the table
 |===
-
 
 == Accessing data using JPA
 
@@ -180,7 +175,6 @@ the managed entity will be removed from the database and the entity objects stat
 Note that when an entity is no longer associated with a persistence context, its changes will no longer be managed by the EntityManager and the entity
 becomes detached.
 
-
 == Building and running the application
 
 // Use the following include to pull in the Maven build instructions from the guides-common repo.
@@ -191,13 +185,11 @@ When the server is running, visit the {eventapp-url} URL to view the Event Manag
 Using the `Create event` button in the left navigation bar you are able to create events that will be persisted to the database. Once 
 you have created an event, it will be available to view, update and delete in the `Event list` section.
 
-
 // Use the following include to pull in the Liberty start/stop server instructions from the
 // guides-common repo.
 include::{common-includes}/mvncompile.adoc[]
 
 // Instructions to rebuild the application
-
 
 == Testing the application
 
