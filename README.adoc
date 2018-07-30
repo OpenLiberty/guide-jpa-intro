@@ -15,6 +15,7 @@
 :page-related-guides: ['rest-intro']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
+:source-highlighter: prettify
 = Accessing data using Java Persistence API
 
 [.hidden]
@@ -40,11 +41,15 @@ Every entity object has a lifecycle that consists of different states that are m
 an `EntityManager`. In this application, the `EntityManager` is container-managed so the EJB container is responsible for transaction
 boundaries as well as opening and closing the `EntityManager`. 
 
-== Getting started
+// =================================================================================================
+// Getting Started
+// =================================================================================================
 
 include::{common-includes}/gitclone.adoc[]
 
-=== Try what you’ll build
+// =================================================================================================
+// Try what you'll build
+// =================================================================================================
 
 include::{common-includes}/trywhatyoubuild-intro.adoc[]
 
@@ -67,6 +72,10 @@ The events created are still displayed in the list of current events. The `Updat
 allows you to make modifications to the persisted entity and the `Delete` button allows you to remove entities from the database.
 
 include::{common-includes}/trywhatyoubuild-end.adoc[]
+
+// =================================================================================================
+// Defining a JPA entity class
+// =================================================================================================
 
 == Defining a JPA entity class
 
@@ -97,6 +106,10 @@ Let's break down the new annotations:
 | `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key, `strategy = GenerationType.AUTO` indicates that the persistence provider will pick a strategy depending on the database used
 | `@Column`    | Specifies that the attribute is mapped to a column in the table, `name` is optional and indicates the name of the column in the table
 |===
+
+// =================================================================================================
+// Accessing data using JPA
+// =================================================================================================
 
 == Accessing data using JPA
 
@@ -145,6 +158,10 @@ The data source configuration also contains properties such as the database name
 to create the database if it does not already exist. These properties can vary based on the
 database that is being used.
 
+// =================================================================================================
+// Performing CRUD operations using JPA
+// =================================================================================================
+
 === Performing CRUD operations using JPA
 
 CRUD is an abbreviation that defines the four basic functionalities that can be performed on a database: create, read, update and delete.
@@ -189,9 +206,10 @@ The managed entity will be removed from the database and the entity objects stat
 Note that when an entity is no longer associated with a persistence context, its changes will no longer be managed by the EntityManager and the entity
 becomes detached.
 
-== Building and running the application
+// =================================================================================================
+// Building and running the application
+// =================================================================================================
 
-// Use the following include to pull in the Maven build instructions from the guides-common repo.
 include::{common-includes}/mvnbuild.adoc[]
 
 When the server is running, visit the {eventapp-url} URL to view the Event Manager application. 
@@ -204,6 +222,10 @@ you have created an event, it will be available to view, update and delete in th
 include::{common-includes}/mvncompile.adoc[]
 
 // Instructions to rebuild the application
+
+// =================================================================================================
+// Testing the application
+// =================================================================================================
 
 == Testing the application
 
@@ -241,6 +263,10 @@ Results :
 
 Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 ----
+
+// =================================================================================================
+// Great work! You're done!
+// =================================================================================================
 
 == Great work! You're done!
 
