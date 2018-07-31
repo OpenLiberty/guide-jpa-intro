@@ -37,8 +37,8 @@ and deleting `Event` objects. The application uses an Embedded Derby database as
 want to learn more about Embedded Derby, you can do so from the https://db.apache.org/derby/papers/DerbyTut/embedded_intro.html[official website.]
 
 You will use JPA annotations to define an entity class whose persistent fields are persisted to the datastore. 
-Every entity object has a lifecycle that consists of different states that are managed by
-an `EntityManager`. In this application, the `EntityManager` is container-managed so the EJB container is responsible for transaction
+Every entity object has a lifecycle that consists of different states that are managed by an `EntityManager`. 
+In this application, the `EntityManager` is container-managed so the EJB container is responsible for transaction 
 boundaries as well as opening and closing the `EntityManager`. 
 
 // =================================================================================================
@@ -54,9 +54,9 @@ include::{common-includes}/gitclone.adoc[]
 include::{common-includes}/trywhatyoubuild-intro.adoc[]
 
 Point your browser to the {eventapp-url} URL. The event application
-currently has no events stored in the database. Go ahead and click on the `Create Event` button located in the left navigation bar. After
-entering an event name, location and time, click on `Submit` to persist your event entity to the database. The event is now
-stored in the database and is visible in the list of current events.
+currently has no events stored in the database. Go ahead and click on the `Create Event` button located in
+the left navigation bar. After entering an event name, location and time, click on `Submit` to persist your 
+event entity to the database. The event is now stored in the database and is visible in the list of current events.
 
 Notice that if you stop the Open Liberty server:
 ```
@@ -81,11 +81,11 @@ include::{common-includes}/trywhatyoubuild-end.adoc[]
 
 Navigate to the `start` directory to begin.
 
-An entity class must be defined before you are able to use JPA to store Java objects in a database. A JPA entity is a Java object whose
-non-transient fields will be persisted to the database. Any Plain Old Java Object (POJO) class
-can be designated as a JPA entity. However, the class must be annotated with the `@Entity` annotation, must not be declared final and must have
-a public or protected non-argument constructor. JPA uses a database table for every entity and persisted instances will be represented
-as one row in the table.
+An entity class must be defined before you are able to use JPA to store Java objects in a database. A JPA entity is 
+a Java object whose non-transient fields will be persisted to the database. Any Plain Old Java Object (POJO) class
+can be designated as a JPA entity. However, the class must be annotated with the `@Entity` annotation, must not be 
+declared final and must have a public or protected non-argument constructor. JPA uses a database table for every entity 
+and persisted instances will be represented as one row in the table.
 
 Add the following JPA annotations to the `Event` class in the `src/main/java/io/openliberty/guides/jpaguide/models/Event.java` file:
 
@@ -164,7 +164,8 @@ database that is being used.
 
 === Performing CRUD operations using JPA
 
-CRUD is an abbreviation that defines the four basic functionalities that can be performed on a database: create, read, update and delete.
+CRUD is an abbreviation that defines the four basic functionalities that can be performed on a database: create, 
+read, update and delete.
 
 Create the `src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java` file:
 
@@ -180,11 +181,12 @@ is not associated with an EntityManger.
 The EntityManager manages the lifecycle of entity instances. Every EntityManager instance is associated with a 
 persistence context. The persistence context manages a set of entities and is aware of the different states that an entity can have.
 
-Since the container is responsible for transaction boundaries, we do not need to explicitly
+Since the container is responsible for transaction boundaries, it is not necessary to explicitly
 begin, commit or rollback transactions. The EJB container will ensure that the methods are executed within the boundaries
-of an active transaction. In order to use the EntityManager at runtime, we must inject it into our EJB component via the `@PersistenceContext` annotation.
+of an active transaction. In order to use the EntityManager at runtime, it must be injected into our EJB component through the 
+`@PersistenceContext` annotation.
 
-The `EventDao.java` class has a method for each CRUD operation, lets break down each of these methods.
+The `EventDao.java` class has a method for each CRUD operation, so let's break them down:
 
 * By calling the `persist` method in `createEvent`, an instance of the Event entity class will be persisted to the datastore.
 The event objects state is changed from new to managed, meaning the entity is now mapped to a row in the database table 
@@ -203,8 +205,8 @@ a detached entity object.
 * The `deleteEvent` method deletes an Event object from the database by calling the `remove` method on an `EntityManager`.
 The managed entity will be removed from the database and the entity objects state becomes removed.
 
-Note that when an entity is no longer associated with a persistence context, its changes will no longer be managed by the EntityManager and the entity
-becomes detached.
+Note that when an entity is no longer associated with a persistence context, its changes will no longer be managed by the 
+EntityManager and the entity becomes detached.
 
 // =================================================================================================
 // Building and running the application
@@ -237,16 +239,16 @@ include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventAppTe
 ----
 
 The `testCreatingDeletingNewEvent` method creates a test event and then gets a list of events from the {get-events-url} URL to verify
-that the test event was actually persisted to the database. Next, the test event will be deleted from the database and the method will
-get a list of events from the {get-events-url} URL once more. This time, when attempting to retrieve the test event, the return value will
-be `Null` since it was removed from the database.
+that the test event is actually persisted to the database. Next, the test event is deleted from the database and the method
+gets a list of events from the {get-events-url} URL once more. This time, when attempting to retrieve the test event, the return value
+will be `Null` since the test event is removed from the database.
 
-The `testUpdatingEvents` method also creates a test event and then gets a list of events from the {get-events-url} URL to verify
-that the test event was actually persisted to the database. Next, the method will update the test event with a new name, location and time.
-A list of events will be retrieved from the {get-events-url} once again to verify that the event was successfully updated in the database.
-Lastly, the updated test event will be deleted from the database and the method will
-get a list of events from the {get-events-url} URL one final time. As expected, when attempting to retrieve the test event, the return value will
-be `Null` since it was removed from the database.
+The `testUpdatingEvents` method also creates a test event and gets a list of events from the {get-events-url} URL to verify
+that the test event is actually persisted to the database. Next, the method updates the test event with a new name, location and time.
+A list of events is retrieved from the {get-events-url} once again to verify that the event is successfully updated in the database.
+Lastly, the updated test event is deleted from the database and the method gets a list of events from the {get-events-url}
+URL one final time. As expected, when attempting to retrieve the test event, the return value will be `Null` since the test event
+is removed from the database.
 
 // Include this for info on how to run the tests
 include::{common-includes}/mvnverify.adoc[]
