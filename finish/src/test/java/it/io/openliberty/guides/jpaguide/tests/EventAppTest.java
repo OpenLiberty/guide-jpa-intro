@@ -1,9 +1,7 @@
 package it.io.openliberty.guides.jpaguide.tests;
 
 import static org.junit.Assert.*;
-
 import java.util.HashMap;
-
 import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.ws.rs.client.Client;
@@ -12,12 +10,10 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
-
 import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import io.openliberty.guides.jpaguide.models.Event;
 public class EventAppTest {
 
@@ -61,11 +57,6 @@ public class EventAppTest {
     }
 
     @Test
-    public void runTestsInOrder() {
-        testCreatingDeletingNewEvent();
-        testUpdatingEvents();
-    }
-
     public void testCreatingDeletingNewEvent() {
         sendForm(eventForm, EVENTS_URL);
         JsonObject event = getTestEvent();
@@ -78,6 +69,7 @@ public class EventAppTest {
         assertNull(getTestEvent());
     }
 
+    @Test
     public void testUpdatingEvents() {
         sendForm(eventForm, EVENTS_URL);
         JsonObject event = getTestEvent();
@@ -129,10 +121,10 @@ public class EventAppTest {
     private JsonObject findTestEvent(JsonArray events){
         for(int i = 0; i < events.size(); i++){
             JsonObject testEvent = events.getJsonObject(i);
-            Event test = new Event(testEvent.getString("name"), testEvent.getString("location"), testEvent.getString("time"));
-            if(test.equals(e)){
+            Event test = new Event(testEvent.getString("name"), testEvent.getString("location"), 
+                                    testEvent.getString("time"));
+            if(test.equals(e))
                 return testEvent;
-            }
         }
         return null;        
     }

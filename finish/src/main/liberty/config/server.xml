@@ -13,7 +13,6 @@
     <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
       id="defaultHttpEndpoint" host="*" />
 
-
     <application location="io.openliberty.guides.jpaguide.war" type="war"
       id="io.openliberty.guides.jpaguide" name="io.openliberty.guides.jpaguide"
       context-root="/">

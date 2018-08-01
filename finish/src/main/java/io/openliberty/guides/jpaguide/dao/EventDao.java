@@ -1,11 +1,9 @@
 package io.openliberty.guides.jpaguide.dao;
 
 import java.util.List;
-
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-
 import io.openliberty.guides.jpaguide.models.Event;
 
 @Stateless
