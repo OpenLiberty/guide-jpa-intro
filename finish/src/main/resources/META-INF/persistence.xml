@@ -6,14 +6,9 @@
         <jta-data-source>jdbc/samplejpadatasource</jta-data-source>
         <class>io.openliberty.guides.jpaguide.models.Event</class>
         <properties>
-            <!-- These properties are used for creating the database tables. 
-            We are using them here to avoid users having to create a database to run this sample. 
-            See also the create=true line in the datasource meta data. -->
             <property name="eclipselink.ddl-generation" value="create-tables"/>
             <property name="eclipselink.ddl-generation.output-mode" value="both" />
 
-            <!-- This property is used for displaying EclipseLink log information 
-            View this logging information in the trace.log output file of your WAS Server. -->
             <property name="eclipselink.logging.level" value="ALL"/>
             <property name="eclipselink.logging.level.sql" value="FINE"/>
         </properties>
