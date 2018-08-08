@@ -24,10 +24,10 @@
     </library>
 
     <!-- Datasource Configuration -->
-    <dataSource id="samplejpadatasource"
-                jndiName="jdbc/samplejpadatasource">
+    <dataSource id="eventjpadatasource"
+                jndiName="jdbc/eventjpadatasource">
         <jdbcDriver libraryRef="derbyJDBCLib" />
-        <properties.derby.embedded databaseName="JPAGuide" createDatabase="create"/>
+        <properties.derby.embedded databaseName="EventDB" createDatabase="create"/>
     </dataSource>
     
 </server>

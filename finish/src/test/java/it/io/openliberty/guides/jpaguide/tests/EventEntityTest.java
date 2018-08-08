@@ -27,7 +27,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import io.openliberty.guides.jpaguide.models.Event;
-public class EventAppTest {
+public class EventEntityTest {
 
     public static final String EVENTS_URL = "http://localhost:9080/events";
     public static final String DELETE_EVENTS_URL = "http://localhost:9080/events/delete/";
@@ -69,20 +69,7 @@ public class EventAppTest {
     }
 
     @Test
-    public void testCreatingDeletingNewEvent() {
-        sendForm(eventForm, EVENTS_URL);
-        JsonObject event = getTestEvent();
-        actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
-        actualDataStored.put(event.getString(JSONFIELD_LOCATION), EVENT_LOCATION);
-        actualDataStored.put(event.getString(JSONFIELD_TIME), EVENT_TIME);
-        assertData(actualDataStored);
-
-        deleteForm(DELETE_EVENTS_URL + event.getInt("id"));
-        assertNull(getTestEvent());
-    }
-
-    @Test
-    public void testUpdatingEvents() {
+    public void testCRUD() {
         sendForm(eventForm, EVENTS_URL);
         JsonObject event = getTestEvent();
         actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
