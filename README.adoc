@@ -92,8 +92,8 @@ annotation, must not be declared final and must have a public or protected non-a
 JPA uses a database table for every entity and persisted instances will be represented as one row in 
 the table.
 
-Add the JPA annotations to the `Event` class in the `src/main/java/io/openliberty/guides/jpaguide/models/Event.java`
-file:
+Add JPA annotations to the `Event` class and all of its fields in the 
+`src/main/java/io/openliberty/guides/jpaguide/models/Event.java` file:
 
 [source, Java]
 ----
