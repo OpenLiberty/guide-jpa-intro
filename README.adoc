@@ -12,7 +12,7 @@
 :page-releasedate: 2018-07-18
 :page-description: Learn how to perform CRUD operations using JPA
 :page-tags: ['JPA']
-:page-related-guides: ['rest-intro', `cdi-intro`]
+:page-related-guides: ['cdi-intro']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
@@ -33,10 +33,9 @@ You will learn how to use the Java Persistence API (JPA) to map Java objects to 
 JPA is a standard for Object Relational Mapping and eliminates the burden of having to write
 SQL code when performing database operations.
 
-The application that you will be working with is the `Event Manager`, which provides services for 
-creating, retrieving, updating and deleting `Event` objects. The application uses an Embedded Derby 
-database as a datastore for all the Event objects. If you want to learn more about Embedded Derby, 
-see the https://db.apache.org/derby/papers/DerbyTut/embedded_intro.html[official website.]
+The application that you will be working with is the event manager, which provides services for 
+creating, retrieving, updating and deleting event entities. The application uses an Embedded Derby 
+database as a datastore for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. Every entity object is managed by an `EntityManager` that will be injected into our
@@ -93,15 +92,15 @@ annotation, must not be declared final and must have a public or protected non-a
 JPA uses a database table for every entity and persisted instances will be represented as one row in 
 the table.
 
-Add the following JPA annotations to the `Event` class in the `src/main/java/io/openliberty/guides/jpaguide/models/Event.java`
-file:
+Add JPA annotations to the `Event` class and all of its fields in the 
+`src/main/java/io/openliberty/guides/jpaguide/models/Event.java` file:
 
 [source, Java]
 ----
 include::finish/src/main/java/io/openliberty/guides/jpaguide/models/Event.java[tags=!copyright;]
 ----
 
-Here is a break down of the new annotations:
+Lets break down the new annotations:
 
 [cols="35, 200", options="header"]
 |===
@@ -139,7 +138,7 @@ XML element. The `name` attribute is required and is used to identify the persis
 `transaction-type=”JTA”` element specifies to use Java Transaction API (JTA) transactions. In a Java 
 EE environment, the default is JTA if this element is not specified.
 
-The following properties are used for creating the database tables. 
+The `eclipselink.ddl-generation` properties are used for creating the database tables: 
 [source, xml, role="no_copy]
 ----
 <property name="eclipselink.ddl-generation" value="create-tables"/>
