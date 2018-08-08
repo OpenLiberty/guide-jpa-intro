@@ -34,7 +34,7 @@ SQL code when performing database operations.
 
 The application that you will be working with is the event manager, which provides services for 
 creating, retrieving, updating and deleting events. The application uses an Embedded Derby 
-database as a datastore for all the event objects. If you want to learn more about Embedded Derby, 
+database as a datastore for all the event entities. If you want to learn more about Embedded Derby, 
 see the https://db.apache.org/derby/papers/DerbyTut/embedded_intro.html[Embedded Derby Tutorial.]
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
