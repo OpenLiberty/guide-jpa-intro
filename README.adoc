@@ -16,7 +16,7 @@
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-= Accessing data using Java Persistence API
+= Performing CRUD operations using Java Persistence API
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, 
@@ -133,37 +133,24 @@ Create the `src/main/resources/META-INF/persistence.xml` file:
 include::finish/src/main/resources/META-INF/persistence.xml[tags=**;]
 ----
 
-The persistence unit is defined by the `<persistence-unit name="jpa-unit" transaction-type="JTA"></persistence-unit>` 
-XML element. The `name` attribute is required and is used to identify the persistent unit. The 
-`transaction-type=”JTA”` element specifies to use Java Transaction API (JTA) transactions. In a Java 
-EE environment, the default is JTA if this element is not specified.
+The persistence unit is defined by the `<persistence-unit />` XML element. The `name` attribute is 
+required and is used to identify the persistent unit. The `transaction-type=”JTA”` element specifies 
+to use Java Transaction API (JTA) transactions. In a Java EE environment, the default is JTA if this 
+element is not specified.
 
-The `eclipselink.ddl-generation` properties are used for creating the database tables: 
-[source, xml, role="no_copy]
-----
-<property name="eclipselink.ddl-generation" value="create-tables"/>
-<property name="eclipselink.ddl-generation.output-mode" value="both" />
-----
-They are used here to avoid having to manually create a database table to run this sample application. 
-To learn more about the `ddl-generation` properties, see the http://www.eclipse.org/eclipselink/documentation/2.4/jpa/extensions/p_ddl_generation.htm[
-Java Persistence API (JPA) Extensions Reference for EclipseLink.]
+The `eclipselink.ddl-generation` properties are used here to avoid having to manually create a database 
+table to run this sample application. To learn more about the `ddl-generation` properties, see the 
+http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.]
 
 The `eclipselink.logging.level` properties are used to specify the EclipseLink logging levels 
-that are displayed in the WAS server log.
-
-[source, xml, role="no_copy]
-----
-<property name="eclipselink.logging.level" value="ALL"/>
-<property name="eclipselink.logging.level.sql" value="FINE"/>
-----
-To learn more, see the http://www.eclipse.org/eclipselink/documentation/2.4/jpa/extensions/p_logging_level.htm[
-Java Persistence API (JPA) Extensions Reference for EclipseLink.]
+that are displayed in the WAS server log. To learn more, see the http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_logging_level.htm[
+JPA Extensions Reference for EclipseLink.]
 
 A JTA transaction type requires a data source to be provided. This is done through the 
-`<jta-data-source>jdbc/samplejpadatasource</jta-data-source>` element which specifies the Java Naming 
-and Directory Interface (JNDI) name of the data source that is to be used by the EJB container. 
-This means that a Java Database Connectivity (JDBC) connection does not have to be specified in the 
-`persistence.xml` file and instead the data source can be preconfigured in the `server.xml`.
+`eventjpadatasource` element which specifies the Java Naming and Directory Interface (JNDI) name of 
+the data source that is to be used by the EJB container. This means that a Java Database Connectivity 
+(JDBC) connection does not have to be specified in the `persistence.xml` file and instead the data 
+source can be preconfigured in the `server.xml`.
 
 Configure the data source in the `src/main/liberty/config/server.xml` file:
 
@@ -172,12 +159,11 @@ Configure the data source in the `src/main/liberty/config/server.xml` file:
 include::finish/src/main/liberty/config/server.xml[tags=**;]
 ----
 
-The `<library id="derbyJDBCLib"></library>` element is a shared library that points to the directory
-of the JDBC driver. The JDBC driver is what enables the application to interact with the database.
+The `derbyJDBCLib` element is a shared library that points to the directory of the JDBC driver. The 
+JDBC driver is what enables the application to interact with the database.
 
-The data source configuration is done within the `<dataSource id="samplejpadatasource jndiName="jdbc/samplejpadatasource"></dataSource>`
-element. The `<properties.derby.embedded databaseName="JPAGuide" createDatabase="create"/>` attribute
-within the data source configuration contains embedded derby properties such as the database name 
+The data source configuration is done within the `<dataSource />` element. The `<properties.derby.embedded />` 
+attribute within the data source configuration contains embedded derby properties such as the database name 
 and whether to create the database if it does not already exist.
 
 // =================================================================================================
@@ -189,7 +175,8 @@ and whether to create the database if it does not already exist.
 CRUD is an abbreviation that defines the four basic functionalities that can be performed on a 
 database: create, read, update and delete.
 
-Create the `src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java` file:
+To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java` 
+file:
 
 [source, Java]
 ----
@@ -248,23 +235,19 @@ include::{common-includes}/mvncompile.adoc[]
 
 == Testing the application
 
-Create the `EventAppTest` test class in the `finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventAppTest.java` 
+Create the `EventEntityTest` test class in the `finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventEntityTest.java` 
 file:
 
 [source, Java]
 ----
-include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventAppTest.java[tags=!copyright;]
+include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventEntityTest.java[tags=!copyright;]
 ----
 
-The `testCreatingDeletingNewEvent` method creates a test `Event` object and persists it to the database. 
-All the `Event` objects are then retrieved from the database to verify that the test event was actually 
-persisted. Next, the test event is removed from the database and all `Event` objects are retrieved 
-to verify the test event is no longer stored. 
-
-The `testUpdatingEvents` method also creates a test event and verifies that it is stored in the database.
-Next, the test event's name, location and time is updated. All `Event` objects are retrieved from the 
-database to verify that the updated event is stored. Finally, the updated test event is deleted and 
-one final check is done to ensure the updated test event is no longer stored in the database.
+The `testCRUD` method creates a test event and persists it to the database. The event object is then 
+retrieved from the database to verify that the test event was actually persisted. Next, the test event's 
+name, location and time is updated. The event object is retrieved from the database to verify that 
+the updated event is stored. Finally, the updated test event is deleted and one final check is done 
+to ensure the updated test event is no longer stored in the database.
 
 // Include this for info on how to run the tests
 include::{common-includes}/mvnverify.adoc[]
@@ -274,12 +257,12 @@ include::{common-includes}/mvnverify.adoc[]
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
-Running it.io.openliberty.guides.jpaguide.tests.EventAppTest
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.9 sec - in it.io.openliberty.guides.jpaguide.tests.EventAppTest
+Running it.io.openliberty.guides.jpaguide.tests.EventEntityTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.9 sec - in it.io.openliberty.guides.jpaguide.tests.EventEntityTest
 
 Results :
 
-Tests run: 2, Failures: 0, Errors: 0, Skipped: 0
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 ----
 
 // =================================================================================================

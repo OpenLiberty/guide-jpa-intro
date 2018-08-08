@@ -3,7 +3,7 @@
     xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
     <persistence-unit name="jpa-unit" transaction-type="JTA">
-        <jta-data-source>jdbc/samplejpadatasource</jta-data-source>
+        <jta-data-source>jdbc/eventjpadatasource</jta-data-source>
         <class>io.openliberty.guides.jpaguide.models.Event</class>
         <properties>
             <property name="eclipselink.ddl-generation" value="create-tables"/>
