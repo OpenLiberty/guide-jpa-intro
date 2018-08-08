@@ -98,7 +98,7 @@ file:
 
 [source, Java]
 ----
-include::finish/src/main/java/io/openliberty/guides/jpaguide/models/Event.java[tags=**;]
+include::finish/src/main/java/io/openliberty/guides/jpaguide/models/Event.java[tags=!copyright;]
 ----
 
 Here is a break down of the new annotations:
@@ -194,7 +194,7 @@ Create the `src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java` file
 
 [source, Java]
 ----
-include::finish/src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java[tags=**;]
+include::finish/src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java[tags=!copyright;]
 ----
 
 In order to use the `EntityManager` at runtime, it must be injected into our EJB component through the
@@ -254,7 +254,7 @@ file:
 
 [source, Java]
 ----
-include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventAppTest.java[tags=**;]
+include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventAppTest.java[tags=!copyright;]
 ----
 
 The `testCreatingDeletingNewEvent` method creates a test `Event` object and persists it to the database. 
