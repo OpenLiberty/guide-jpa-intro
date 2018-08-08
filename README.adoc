@@ -12,6 +12,7 @@
 :page-releasedate: 2018-07-18
 :page-description: Learn how to perform CRUD operations using JPA
 :page-tags: ['JPA']
+:page-related-guides: ['cdi-intro']
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
