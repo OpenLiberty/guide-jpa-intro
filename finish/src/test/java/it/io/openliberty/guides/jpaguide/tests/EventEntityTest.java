@@ -92,6 +92,8 @@ public class EventEntityTest {
 
         deleteForm(DELETE_EVENTS_URL + event.getInt("id"));
         assertNull(getTestEvent());
+
+        assertTrue(false);
     }
 
     private void sendForm(HashMap<String, String> formDataMap, String url) {
