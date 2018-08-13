@@ -196,10 +196,11 @@ The `EventDao.java` class has a method for each CRUD operation, so let's break t
 calling the `persist()` method on an `EntityManager` instance. The argument passed into the `persist()`
 method must be an instance of an entity class, otherwise an `IllegalArgumentException` will be thrown.  
 
-* The `readEvent()` method will return an instance of the `Event` entity class with the specified 
-primary key by calling the `find()` method on an `EntityManager` instance. The find method accepts
-both the entity class and the primary key as arguments. If the `Event` instance is not found, `Null` 
-will be returned.
+* The `readEvent()` and `readAllEvents()` methods both return instances of the `Event` entity class from
+the datastore. The `readEvent()` method returns a single instance with the specified primary key by
+calling the `find()` method on an `EntityManager` instance. The `find()` method accepts both the entity
+class and the primary key as arguments.  The `readAllEvents()` method will return a list of event 
+entities using the `Event.findAll` query specified in the `@NamedQuery` annotation on the `Event` class. 
 
 * The `updateEvent()` method updates an instance of the `Event` entity class in the database. The 
 `EntityManager` automatically tracks entity objects in the persistence context for changes and synchronizes
