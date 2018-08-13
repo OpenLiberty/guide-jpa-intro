@@ -198,7 +198,7 @@ method must be an instance of an entity class, otherwise an `IllegalArgumentExce
 
 * The `readEvent()` method will return an instance of the `Event` entity class with the specified primary 
 key by calling the `find()` method on an `EntityManager` instance. The `find()` method accepts both the entity 
-class and the primary key as arguments. If the event instance is not found, Null will be returned. Similarily,
+class and the primary key as arguments. If the event instance is not found, `Null` will be returned. Similarily,
 the `readAllEvents()` method returns a list of instances of the `Event` entity class using a query
 specified in the `@NamedQuery` annotation on the `Event` class. 
 
