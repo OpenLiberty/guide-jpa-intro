@@ -25,13 +25,10 @@ import javax.ws.rs.core.Response;
 import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import io.openliberty.guides.jpaguide.models.Event;
 public class EventEntityTest {
-
-    public static final String EVENTS_URL = "http://localhost:9080/events";
-    public static final String DELETE_EVENTS_URL = "http://localhost:9080/events/delete/";
-    public static final String UPDATE_EVENTS_URL = "http://localhost:9080/events/update/";
 
     public static final String JSONFIELD_LOCATION = "location";
     public static final String JSONFIELD_NAME = "name";
@@ -44,6 +41,13 @@ public class EventEntityTest {
     public static final String UPDATE_EVENT_LOCATION = "IBM Updated";
     public static final String UPDATE_EVENT_NAME = "JPA Guide Updated";
 
+    private static String baseUrl;
+    private static String port;
+
+    private final String EVENTS = "events";
+    private final String DELETE_EVENTS = "events/delete/";
+    private final String UPDATE_EVENTS = "events/update/";
+
     private Form form;
     private Client client;
     private WebTarget webTarget;
@@ -51,6 +55,12 @@ public class EventEntityTest {
     private HashMap<String, String> eventForm;
     private HashMap<String, String> actualDataStored;
     private Event e;
+
+    @BeforeClass
+    public static void oneTimeSetup(){
+        port = System.getProperty("liberty.test.port");
+        baseUrl = "http://localhost:" + port + "/";
+    }
 
     @Before
     public void setup() {
@@ -70,7 +80,7 @@ public class EventEntityTest {
 
     @Test
     public void testCRUD() {
-        sendForm(eventForm, EVENTS_URL);
+        sendForm(eventForm, baseUrl + EVENTS);
         JsonObject event = getTestEvent();
         actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
         actualDataStored.put(event.getString(JSONFIELD_LOCATION), EVENT_LOCATION);
@@ -81,7 +91,7 @@ public class EventEntityTest {
         eventForm.put(JSONFIELD_LOCATION, UPDATE_EVENT_LOCATION);
         eventForm.put(JSONFIELD_TIME, UPDATE_EVENT_TIME);
         eventForm.put(JSONFIELD_ID, String.valueOf(event.getInt("id")));
-        sendForm(eventForm, UPDATE_EVENTS_URL);
+        sendForm(eventForm, baseUrl + UPDATE_EVENTS);
 
         e = new Event(UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
         event = getTestEvent();
@@ -90,7 +100,7 @@ public class EventEntityTest {
         actualDataStored.put(event.getString(JSONFIELD_TIME), UPDATE_EVENT_TIME);
         assertData(actualDataStored);
 
-        deleteForm(DELETE_EVENTS_URL + event.getInt("id"));
+        deleteForm(baseUrl + DELETE_EVENTS + event.getInt("id"));
         assertNull(getTestEvent());
     }
 
@@ -110,7 +120,7 @@ public class EventEntityTest {
     }
 
     private JsonObject getTestEvent(){
-        webTarget = client.target(EVENTS_URL);
+        webTarget = client.target(baseUrl + EVENTS);
         response = webTarget.request().get();
         JsonArray eventsArray = response.readEntity(JsonArray.class);
         JsonObject event = findTestEvent(eventsArray);
