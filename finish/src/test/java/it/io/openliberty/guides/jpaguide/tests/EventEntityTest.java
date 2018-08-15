@@ -44,9 +44,9 @@ public class EventEntityTest {
     private static String baseUrl;
     private static String port;
 
-    private final String EVENTS = "events";
-    private final String DELETE_EVENTS = "events/delete/";
-    private final String UPDATE_EVENTS = "events/update/";
+    private static final String EVENTS = "events";
+    private static final String DELETE_EVENTS = "events/delete/";
+    private static final String UPDATE_EVENTS = "events/update/";
 
     private Form form;
     private Client client;
