@@ -22,6 +22,18 @@
         <version.exec-maven-plugin>1.6.0</version.exec-maven-plugin>
     </properties>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.openliberty.features</groupId>
+                <artifactId>features-bom</artifactId>
+                <version>RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>junit</groupId>
@@ -47,72 +59,50 @@
             <version>1.0.4</version>
             <scope>test</scope>
         </dependency>
+
         <dependency>
-            <groupId>javax.ws.rs</groupId>
-            <artifactId>javax.ws.rs-api</artifactId>
-            <version>2.0.1</version>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>jaxrs-2.1</artifactId>
+            <type>esa</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.ibm.websphere.appserver.api</groupId>
-            <artifactId>com.ibm.websphere.appserver.api.jaxrs20</artifactId>
-            <version>1.0.10</version>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>jsonp-1.1</artifactId>
+            <type>esa</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.json</groupId>
-            <artifactId>javax.json-api</artifactId>
-            <version>1.0</version>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>cdi-2.0</artifactId>
+            <type>esa</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.ibm.websphere.appserver.api</groupId>
-            <artifactId>com.ibm.websphere.appserver.api.json</artifactId>
-            <version>1.0.10</version>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>jsf-2.3</artifactId>
+            <type>esa</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.enterprise</groupId>
-            <artifactId>cdi-api</artifactId>
-            <version>1.2</version>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>jpa-2.2</artifactId>
+            <type>esa</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>javax.inject</groupId>
-            <artifactId>javax.inject</artifactId>
-            <version>1</version>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>localConnector-1.0</artifactId>
+            <type>esa</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.fasterxml.jackson.core</groupId>
-            <artifactId>jackson-databind</artifactId>
-            <version>2.6.3</version>
-        </dependency>
-        <dependency>
-            <groupId>javax.faces</groupId>
-            <artifactId>javax.faces-api</artifactId>
-            <version>2.2</version>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>ejb-3.2</artifactId>
+            <type>esa</type>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- JPA -->
-        <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>javax.persistence-api</artifactId>
-            <version>2.2</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>javax.ejb</groupId>
-            <artifactId>javax.ejb-api</artifactId>
-            <version>3.2</version>
-            <scope>provided</scope>
-        </dependency>
+     
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
