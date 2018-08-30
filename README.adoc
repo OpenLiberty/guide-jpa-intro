@@ -22,7 +22,7 @@
 NOTE: This repository contains the guide documentation source. To view the guide in published form, 
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Learn how to map Java Objects to database tables and perform CRUD operations using JPA
+Learn how to map Java objects to database tables and perform CRUD operations using JPA
 
 :eventapp-url: http://localhost:9080/eventmanager.jsf
 :get-events-url: http://localhost:9080/events
@@ -30,18 +30,20 @@ Learn how to map Java Objects to database tables and perform CRUD operations usi
 == What you'll learn
 
 You will learn how to use the Java Persistence API (JPA) to map Java objects to database tables.
-JPA is a standard for Object Relational Mapping and eliminates the burden of having to write
+JPA is a standard for object relational mapping (ORM) and eliminates the burden of having to write
 SQL code when performing database operations.
 
 The application that you will be working with is the event manager, which provides services for 
-creating, retrieving, updating and deleting event entities. The application uses an Embedded Derby 
+creating, retrieving, updating, and deleting event entities. The application uses an Embedded Derby 
 database as a datastore for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
-database. Every entity object is managed by an `EntityManager` that will be injected into our
-Enterprise Java Bean (EJB). In this guide, you will learn how to use a container-managed 
-`EntityManager` so you will not need to explicity begin, commit or rollback database transactions,
-the EJB container will manage the transaction boundaries for you.
+database. Every entity object is managed by an entity manager that will be injected into the
+Enterprise Java Bean (EJB). In this guide, you will learn how to use a container-managed entity manager
+which means the EJB container is responsible for opening and closing the entity manager, as well
+as managing the transaction boundaries so that you do not need to explicitly begin, commit, or rollback
+database transactions. 
+
 
 // =================================================================================================
 // Getting Started
@@ -92,15 +94,14 @@ annotation, must not be declared final and must have a public or protected non-a
 JPA uses a database table for every entity and persisted instances will be represented as one row in 
 the table.
 
-Add JPA annotations to the `Event` class and all of its fields in the 
-`src/main/java/io/openliberty/guides/jpaguide/models/Event.java` file:
+Create the `Event` class in the `src/main/java/io/openliberty/guides/jpaguide/models/Event.java` file:
 
 [source, Java]
 ----
 include::finish/src/main/java/io/openliberty/guides/jpaguide/models/Event.java[tags=!copyright;]
 ----
 
-Lets break down the new annotations:
+Let's break down the new annotations that are used in this JPA entity class:
 
 [cols="35, 200", options="header"]
 |===
@@ -109,7 +110,7 @@ Lets break down the new annotations:
 | `@Table`  | Specifies details of the table such as name 
 | `@NamedQuery` | Specfies a database query using a static name
 | `@Id`       |   Primary key of the entity
-| `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key, 
+| `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key. 
                         `strategy = GenerationType.AUTO` indicates that the persistence provider 
                         will pick a strategy depending on the database used
 | `@Column`    | Specifies that the field is mapped to a column in the database table, `name` is 
@@ -117,14 +118,14 @@ Lets break down the new annotations:
 |===
 
 // =================================================================================================
-// Configuring the `EntityManager`
+// Configuring the entity manager 
 // =================================================================================================
 
-== Configuring the `EntityManager`
+== Configuring the entity manager
 
-An `EntityManager` instance provides the functionality for performing operations on the database 
-such as persisting, loading, updating and deleting entities. The configuration of the `EntityManager`
-instance is defined by a persistence unit specified in the `persistence.xml` file.
+An entity manager provides the functionality for performing operations on the database 
+such as persisting, loading, updating, and deleting entities. The configuration of the entity manager
+is defined by a persistence unit specified in the `persistence.xml` file.
 
 Create the `src/main/resources/META-INF/persistence.xml` file:
 
@@ -143,16 +144,15 @@ table to run this sample application. To learn more about the `ddl-generation` p
 http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.]
 
 The `eclipselink.logging.level` properties are used to specify the EclipseLink logging levels 
-that are displayed in the WAS server log. To learn more, see the http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_logging_level.htm[
+that are displayed in the `target/liberty/wlp/usr/servers/defaultServer/logs/messages.log` file. To learn more, see the http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_logging_level.htm[
 JPA Extensions Reference for EclipseLink.]
 
 A JTA transaction type requires a data source to be provided. This is done through the 
 `eventjpadatasource` element which specifies the Java Naming and Directory Interface (JNDI) name of 
-the data source that is to be used by the EJB container. This means that a Java Database Connectivity 
-(JDBC) connection does not have to be specified in the `persistence.xml` file and instead the data 
-source can be preconfigured in the `server.xml`.
+the data source that is to be used by the EJB container.
 
-Configure the data source in the `src/main/liberty/config/server.xml` file:
+The Java Database Connectivity (JDBC) connection is specified in the data source which is configured
+in the `server.xml` file. Create the `src/main/liberty/config/server.xml` file:
 
 [source, Xml]
 ----
@@ -173,7 +173,7 @@ and whether to create the database if it does not already exist.
 == Performing CRUD operations using JPA
 
 CRUD is an abbreviation that defines the four basic functionalities that can be performed on a 
-database: create, read, update and delete.
+database: create, read, update, and delete.
 
 To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java` 
 file:
@@ -183,10 +183,10 @@ file:
 include::finish/src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java[tags=!copyright;]
 ----
 
-In order to use the `EntityManager` at runtime, it must be injected into our EJB component through the
-`@PersistenceContext` annotation. Since the `EntityManager` is container-managed, the EJB container
+In order to use the entity manager at runtime, it must be injected into our EJB component through the
+`@PersistenceContext` annotation. Since the entity manager is container-managed, the EJB container
 will ensure that the methods are executed within an active transaction which is why it is not necessary
-to explicitly begin, commit or rollback transactions. At the end of an EJB oeration, the persistence 
+to explicitly begin, commit, or rollback transactions. At the end of an EJB operation, the persistence 
 context will be notified that the transaction is committing and the persistence provider, EclipseLink,
 will flush the changes to the database.
 
@@ -221,7 +221,7 @@ include::{common-includes}/mvnbuild.adoc[]
 When the server is running, visit the {eventapp-url} URL to view the Event Manager application. 
 
 Using the `Create event` button in the left navigation bar you are able to create events that will 
-be persisted to the database. Once you have created an event, it will be available to view, update 
+be persisted to the database. Once you have created an event, it will be available to view, update, 
 and delete in the `Event list` section.
 
 // Use the following include to pull in the Liberty start/stop server instructions from the
@@ -246,7 +246,7 @@ include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventEntit
 
 The `testCRUD` method creates a test event and persists it to the database. The event object is then 
 retrieved from the database to verify that the test event was actually persisted. Next, the test event's 
-name, location and time is updated. The event object is retrieved from the database to verify that 
+name, location, and time is updated. The event object is retrieved from the database to verify that 
 the updated event is stored. Finally, the updated test event is deleted and one final check is done 
 to ensure the updated test event is no longer stored in the database.
 
@@ -275,7 +275,7 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 You have learned how to map Java objects to database tables by defining a JPA entity class whose 
 instances are represented as rows in the table.
 
-You have have learned how to configure an `EntityManager` and use container-managed transactions
+You have have learned how to configure an entity manager and use container-managed transactions
 to perform basic CRUD operations on a database using JPA. 
 
 include::{common-includes}/finish.adoc[]
