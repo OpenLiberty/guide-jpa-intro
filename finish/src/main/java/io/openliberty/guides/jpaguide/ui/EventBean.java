@@ -15,9 +15,10 @@ package io.openliberty.guides.jpaguide.ui;
 import java.util.Map;
 import java.util.List;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.faces.view.ViewScoped;
+import javax.faces.annotation.ManagedProperty;
 
 import io.openliberty.guides.jpaguide.dao.EventDao;
 import io.openliberty.guides.jpaguide.facelets.PageDispatcher;
@@ -33,13 +34,17 @@ import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
+
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-@ManagedBean
+@Named
 @ViewScoped
-public class EventBean {
+public class EventBean implements Serializable{
+
+    private static final long serialVersionUID = 1L;
 
     private String name;
     private String location;
@@ -50,8 +55,9 @@ public class EventBean {
     private int selectedId;
     private boolean notValidTime;
 
+    @Inject
     @ManagedProperty(value = "#{pageDispatcher}")
-    public PageDispatcher pageDispatcher;
+    private PageDispatcher pageDispatcher;
 
     @EJB private EventDao eventDAO;
 

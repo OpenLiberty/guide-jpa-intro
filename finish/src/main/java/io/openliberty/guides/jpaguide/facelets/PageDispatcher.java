@@ -12,16 +12,23 @@
 // end::copyright[]
 package io.openliberty.guides.jpaguide.facelets;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-@ManagedBean
+import java.io.Serializable;
+
+import javax.enterprise.context.SessionScoped;
+import javax.faces.annotation.ManagedProperty;
+
+@Named
 @SessionScoped
-public class PageDispatcher {
+public class PageDispatcher implements Serializable{
 
+    private static final long serialVersionUID = 1L;
+
+    @Inject
     @ManagedProperty(value = "#{pageLoader}")
-    public PageLoader pageLoader;
+    private PageLoader pageLoader;
 
     String currentRole = null;
 
