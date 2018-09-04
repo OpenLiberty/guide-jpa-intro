@@ -35,6 +35,7 @@
     </dependencyManagement>
 
     <dependencies>
+        <!-- For tests -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -59,7 +60,7 @@
             <version>1.0.4</version>
             <scope>test</scope>
         </dependency>
-
+        <!--Open Liberty features -->
         <dependency>
             <groupId>io.openliberty.features</groupId>
             <artifactId>jaxrs-2.1</artifactId>
@@ -102,7 +103,7 @@
             <type>esa</type>
             <scope>provided</scope>
         </dependency>
-     
+        <!--For JDK 9 & 10 support -->   
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
@@ -128,7 +129,6 @@
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>10.14.2.0</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
