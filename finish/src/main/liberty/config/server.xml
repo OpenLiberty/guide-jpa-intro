@@ -10,24 +10,24 @@
     <feature>ejb-3.2</feature>
   </featureManager>
 
-    <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
-      id="defaultHttpEndpoint" host="*" />
+  <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
+    id="defaultHttpEndpoint" host="*" />
 
-    <application location="io.openliberty.guides.jpaguide.war" type="war"
-      id="io.openliberty.guides.jpaguide" name="io.openliberty.guides.jpaguide"
-      context-root="/">
-    </application>
+  <application location="io.openliberty.guides.jpaguide.war" type="war"
+    id="io.openliberty.guides.jpaguide" name="io.openliberty.guides.jpaguide"
+    context-root="/">
+  </application>
 
-    <!-- Derby Library Configuration -->    
-    <library id="derbyJDBCLib">
-        <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
-    </library>
+  <!-- Derby Library Configuration -->    
+  <library id="derbyJDBCLib">
+      <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
+  </library>
 
-    <!-- Datasource Configuration -->
-    <dataSource id="eventjpadatasource"
-                jndiName="jdbc/eventjpadatasource">
-        <jdbcDriver libraryRef="derbyJDBCLib" />
-        <properties.derby.embedded databaseName="EventDB" createDatabase="create"/>
-    </dataSource>
+  <!-- Datasource Configuration -->
+  <dataSource id="eventjpadatasource"
+              jndiName="jdbc/eventjpadatasource">
+      <jdbcDriver libraryRef="derbyJDBCLib" />
+      <properties.derby.embedded databaseName="EventDB" createDatabase="create"/>
+  </dataSource>
     
 </server>

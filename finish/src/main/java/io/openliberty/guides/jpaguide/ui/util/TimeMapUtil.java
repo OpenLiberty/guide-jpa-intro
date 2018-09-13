@@ -12,6 +12,7 @@
 // end::copyright[]
 package io.openliberty.guides.jpaguide.ui.util;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;
 import java.text.ParseException;
@@ -21,16 +22,19 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
+import javax.enterprise.context.ApplicationScoped;
 
 /**
  * The TimeMap is use to generate the time fields (day, month, year and hour)
  * for an event form.
  */
-@ManagedBean
+@Named
 @ApplicationScoped
-public class TimeMapUtil {
+public class TimeMapUtil implements Serializable {
+
+    private static final long serialVersionUID = 1L;
+    
     private static Map<String, Object> days;
     private static Map<String, Object> months;
     private static Map<String, Object> years;
