@@ -16,7 +16,7 @@
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-= Performing CRUD operations using Java Persistence API
+= Accessing and persisting data using JPA
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, 
@@ -29,20 +29,28 @@ Learn how to map Java objects to database tables and perform CRUD operations usi
 
 == What you'll learn
 
-You will learn how to use the Java Persistence API (JPA) to map Java objects to database tables.
-JPA is a standard for object relational mapping (ORM) and eliminates the burden of having to write
-SQL code when performing database operations.
+You will learn how to use the Java Persistence API (JPA) to map Java objects to database tables
+and perform basic CRUD operations.
+
+JPA is a Java specification for persisting Java objects to a relational database. The JPA specification
+is implemented by several different persistence providers. In this guide you will use EclipseLink as
+the persistence provider.
+
+JPA simplifies object relational mapping (ORM) by using annotations or XML to map Java objects 
+to tables in a relational database. In addition to providing an efficient API for performing
+CRUD operations, JPA also reduces the burden of having to write SQL code when performing database
+operations. This allows you to focus on the business logic of your application instead of wasting
+time implementing repetitive CRUD logic.
 
 The application that you will be working with is the event manager, which provides services for 
 creating, retrieving, updating, and deleting event entities. The application uses an Embedded Derby 
 database as a datastore for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
-database. Every entity object is managed by an entity manager that will be injected into the
-Enterprise Java Bean (EJB). In this guide, you will learn how to use a container-managed entity manager
-which means the EJB container is responsible for opening and closing the entity manager, as well
-as managing the transaction boundaries so that you do not need to explicitly begin, commit, or rollback
-database transactions. 
+database. Every entity object is managed by an entity manager that is either application-managed
+or container-managed. In this guide, you will use a container-managed entity manager which means
+the Java Enterprise Edition (Java EE) container will inject the entity manager and the container will
+be responsible for the entity managers creation and removal.
 
 
 // =================================================================================================
@@ -108,8 +116,9 @@ Let's break down the new annotations that are used in this JPA entity class:
 | *Annotation*    | *Description*
 | `@Entity` | Declares the class as an entity
 | `@Table`  | Specifies details of the table such as name 
-| `@NamedQuery` | Specfies a database query using a static name
-| `@Id`       |   Primary key of the entity
+| `@NamedQuery` | Specfies a predefined database query that can be executed by the entity manager
+                    at runtime
+| `@Id`       |   The primary key of the entity
 | `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key. 
                         `strategy = GenerationType.AUTO` indicates that the persistence provider 
                         will pick a strategy depending on the database used
@@ -136,8 +145,8 @@ include::finish/src/main/resources/META-INF/persistence.xml[tags=**;]
 
 The persistence unit is defined by the `<persistence-unit />` XML element. The `name` attribute is 
 required and is used to identify the persistent unit. The `transaction-type=”JTA”` element specifies 
-to use Java Transaction API (JTA) transactions. In a Java EE environment, the default is JTA if this 
-element is not specified.
+to use Java Transaction API (JTA) to manage the entity managers transactions. Since we are using 
+a container-managed entity manager, it is required that JTA transactions are used.
 
 The `eclipselink.ddl-generation` properties are used here to avoid having to manually create a database 
 table to run this sample application. To learn more about the `ddl-generation` properties, see the 
