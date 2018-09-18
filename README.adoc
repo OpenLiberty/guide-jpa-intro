@@ -16,7 +16,7 @@
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-= Persisting and accessing data using JPA
+= Persisting and accessing data using Java Persistence API (JPA)
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, 
@@ -32,11 +32,11 @@ Learn how to map Java objects to database tables and perform CRUD operations usi
 You will learn how to use the Java Persistence API (JPA) to map Java objects to database tables and
 perform create, read, update and delete (CRUD) operations. 
 
-JPA is a Java specification for persisting Java objects to a relational database. The JPA specification
-is implemented by several different persistence providers. In this guide you will use EclipseLink as
-the persistence provider.
+JPA is a Java specification for representing RDBMS table data as Plain Old Java Objects (POJO). The 
+JPA specification is implemented by several different persistence providers. In this guide you will 
+use EclipseLink as the persistence provider because it is the implementation that is shipped with Liberty.
 
-JPA simplifies object relational mapping (ORM) by using annotations or XML to map Java objects 
+JPA simplifies object relational mapping (ORM) by using annotations and/or XML to map Java objects 
 to tables in a relational database. In addition to providing an efficient API for performing
 CRUD operations, JPA also reduces the burden of having to write JDBC and SQL code when performing
 database operations. This allows you to focus on the business logic of your application instead of 
@@ -153,8 +153,8 @@ include::finish/src/main/resources/META-INF/persistence.xml[tags=**;]
 
 The persistence unit is defined by the `<persistence-unit />` XML element. The `name` attribute is 
 required and is used to identify the persistent unit. The `transaction-type=”JTA”` element specifies 
-to use Java Transaction API (JTA) to manage the EntityManager's transactions. Since we are using
-a container-managed EntityManager, it is required that JTA transactions are used. 
+that the persistence context will enlist with Java Transaction API (JTA) global transactions. Since 
+we are using a container-managed EntityManager, it is required that JTA transactions are used. 
 
 The `eclipselink.ddl-generation` properties are used here to avoid having to manually create a database 
 table to run this sample application. To learn more about the `ddl-generation` properties, see the 
@@ -192,10 +192,11 @@ and whether to create the database if it does not already exist.
 Every entity object has a lifecycle that consists of four states: new, managed, detached and removed. 
 Whenever a new Event object is created its state will be new, meaning that it is not mapped to a row in 
 the database table and is not associated with an EntityManger. Managed entities are entities that have 
-been persisted and are managed by the EntityManager. This means that they are actively tracked by the 
-persistence context. Detached entities are no longer managed by an EntityManager, but still exist in the 
-database. When using a container-managed EntityManager, entities automatically become detached at the end 
-of transaction boundaries. Lastly, removed entities are ones that have been removed from the database. 
+been persisted, or fetched by `find()` or a query, and are managed by the EntityManager. This means that 
+they are actively tracked by the persistence context. Detached entities are no longer managed by a 
+persistence context. When using a container-managed EntityManager, entities automatically become 
+detached at the end of transaction boundaries. Lastly, removed entities are ones that have been removed 
+from the database. 
 
 To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java` 
 file:
@@ -220,21 +221,18 @@ calling the `persist()` method on an EntityManager instance. The event objects s
 changed from new to managed and changes to it are now tracked by the EntityManager. 
 
 * The `readEvent()` method will return an instance of the `Event` entity class with the specified primary 
-key by calling the `find()` method on an `EntityManager` instance. The `find()` method accepts both the entity 
-class and the primary key as arguments. If the state of the entity being searched for is managed, the event 
-object will be returned as is and no retrieval from the database is required. But, if it is not already managed,
-a new entity object will be constructed with data retrieved from the database and returned in a managed state.
-If the event instance is not found, `Null` will be returned.
+key by calling the `find()` method on an `EntityManager` instance. If the event instance is found, it will
+be returned in a managed state, but, if the event instance is not found, `Null` will be returned.
 
 * The `readAllEvents()` method demonstrates an alternate way to retrieve event objects from the database.
 This method returns a list of instances of the `Event` entity class using a query specified in the `@NamedQuery` 
-annotation on the `Event` class. 
+annotation on the `Event` class. The event instances will be returned in a managed state. 
 
 * The `updateEvent() method creates a managed instance of a detached entity object. The EntityManager 
 automatically tracks all managed entity objects in its persistence context for changes and
 synchronizes them with the database. But, if an entity becomes detached, you must merge that entity
-into the persistence context by calling the `merge()` method on an `EntityManager` instance in order for its 
-changes to be tracked.
+into the persistence context by calling the `merge()` method on an `EntityManager` instance in order
+for changes to the detached entity's laoded fields to be tracked.
 
 * The `deleteEvent()` method removes an instance of the `Event` entity class from the database by 
 calling the `remove()` method on an `EntityManager` instance. The managed entity gets removed from
