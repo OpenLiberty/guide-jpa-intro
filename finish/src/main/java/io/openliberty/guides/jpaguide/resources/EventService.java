@@ -12,7 +12,6 @@
 // end::copyright[]
 package io.openliberty.guides.jpaguide.resources;
 
-import javax.enterprise.context.RequestScoped;
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
@@ -27,16 +26,17 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 
 import io.openliberty.guides.jpaguide.dao.EventDao;
 import io.openliberty.guides.jpaguide.models.Event;
-import javax.ejb.EJB;
 
 @RequestScoped
 @Path("events")
 public class EventService {
 
-    @EJB private EventDao eventDAO;
+    @Inject private EventDao eventDAO;
 
     /**
      * This method creates a new event from the submitted data (name, time and
@@ -48,11 +48,11 @@ public class EventService {
     public void addNewEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
 
-        for(Event event : this.eventDAO.readAllEvents())
+        for(Event event : eventDAO.readAllEvents())
             if(event.equals(newEvent))
                 return;
 
-        this.eventDAO.createEvent(newEvent);        
+        eventDAO.createEvent(newEvent);        
     }
 
     /**
@@ -64,9 +64,9 @@ public class EventService {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
     public void updateEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location, @FormParam("id") String id) {
-        Event prevEvent = this.eventDAO.readEvent(Integer.parseInt(id));
+        Event prevEvent = eventDAO.readEvent(Integer.parseInt(id));
 
-        for(Event event : this.eventDAO.readAllEvents())
+        for(Event event : eventDAO.readAllEvents())
             if(event.equals(new Event(name, location, time)))
                 return;
 
@@ -74,7 +74,7 @@ public class EventService {
         prevEvent.setLocation(location);
         prevEvent.setTime(time);
                
-        this.eventDAO.updateEvent(prevEvent);        
+        eventDAO.updateEvent(prevEvent);        
     }
 
     /**
@@ -84,7 +84,7 @@ public class EventService {
     @Path("/delete/{id}")
     @Transactional
     public void deleteEvent(@PathParam("id") int id) {
-        this.eventDAO.deleteEvent(this.eventDAO.readEvent(id));
+        eventDAO.deleteEvent(eventDAO.readEvent(id));
     }
 
     /**
@@ -95,7 +95,7 @@ public class EventService {
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Event getEvent(@PathParam("id") int eventId) {
-        return this.eventDAO.readEvent(eventId);
+        return eventDAO.readEvent(eventId);
     }
 
     /**
@@ -107,7 +107,7 @@ public class EventService {
     public JsonArray getEvents() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         JsonArrayBuilder finalArray = Json.createArrayBuilder();
-        for (Event event : this.eventDAO.readAllEvents()) {
+        for (Event event : eventDAO.readAllEvents()) {
             builder.add("name", event.getName()).add("time", event.getTime()).add("location", event.getLocation()).add("id", event.getId());
             finalArray.add(builder.build());
         }

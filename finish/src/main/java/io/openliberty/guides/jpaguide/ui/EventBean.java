@@ -32,7 +32,6 @@ import javax.faces.component.html.HtmlInputHidden;
 import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 
 import java.io.Serializable;
@@ -59,7 +58,7 @@ public class EventBean implements Serializable{
     @ManagedProperty(value = "#{pageDispatcher}")
     private PageDispatcher pageDispatcher;
 
-    @EJB private EventDao eventDAO;
+    @Inject private EventDao eventDAO;
 
     public void setName(String name) {
         this.name = name;
@@ -200,11 +199,11 @@ public class EventBean implements Serializable{
         this.selectedId = -1;
     }
 
-    /**
+      /**
      * Retrieve a selected event with the selected event name.
      */
     public Event retrieveSelectedEvent() {
-        return this.eventDAO.readEvent(this.selectedId);
+        return eventDAO.readEvent(this.selectedId);
     }
 
     /**
