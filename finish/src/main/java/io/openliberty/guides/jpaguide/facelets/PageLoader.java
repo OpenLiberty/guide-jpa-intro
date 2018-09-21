@@ -13,9 +13,7 @@
 package io.openliberty.guides.jpaguide.facelets;
 
 import javax.inject.Named;
-
 import java.io.Serializable;
-
 import javax.enterprise.context.SessionScoped;
 
 @Named("pageLoader")

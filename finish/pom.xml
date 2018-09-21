@@ -91,18 +91,6 @@
             <type>esa</type>
             <scope>provided</scope>
         </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>localConnector-1.0</artifactId>
-            <type>esa</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>ejb-3.2</artifactId>
-            <type>esa</type>
-            <scope>provided</scope>
-        </dependency>
         <!--For JDK 9 & 10 support -->   
         <dependency>
             <groupId>javax.xml.bind</groupId>

@@ -12,12 +12,15 @@
 // end::copyright[]
 package io.openliberty.guides.jpaguide.facelets;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.inject.Named;
+import java.io.Serializable;
+import javax.enterprise.context.SessionScoped;
 
-@ManagedBean(name = "pageLoader")
+@Named("pageLoader")
 @SessionScoped
-public class PageLoader {
+public class PageLoader implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     private String content = "content/mainPage.xhtml";
     private String headerContent = "header/header.xhtml";
