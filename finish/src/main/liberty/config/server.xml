@@ -16,6 +16,12 @@
     context-root="/">
   </application>
 
+  <logging  traceSpecification="eclipselink.sql=all"
+  traceFileName="trace.log"
+  maxFileSize="20"
+  maxFiles="10"
+  traceFormat="BASIC" />
+
   <!-- Derby Library Configuration -->    
   <library id="derbyJDBCLib">
       <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
@@ -27,5 +33,5 @@
       <jdbcDriver libraryRef="derbyJDBCLib" />
       <properties.derby.embedded databaseName="EventDB" createDatabase="create"/>
   </dataSource>
-    
+
 </server>

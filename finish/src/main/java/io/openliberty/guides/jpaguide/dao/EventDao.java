@@ -14,16 +14,16 @@ package io.openliberty.guides.jpaguide.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import io.openliberty.guides.jpaguide.models.Event;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
+import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 
-@ApplicationScoped
+@RequestScoped
 @Transactional
 public class EventDao {
 
-    @Inject
+    @PersistenceContext(name="jpa-unit")
     private EntityManager em;
 
     public void createEvent(Event event) {
