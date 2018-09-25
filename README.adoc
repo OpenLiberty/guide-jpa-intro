@@ -267,7 +267,7 @@ file:
 include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventEntityTest.java[tags=!copyright;]
 ----
 
-The `testCRUD` method creates a test event and persists it to the database. The event object is then 
+The `testCRUD()` method creates a test event and persists it to the database. The event object is then 
 retrieved from the database to verify that the test event was actually persisted. Next, the test event's 
 name, location, and time is updated. The event object is retrieved from the database to verify that 
 the updated event is stored. Finally, the updated test event is deleted and one final check is done 
