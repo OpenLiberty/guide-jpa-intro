@@ -16,7 +16,7 @@
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-= Persisting and accessing data using Java Persistence API (JPA)
+= Persisting and accessing data in microservices
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, 
@@ -32,11 +32,11 @@ Learn how to map Java objects to database tables and perform CRUD operations usi
 You will learn how to use the Java Persistence API (JPA) to map Java objects to database tables and
 perform create, read, update and delete (CRUD) operations in your microservices. 
 
-JPA is a Java specification for representing RDBMS table data as Plain Old Java Objects (POJO). The 
-JPA specification is implemented by several different persistence providers. In this guide you will 
+JPA is a Java specification for representing relational database table data as Plain Old Java Objects (POJO).
+The JPA specification is implemented by several different persistence providers. In this guide you will 
 use EclipseLink as the persistence provider because it is the implementation that is shipped with Liberty.
 
-JPA simplifies object relational mapping (ORM) by using annotations and/or XML to map Java objects 
+JPA simplifies object-relational mapping (ORM) by using annotations and/or XML to map Java objects 
 to tables in a relational database. In addition to providing an efficient API for performing
 CRUD operations, JPA also reduces the burden of having to write JDBC and SQL code when performing
 database operations. This allows you to focus on the business logic of your application instead of 
