@@ -225,7 +225,7 @@ be returned in a managed state, but, if the event instance is not found, `Null` 
 This method returns a list of instances of the `Event` entity class using a query specified in the `@NamedQuery` 
 annotation on the `Event` class. The event instances will be returned in a managed state. 
 
-* The `updateEvent() method creates a managed instance of a detached entity object. The EntityManager 
+* The `updateEvent()` method creates a managed instance of a detached entity object. The EntityManager 
 automatically tracks all managed entity objects in its persistence context for changes and
 synchronizes them with the database. But, if an entity becomes detached, you must merge that entity
 into the persistence context by calling the `merge()` method on an `EntityManager` instance in order
