@@ -11,9 +11,8 @@
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
     id="defaultHttpEndpoint" host="*" />
 
-  <application location="io.openliberty.guides.jpaguide.war" type="war"
-    id="io.openliberty.guides.jpaguide" name="io.openliberty.guides.jpaguide"
-    context-root="/">
+  <application location="jpa-intro.war" type="war" id="jpa-intro" name="jpa-intro"
+                context-root="/">
   </application>
 
   <logging  traceSpecification="eclipselink.sql=all"

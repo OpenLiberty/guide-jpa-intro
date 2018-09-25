@@ -16,7 +16,7 @@
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-= Persisting and accessing data using Java Persistence API (JPA)
+= Persisting and accessing data in microservices
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, 
@@ -32,11 +32,11 @@ Learn how to map Java objects to database tables and perform CRUD operations usi
 You will learn how to use the Java Persistence API (JPA) to map Java objects to database tables and
 perform create, read, update and delete (CRUD) operations in your microservices. 
 
-JPA is a Java specification for representing RDBMS table data as Plain Old Java Objects (POJO). The 
-JPA specification is implemented by several different persistence providers. In this guide you will 
+JPA is a Java specification for representing relational database table data as Plain Old Java Objects (POJO).
+The JPA specification is implemented by several different persistence providers. In this guide you will 
 use EclipseLink as the persistence provider because it is the implementation that is shipped with Liberty.
 
-JPA simplifies object relational mapping (ORM) by using annotations and/or XML to map Java objects 
+JPA simplifies object-relational mapping (ORM) by using annotations and/or XML to map Java objects 
 to tables in a relational database. In addition to providing an efficient API for performing
 CRUD operations, JPA also reduces the burden of having to write JDBC and SQL code when performing
 database operations. This allows you to focus on the business logic of your application instead of 
@@ -148,7 +148,7 @@ Create the `src/main/resources/META-INF/persistence.xml` file:
 include::finish/src/main/resources/META-INF/persistence.xml[tags=**;]
 ----
 
-The persistence unit is defined by the `<persistence-unit />` XML element. The `name` attribute is 
+The persistence unit is defined by the `<persistence-unit>` XML element. The `name` attribute is 
 required and is used to identify the persistent unit. The `transaction-type=”JTA”` element specifies 
 that the persistence context will enlist with Java Transaction API (JTA) global transactions. Since 
 we are using a container-managed EntityManager, it is required that JTA transactions are used. 
@@ -163,7 +163,7 @@ JPA Extensions Reference for EclipseLink.]
 
 A JTA transaction type requires a data source to be provided. This is done through the 
 `eventjpadatasource` element which specifies the Java Naming and Directory Interface (JNDI) name of 
-the data source that is to be used by the EJB container.
+the data source that is to be used by the CDI container.
 
 The Java Database Connectivity (JDBC) connection is specified in the data source which is configured
 in the `server.xml` file. Create the `src/main/liberty/config/server.xml` file:
@@ -176,7 +176,7 @@ include::finish/src/main/liberty/config/server.xml[tags=**;]
 The `derbyJDBCLib` element is a shared library that points to the directory of the JDBC driver. The 
 JDBC driver is what enables the application to interact with the database.
 
-The data source configuration is done within the `<dataSource />` element. The `<properties.derby.embedded />` 
+The data source configuration is done within the `<dataSource>` element. The `<properties.derby.embedded>` 
 attribute within the data source configuration contains embedded derby properties such as the database name 
 and whether to create the database if it does not already exist.
 
@@ -225,7 +225,7 @@ be returned in a managed state, but, if the event instance is not found, `Null` 
 This method returns a list of instances of the `Event` entity class using a query specified in the `@NamedQuery` 
 annotation on the `Event` class. The event instances will be returned in a managed state. 
 
-* The `updateEvent() method creates a managed instance of a detached entity object. The EntityManager 
+* The `updateEvent()` method creates a managed instance of a detached entity object. The EntityManager 
 automatically tracks all managed entity objects in its persistence context for changes and
 synchronizes them with the database. But, if an entity becomes detached, you must merge that entity
 into the persistence context by calling the `merge()` method on an `EntityManager` instance in order
@@ -267,7 +267,7 @@ file:
 include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventEntityTest.java[tags=!copyright;]
 ----
 
-The `testCRUD` method creates a test event and persists it to the database. The event object is then 
+The `testCRUD()` method creates a test event and persists it to the database. The event object is then 
 retrieved from the database to verify that the test event was actually persisted. Next, the test event's 
 name, location, and time is updated. The event object is retrieved from the database to verify that 
 the updated event is stored. Finally, the updated test event is deleted and one final check is done 
