@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package it.io.openliberty.guides.jpaguide.tests;
+package it.io.openliberty.guides.event;
 
 import static org.junit.Assert.*;
 import java.util.HashMap;
@@ -27,7 +27,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import io.openliberty.guides.jpaguide.models.Event;
+import io.openliberty.guides.models.Event;
 public class EventEntityTest {
 
     public static final String JSONFIELD_LOCATION = "location";

@@ -10,12 +10,12 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.jpaguide.dao;
+package io.openliberty.guides.dao;
 
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import io.openliberty.guides.jpaguide.models.Event;
+import io.openliberty.guides.models.Event;
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 

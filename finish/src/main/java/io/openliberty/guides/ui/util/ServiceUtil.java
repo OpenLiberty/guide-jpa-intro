@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.jpaguide.ui.util;
+package io.openliberty.guides.ui.util;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -24,7 +24,7 @@ import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
-import io.openliberty.guides.jpaguide.models.Event;
+import io.openliberty.guides.models.Event;
 
 public class ServiceUtil {
 

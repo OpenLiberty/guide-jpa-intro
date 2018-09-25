@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.jpaguide.ui.util;
+package io.openliberty.guides.ui.util;
 
 import java.text.DateFormat;
 import java.text.DateFormatSymbols;

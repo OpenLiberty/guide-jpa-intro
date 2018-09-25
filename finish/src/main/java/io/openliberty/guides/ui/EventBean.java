@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.jpaguide.ui;
+package io.openliberty.guides.ui;
 
 import java.util.Map;
 import java.util.List;
@@ -20,11 +20,11 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.annotation.ManagedProperty;
 
-import io.openliberty.guides.jpaguide.dao.EventDao;
-import io.openliberty.guides.jpaguide.facelets.PageDispatcher;
-import io.openliberty.guides.jpaguide.models.Event;
-import io.openliberty.guides.jpaguide.ui.util.ServiceUtil;
-import io.openliberty.guides.jpaguide.ui.util.TimeMapUtil;
+import io.openliberty.guides.dao.EventDao;
+import io.openliberty.guides.facelets.PageDispatcher;
+import io.openliberty.guides.models.Event;
+import io.openliberty.guides.ui.util.ServiceUtil;
+import io.openliberty.guides.ui.util.TimeMapUtil;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
