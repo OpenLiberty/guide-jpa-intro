@@ -102,11 +102,11 @@ annotation, must not be declared final and must have a public or protected non-a
 JPA uses a database table for every entity and persisted instances will be represented as one row in 
 the table.
 
-Create the `Event` class in the `src/main/java/io/openliberty/guides/jpaguide/models/Event.java` file:
+Create the `Event` class in the `src/main/java/io/openliberty/guides/models/Event.java` file:
 
 [source, Java]
 ----
-include::finish/src/main/java/io/openliberty/guides/jpaguide/models/Event.java[tags=!copyright;]
+include::finish/src/main/java/io/openliberty/guides/models/Event.java[tags=!copyright;]
 ----
 
 Let's break down the new annotations that are used in this JPA entity class:
@@ -163,7 +163,7 @@ JPA Extensions Reference for EclipseLink.]
 
 A JTA transaction type requires a data source to be provided. This is done through the 
 `eventjpadatasource` element which specifies the Java Naming and Directory Interface (JNDI) name of 
-the data source that is to be used by the CDI container.
+the data source that is to be used.
 
 The Java Database Connectivity (JDBC) connection is specified in the data source which is configured
 in the `server.xml` file. Create the `src/main/liberty/config/server.xml` file:
@@ -195,12 +195,12 @@ persistence context. When using a container-managed EntityManager, entities auto
 detached at the end of transaction boundaries. Lastly, removed entities are ones that have been removed 
 from the database. 
 
-To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java` 
+To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/dao/EventDao.java` 
 file:
 
 [source, Java]
 ----
-include::finish/src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java[tags=!copyright;]
+include::finish/src/main/java/io/openliberty/guides/dao/EventDao.java[tags=!copyright;]
 ----
 
 In order to use the entity manager at runtime, it must be injected into our CDI bean through the
@@ -259,12 +259,12 @@ include::{common-includes}/mvncompile.adoc[]
 
 == Testing the application
 
-Create the `EventEntityTest` test class in the `finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventEntityTest.java` 
+Create the `EventEntityTest` test class in the `finish/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
 file:
 
 [source, Java]
 ----
-include::finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventEntityTest.java[tags=!copyright;]
+include::finish/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
 ----
 
 The `testCRUD()` method creates a test event and persists it to the database. The event object is then 
