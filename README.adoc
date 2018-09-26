@@ -102,7 +102,7 @@ annotation, must not be declared final and must have a public or protected non-a
 JPA uses a database table for every entity and persisted instances will be represented as one row in 
 the table.
 
-Create the `Event` class in the `src/main/java/io/openliberty/guides/jpaguide/models/Event.java` file:
+Create the `Event` class in the `src/main/java/io/openliberty/guides/models/Event.java` file:
 
 [source, Java]
 ----
@@ -195,7 +195,7 @@ persistence context. When using a container-managed EntityManager, entities auto
 detached at the end of transaction boundaries. Lastly, removed entities are ones that have been removed 
 from the database. 
 
-To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/jpaguide/dao/EventDao.java` 
+To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/dao/EventDao.java` 
 file:
 
 [source, Java]
@@ -259,7 +259,7 @@ include::{common-includes}/mvncompile.adoc[]
 
 == Testing the application
 
-Create the `EventEntityTest` test class in the `finish/src/test/java/it/io/openliberty/guides/jpaguide/tests/EventEntityTest.java` 
+Create the `EventEntityTest` test class in the `finish/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
 file:
 
 [source, Java]
