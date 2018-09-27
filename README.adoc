@@ -34,13 +34,14 @@ perform create, read, update and delete (CRUD) operations in your microservices.
 
 JPA is a Java specification for representing relational database table data as Plain Old Java Objects (POJO).
 An implementation of the JPA specification is referred to as a persistence provider. In this guide you will 
-use EclipseLink as the persistence provider because it is one the implementations shipped with Liberty.
+use EclipseLink as the persistence provider because it is the JPA implementation shipped with Liberty when
+using the `jpa-2.2` feature.
 
 JPA simplifies object-relational mapping (ORM) by using annotations to map Java objects 
 to tables in a relational database. In addition to providing an efficient API for performing
 CRUD operations, JPA also reduces the burden of having to write JDBC and SQL code when performing
-database operations. This allows you to focus on the business logic of your application instead of 
-wasting time implementing repetitive CRUD logic.
+database operations and takes care of database vendor specific differences. This allows you to 
+focus on the business logic of your application instead of wasting time implementing repetitive CRUD logic.
 
 The application that you will be working with is the event manager, which provides services for 
 creating, retrieving, updating, and deleting event entities. The application uses an Embedded Derby 
@@ -189,7 +190,7 @@ been persisted, or fetched by `find()` or a query, and are managed by the Entity
 they are actively tracked by the persistence context. Detached entities are no longer managed by a 
 persistence context. When using a container-managed EntityManager, entities automatically become 
 detached at the end of transaction boundaries. Lastly, removed entities will be marked for removal 
-and will be removed from the database upon transaction commit. 
+and will be deleted from the database upon transaction commit. 
 
 To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/dao/EventDao.java` 
 file:
