@@ -33,10 +33,6 @@ You will learn how to use the Java Persistence API (JPA) to map Java objects to 
 perform create, read, update and delete (CRUD) operations in your microservices. 
 
 JPA is a Java specification for representing relational database table data as Plain Old Java Objects (POJO).
-An implementation of the JPA specification is referred to as a persistence provider. In this guide you will 
-use EclipseLink as the persistence provider because it is the JPA implementation shipped with Liberty when
-using the `jpa-2.2` feature.
-
 JPA simplifies object-relational mapping (ORM) by using annotations to map Java objects 
 to tables in a relational database. In addition to providing an efficient API for performing
 CRUD operations, JPA also reduces the burden of having to write JDBC and SQL code when performing
@@ -121,8 +117,8 @@ Let's break down the new annotations that are used in this JPA entity class:
                     at runtime
 | `@Id`       |  The pimary key of the entity
 | `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key. 
-                        `strategy = GenerationType.AUTO` indicates that the persistence provider 
-                        will pick a strategy depending on the database used
+                        `strategy = GenerationType.AUTO` indicates that a generation strategy 
+                        will be chosen based on the database being used
 | `@Column`    | Specifies that the field is mapped to a column in the database table, `name` is 
                  optional and indicates the name of the column in the table
 |===
