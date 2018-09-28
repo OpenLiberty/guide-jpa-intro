@@ -7,9 +7,6 @@
         <properties>
             <property name="eclipselink.ddl-generation" value="create-tables"/>
             <property name="eclipselink.ddl-generation.output-mode" value="both" />
-
-            <property name="eclipselink.logging.level" value="ALL"/>
-            <property name="eclipselink.logging.level.sql" value="FINE"/>
         </properties>
     </persistence-unit>
 </persistence>
