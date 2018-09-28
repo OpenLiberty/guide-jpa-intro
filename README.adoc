@@ -117,8 +117,8 @@ Let's break down the new annotations that are used in this JPA entity class:
                     at runtime
 | `@Id`       |  The pimary key of the entity
 | `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key. 
-                        `strategy = GenerationType.AUTO` indicates that the persistence provider 
-                        will pick a strategy depending on the database used
+                        `strategy = GenerationType.AUTO` indicates that a generation strategy 
+                        will be chosen based on the database being used
 | `@Column`    | Specifies that the field is mapped to a column in the database table, `name` is 
                  optional and indicates the name of the column in the table
 |===
