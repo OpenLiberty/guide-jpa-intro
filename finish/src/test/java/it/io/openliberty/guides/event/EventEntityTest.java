@@ -45,8 +45,6 @@ public class EventEntityTest {
     private static String port;
 
     private static final String EVENTS = "events";
-    private static final String DELETE_EVENTS = "events/delete/";
-    private static final String UPDATE_EVENTS = "events/update/";
 
     private Form form;
     private Client client;
@@ -90,8 +88,7 @@ public class EventEntityTest {
         eventForm.put(JSONFIELD_NAME, UPDATE_EVENT_NAME);
         eventForm.put(JSONFIELD_LOCATION, UPDATE_EVENT_LOCATION);
         eventForm.put(JSONFIELD_TIME, UPDATE_EVENT_TIME);
-        eventForm.put(JSONFIELD_ID, String.valueOf(event.getInt("id")));
-        sendForm(eventForm, baseUrl + UPDATE_EVENTS);
+        updateForm(eventForm, baseUrl + EVENTS + "/" + event.getInt("id"));
 
         e = new Event(UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
         event = getTestEvent();
@@ -100,7 +97,7 @@ public class EventEntityTest {
         actualDataStored.put(event.getString(JSONFIELD_TIME), UPDATE_EVENT_TIME);
         assertData(actualDataStored);
 
-        deleteForm(baseUrl + DELETE_EVENTS + event.getInt("id"));
+        deleteForm(baseUrl + EVENTS + "/" + event.getInt("id"));
         assertNull(getTestEvent());
     }
 
@@ -116,6 +113,15 @@ public class EventEntityTest {
     private void deleteForm(String url){
         webTarget = client.target(url);
         response = webTarget.request().delete();
+        form = new Form();
+    }
+
+    private void updateForm(HashMap<String, String> formDataMap, String url) {
+        formDataMap.forEach((formField, data) -> {
+            form.param(formField, data);
+        });
+        webTarget = client.target(url);
+        response = webTarget.request().put(Entity.form(form));
         form = new Form();
     }
 
