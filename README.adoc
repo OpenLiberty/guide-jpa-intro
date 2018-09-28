@@ -43,9 +43,9 @@ CRUD operations, JPA also reduces the burden of having to write JDBC and SQL cod
 database operations and takes care of database vendor specific differences. This allows you to 
 focus on the business logic of your application instead of wasting time implementing repetitive CRUD logic.
 
-The application that you will be working with is the event manager, which provides services for 
-creating, retrieving, updating, and deleting event entities. The application uses an Embedded Derby 
-database as a datastore for all the events.
+The application that you will be working with is the event manager, which is composed of a UI and 
+an event microservice for creating, retrieving, updating, and deleting events. The application uses an 
+Embedded Derby database as a datastore for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. The interaction between your application and the database is mediated by the persistence 
@@ -103,8 +103,8 @@ with the `@Entity` annotation, must not be declared final and must have a public
 constructor. JPA maps an entity type to a database table and persisted instances will be represented 
 as rows in the table.
 
-Create the `Event` class in the `src/main/java/io/openliberty/guides/models/Event.java` file:
-
+The `Event` class is a model that represents events in the application and is annotated with JPA
+annotations. Create the `Event` class in the `src/main/java/io/openliberty/guides/models/Event.java` file:
 [source, Java]
 ----
 include::finish/src/main/java/io/openliberty/guides/models/Event.java[tags=!copyright;]
@@ -199,6 +199,10 @@ file:
 ----
 include::finish/src/main/java/io/openliberty/guides/dao/EventDao.java[tags=!copyright;]
 ----
+
+The `EventDao` class can then be injected into other components of your application. Notice how
+it is injected into the `src/main/java/io/openliberty/resources/EventService.java' file to provide
+the `EventService` class with a way to persist and access data.
 
 In order to use the EntityManager at runtime, it must be injected into our CDI bean through the
 `@PersistenceContext` annotation. The `@Transactional` annotation allows the application to manage
