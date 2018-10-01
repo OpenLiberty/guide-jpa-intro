@@ -20,6 +20,7 @@ import javax.transaction.Transactional;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.POST;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
@@ -59,12 +60,12 @@ public class EventService {
      * This method creates a new event from the submitted data (name, time and
      * location) by the user.
      */
-    @POST
-    @Path("/update")
+    @PUT
+    @Path("{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public void updateEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location, @FormParam("id") String id) {
-        Event prevEvent = eventDAO.readEvent(Integer.parseInt(id));
+    public void updateEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location, @PathParam("id") int id) {
+        Event prevEvent = eventDAO.readEvent(id);
 
         for(Event event : eventDAO.readAllEvents())
             if(event.equals(new Event(name, location, time)))
@@ -81,7 +82,7 @@ public class EventService {
      * This method deletes a specific existing/stored event 
      */
     @DELETE
-    @Path("/delete/{id}")
+    @Path("{id}")
     @Transactional
     public void deleteEvent(@PathParam("id") int id) {
         eventDAO.deleteEvent(eventDAO.readEvent(id));
@@ -91,7 +92,7 @@ public class EventService {
      * This method displays a specific existing/stored event in Json format
      */
     @GET
-    @Path("{name}")
+    @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public Event getEvent(@PathParam("id") int eventId) {
