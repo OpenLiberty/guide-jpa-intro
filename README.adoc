@@ -256,7 +256,7 @@ include::{common-includes}/mvncompile.adoc[]
 
 == Testing the application
 
-Create the `EventEntityTest` test class in the `finish/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
+Create the `EventEntityTest` test class in the `src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
 file:
 
 [source, Java]
