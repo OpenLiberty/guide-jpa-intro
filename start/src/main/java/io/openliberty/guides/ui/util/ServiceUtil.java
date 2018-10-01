@@ -31,8 +31,6 @@ public class ServiceUtil {
     // Back end service URLs
     private static String port = System.getProperty("default.http.port");
     private static String eventServiceURL = "http://localhost:" + port + "/events";
-    private static String updateEventServiceURL = "http://localhost:" + port + "/events/update/";
-    private static String deleteEventServiceURL = "http://localhost:" + port + "/events/delete/";
 
     /**
      * Post event form data to back end service
@@ -47,8 +45,8 @@ public class ServiceUtil {
      * Post updated event form data to back end service
      */ 
     public static void submitUpdatedEventToService(String name, String location, String time, int id) {
-        Form form = new Form().param("name", name).param("time", time).param("location", location).param("id", String.valueOf(id));
-        Response response = connectToService(updateEventServiceURL).post(Entity.form(form));
+        Form form = new Form().param("name", name).param("time", time).param("location", location);
+        Response response = connectToService(eventServiceURL + "/" + id).put(Entity.form(form));
         response.close();
     }
 
@@ -56,7 +54,7 @@ public class ServiceUtil {
      * Delete event from back end storage
      */    
     public static void deleteEventService(int id){
-        Response response = connectToService(deleteEventServiceURL + id).delete();
+        Response response = connectToService(eventServiceURL + "/" + id).delete();
         response.close();
     }       
 
