@@ -29,7 +29,7 @@ Learn how to use Java Persistence API to access and persist data to a database f
 == What you'll learn
 
 You will learn how to use the Java Persistence API (JPA) to map Java objects to relational database 
-tables and perform create, read, update and delete (CRUD) operations in your microservices. 
+tables and perform create, read, update and delete (CRUD) operations on your data in your microservices. 
 
 JPA is a Java specification for representing relational database table data as Plain Old Java Objects (POJO).
 JPA simplifies object-relational mapping (ORM) by using annotations to map Java objects 
