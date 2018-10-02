@@ -16,7 +16,7 @@
 :page-permalink: /guides/{projectid}
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
-= Persisting and accessing data in microservices
+= Accessing and persisting data in microservices
 
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, 
