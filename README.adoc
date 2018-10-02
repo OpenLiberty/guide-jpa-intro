@@ -21,6 +21,7 @@
 [.hidden]
 NOTE: This repository contains the guide documentation source. To view the guide in published form, 
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
+
 Learn how to use Java Persistence API to access and persist data to a database for your microservices.
 
 :eventapp-url: http://localhost:9080/eventmanager.jsf
@@ -29,7 +30,7 @@ Learn how to use Java Persistence API to access and persist data to a database f
 == What you'll learn
 
 You will learn how to use the Java Persistence API (JPA) to map Java objects to relational database 
-tables and perform create, read, update and delete (CRUD) operations in your microservices. 
+tables and perform create, read, update and delete (CRUD) operations on the data in your microservices. 
 
 JPA is a Java specification for representing relational database table data as Plain Old Java Objects (POJO).
 JPA simplifies object-relational mapping (ORM) by using annotations to map Java objects 
@@ -114,7 +115,7 @@ Let's break down the new annotations that are used in this JPA entity class:
 | `@Table`  | Specifies details of the table such as name 
 | `@NamedQuery` | Specfies a predefined database query that can be executed by the EntityManager 
                     at runtime
-| `@Id`       |  The pimary key of the entity
+| `@Id`       |  Declares the pimary key of the entity
 | `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key. 
                         `strategy = GenerationType.AUTO` indicates that a generation strategy 
                         will be chosen based on the database being used
