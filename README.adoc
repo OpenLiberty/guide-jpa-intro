@@ -115,7 +115,7 @@ Let's break down the new annotations that are used in this JPA entity class:
 | `@Table`  | Specifies details of the table such as name 
 | `@NamedQuery` | Specfies a predefined database query that can be executed by the EntityManager 
                     at runtime
-| `@Id`       |  The pimary key of the entity
+| `@Id`       |  Declares the pimary key of the entity
 | `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key. 
                         `strategy = GenerationType.AUTO` indicates that a generation strategy 
                         will be chosen based on the database being used
