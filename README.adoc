@@ -47,10 +47,10 @@ You will use JPA annotations to define an entity class whose fields are persiste
 database. The interaction between your application and the database is mediated by the persistence 
 context that is managed by an EntityManager. The EntityManager can be application-managed or
 container-managed. In this guide you will be using a container-managed EntityManager, placing the
-burden of managing the lifecycle of the EntityManager on the application server. The lifetime of the
+burden of managing the lifecycle of the EntityManager on the application server. The lifecycle of the
 persistence context can either be transaction-scoped or extended when using a container-managed EntityManager.
-In this guide you will be focused on using a container-managed EntityManager with a transaction-scoped
-persistence context to take advantage of the application server's services.
+You will be focused on using a container-managed EntityManager with a transaction-scoped persistence
+context to take advantage of the application server's services.
 
 
 // =================================================================================================
