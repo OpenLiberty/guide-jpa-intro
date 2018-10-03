@@ -39,7 +39,7 @@ CRUD operations, JPA also reduces the burden of having to write JDBC and SQL cod
 database operations and takes care of database vendor specific differences. This allows you to 
 focus on the business logic of your application instead of wasting time implementing repetitive CRUD logic.
 
-The application that you will be working with is the event manager, which is composed of a UI and 
+The application that you will be working with is an event manager, which is composed of a UI and 
 an event microservice for creating, retrieving, updating, and deleting events. The application uses an 
 Embedded Derby database as a datastore for all the events.
 
