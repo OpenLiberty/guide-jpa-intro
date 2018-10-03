@@ -134,8 +134,8 @@ new entities, fetching entities through the `find()` method and queries, and rem
 
 The EntityManager manages the lifecycle of entity instances. Every EntityManager instance is associated 
 with a persistence context. The persistence context manages a set of entities and is aware of the different 
-states that an entity can have. The configuration of the EntityManager is defined by a persistence unit 
-specified in the `persistence.xml` file.
+states that an entity can have. The configuration information of the EntityManager, such as the transaction type and 
+datastore, is also defined by the persistence unit specified in the `persistence.xml` file.
 
 Create the `src/main/resources/META-INF/persistence.xml` file:
 
