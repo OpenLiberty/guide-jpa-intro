@@ -18,11 +18,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "Event")
 @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e")
-public class Event implements Serializable{
+public class Event implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Id @Column(name = "eventId")
+    @Id
+    @Column(name = "eventId")
     private int id;
 
     @Column(name = "eventLocation")
@@ -32,7 +33,8 @@ public class Event implements Serializable{
     @Column(name = "eventName")
     private String name;
 
-    public Event() { }
+    public Event() {
+    }
 
     public Event(String name, String location, String time) {
         this.name = name;
@@ -44,13 +46,14 @@ public class Event implements Serializable{
         return id;
     }
 
-    public void setId(int id){
+    public void setId(int id) {
         this.id = id;
     }
 
     public String getLocation() {
         return location;
     }
+
     public void setLocation(String location) {
         this.location = location;
     }
@@ -58,6 +61,7 @@ public class Event implements Serializable{
     public String getTime() {
         return time;
     }
+
     public void setTime(String time) {
         this.time = time;
     }
@@ -65,6 +69,7 @@ public class Event implements Serializable{
     public void setName(String name) {
         this.name = name;
     }
+
     public String getName() {
         return name;
     }
@@ -88,12 +93,12 @@ public class Event implements Serializable{
                 return false;
         } else if (!time.equals(other.time))
             return false;
-        if(name == null) {
-            if(other.name != null)
+        if (name == null) {
+            if (other.name != null)
                 return false;
-        }else if(!name.equals(other.name))
-            return false;    
- 
+        } else if (!name.equals(other.name))
+            return false;
+
         return true;
     }
 

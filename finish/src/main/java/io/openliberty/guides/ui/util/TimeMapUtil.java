@@ -34,7 +34,7 @@ import javax.enterprise.context.ApplicationScoped;
 public class TimeMapUtil implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     private static Map<String, Object> days;
     private static Map<String, Object> months;
     private static Map<String, Object> years;

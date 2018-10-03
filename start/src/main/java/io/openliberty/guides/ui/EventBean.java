@@ -41,7 +41,7 @@ import java.util.Date;
 
 @Named
 @ViewScoped
-public class EventBean implements Serializable{
+public class EventBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -58,7 +58,8 @@ public class EventBean implements Serializable{
     @ManagedProperty(value = "#{pageDispatcher}")
     private PageDispatcher pageDispatcher;
 
-    @Inject private EventDao eventDAO;
+    @Inject
+    private EventDao eventDAO;
 
     public void setName(String name) {
         this.name = name;
@@ -155,7 +156,7 @@ public class EventBean implements Serializable{
         clear();
     }
 
-    public void editEvent(){
+    public void editEvent() {
         Event e = retrieveSelectedEvent();
 
         String[] fullDateInfo = parseTime(e.getTime());
@@ -173,7 +174,7 @@ public class EventBean implements Serializable{
     /**
      * Delete event form data to back end service.
      */
-    public void submitDeletetoService(){
+    public void submitDeletetoService() {
         ServiceUtil.deleteEventService(this.selectedId);
         pageDispatcher.showMainPage();
     }
@@ -199,7 +200,7 @@ public class EventBean implements Serializable{
         this.selectedId = -1;
     }
 
-      /**
+    /**
      * Retrieve a selected event with the selected event name.
      */
     public Event retrieveSelectedEvent() {
@@ -279,11 +280,11 @@ public class EventBean implements Serializable{
     }
 
     /**
-    * Parses time (in format: hh:mm AM, dd mm yyyy) into time, meridiem, month, day, year respectively.
-    */
-    private String[] parseTime(String time){
-      String delims = "[ ,]+";
-      return time.split(delims);
+     * Parses time (in format: hh:mm AM, dd mm yyyy) into time, meridiem, month, day, year respectively.
+     */
+    private String[] parseTime(String time) {
+        String delims = "[ ,]+";
+        return time.split(delims);
     }
 
     /**

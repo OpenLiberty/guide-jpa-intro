@@ -43,7 +43,7 @@ public class ServiceUtil {
 
     /**
      * Post updated event form data to back end service
-     */ 
+     */
     public static void submitUpdatedEventToService(String name, String location, String time, int id) {
         Form form = new Form().param("name", name).param("time", time).param("location", location);
         Response response = connectToService(eventServiceURL + "/" + id).put(Entity.form(form));
@@ -52,11 +52,11 @@ public class ServiceUtil {
 
     /**
      * Delete event from back end storage
-     */    
-    public static void deleteEventService(int id){
+     */
+    public static void deleteEventService(int id) {
         Response response = connectToService(eventServiceURL + "/" + id).delete();
         response.close();
-    }       
+    }
 
     /**
      * Retrieve list of events from back end storage.
