@@ -37,7 +37,8 @@ import io.openliberty.guides.models.Event;
 @Path("events")
 public class EventService {
 
-    @Inject private EventDao eventDAO;
+    @Inject
+    private EventDao eventDAO;
 
     /**
      * This method creates a new event from the submitted data (name, time and
@@ -49,11 +50,11 @@ public class EventService {
     public void addNewEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
 
-        for(Event event : eventDAO.readAllEvents())
-            if(event.equals(newEvent))
+        for (Event event : eventDAO.readAllEvents())
+            if (event.equals(newEvent))
                 return;
 
-        eventDAO.createEvent(newEvent);        
+        eventDAO.createEvent(newEvent);
     }
 
     /**
@@ -67,19 +68,19 @@ public class EventService {
     public void updateEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location, @PathParam("id") int id) {
         Event prevEvent = eventDAO.readEvent(id);
 
-        for(Event event : eventDAO.readAllEvents())
-            if(event.equals(new Event(name, location, time)))
+        for (Event event : eventDAO.readAllEvents())
+            if (event.equals(new Event(name, location, time)))
                 return;
 
         prevEvent.setName(name);
         prevEvent.setLocation(location);
         prevEvent.setTime(time);
-               
-        eventDAO.updateEvent(prevEvent);        
+
+        eventDAO.updateEvent(prevEvent);
     }
 
     /**
-     * This method deletes a specific existing/stored event 
+     * This method deletes a specific existing/stored event
      */
     @DELETE
     @Path("{id}")

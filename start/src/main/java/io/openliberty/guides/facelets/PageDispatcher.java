@@ -11,7 +11,7 @@
  *******************************************************************************/
 // end::copyright[]
 package io.openliberty.guides.facelets;
- 
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.SessionScoped;
@@ -44,7 +44,7 @@ public class PageDispatcher {
         pageLoader.setCurrentPage("Events");
     }
 
-    public void showEditPage(){
+    public void showEditPage() {
         pageLoader.setContent("content/updateEventForm.xhtml");
         pageLoader.setCurrentPage("Edit Event");
     }

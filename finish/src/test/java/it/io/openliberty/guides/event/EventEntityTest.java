@@ -13,6 +13,7 @@
 package it.io.openliberty.guides.event;
 
 import static org.junit.Assert.*;
+
 import java.util.HashMap;
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -22,12 +23,14 @@ import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
+
 import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import io.openliberty.guides.models.Event;
+
 public class EventEntityTest {
 
     public static final String JSONFIELD_LOCATION = "location";
@@ -55,7 +58,7 @@ public class EventEntityTest {
     private Event e;
 
     @BeforeClass
-    public static void oneTimeSetup(){
+    public static void oneTimeSetup() {
         port = System.getProperty("liberty.test.port");
         baseUrl = "http://localhost:" + port + "/";
     }
@@ -110,7 +113,7 @@ public class EventEntityTest {
         form = new Form();
     }
 
-    private void deleteForm(String url){
+    private void deleteForm(String url) {
         webTarget = client.target(url);
         response = webTarget.request().delete();
         form = new Form();
@@ -125,24 +128,24 @@ public class EventEntityTest {
         form = new Form();
     }
 
-    private JsonObject getTestEvent(){
+    private JsonObject getTestEvent() {
         webTarget = client.target(baseUrl + EVENTS);
         response = webTarget.request().get();
         JsonArray eventsArray = response.readEntity(JsonArray.class);
         JsonObject event = findTestEvent(eventsArray);
-        return event;         
+        return event;
     }
 
-    private JsonObject findTestEvent(JsonArray events){
-        for(int i = 0; i < events.size(); i++){
+    private JsonObject findTestEvent(JsonArray events) {
+        for (int i = 0; i < events.size(); i++) {
             JsonObject testEvent = events.getJsonObject(i);
-            Event test = new Event(testEvent.getString("name"), 
-                                    testEvent.getString("location"), 
-                                    testEvent.getString("time"));
-            if(test.equals(e))
+            Event test = new Event(testEvent.getString("name"),
+                    testEvent.getString("location"),
+                    testEvent.getString("time"));
+            if (test.equals(e))
                 return testEvent;
         }
-        return null;        
+        return null;
     }
 
     private void assertData(HashMap<String, String> testedData) {

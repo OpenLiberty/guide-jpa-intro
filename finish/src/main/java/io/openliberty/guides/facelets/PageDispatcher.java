@@ -22,7 +22,7 @@ import javax.faces.annotation.ManagedProperty;
 
 @Named
 @SessionScoped
-public class PageDispatcher implements Serializable{
+public class PageDispatcher implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +51,7 @@ public class PageDispatcher implements Serializable{
         pageLoader.setCurrentPage("Events");
     }
 
-    public void showEditPage(){
+    public void showEditPage() {
         pageLoader.setContent("content/updateEventForm.xhtml");
         pageLoader.setCurrentPage("Edit Event");
     }

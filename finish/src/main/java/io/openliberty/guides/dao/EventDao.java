@@ -15,7 +15,9 @@ package io.openliberty.guides.dao;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+
 import io.openliberty.guides.models.Event;
+
 import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 
@@ -23,7 +25,7 @@ import javax.transaction.Transactional;
 @Transactional
 public class EventDao {
 
-    @PersistenceContext(name="jpa-unit")
+    @PersistenceContext(name = "jpa-unit")
     private EntityManager em;
 
     public void createEvent(Event event) {
