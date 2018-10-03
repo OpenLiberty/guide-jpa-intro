@@ -39,15 +39,18 @@ CRUD operations, JPA also reduces the burden of having to write JDBC and SQL cod
 database operations and takes care of database vendor specific differences. This allows you to 
 focus on the business logic of your application instead of wasting time implementing repetitive CRUD logic.
 
-The application that you will be working with is the event manager, which is composed of a UI and 
+The application that you will be working with is an event manager, which is composed of a UI and 
 an event microservice for creating, retrieving, updating, and deleting events. The application uses an 
 Embedded Derby database as a datastore for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. The interaction between your application and the database is mediated by the persistence 
-context that is managed by an EntityManager. In this guide you will learn how to use a container-managed 
-EntityManager that will be obtained by the application through injection. This means, that the lifecycle
-of the EntityManager will be managed transparently by the Java EE container.
+context that is managed by an EntityManager. The EntityManager can be application-managed or
+container-managed. In this guide you will be using a container-managed EntityManager, placing the
+burden of managing the lifecycle of the EntityManager on the application server. The lifecycle of the
+persistence context can either be transaction-scoped or extended when using a container-managed EntityManager.
+You will be focused on using a container-managed EntityManager with a transaction-scoped persistence
+context to take advantage of the application server's services.
 
 
 // =================================================================================================
@@ -181,12 +184,12 @@ and whether to create the database if it does not already exist.
 
 Every entity object has a lifecycle that consists of four states: new, managed, detached and removed. 
 Whenever a new Event object is created its state will be new, meaning that it is not mapped to a row in 
-the database table and is not associated with an EntityManger. Managed entities are entities that have 
-been persisted, or fetched by `find()` or a query, and are managed by the EntityManager. This means that 
-they are actively tracked by the persistence context. Detached entities are no longer managed by a 
-persistence context. When using a container-managed EntityManager, entities automatically become 
-detached at the end of transaction boundaries. Lastly, removed entities will be marked for removal 
-and will be deleted from the database upon transaction commit. 
+the database table and is not associated with an EntityManger. Managed entities are actively tracked 
+by the persistence context. Entities become managed when they are persisted, merged, or fetched by
+`find()` or a query. Detached entities are no longer managed by a persistence context. Entities become
+detached when the EntityManager is cleared, closed or explicitly detached. When using a container-managed
+EntityManager, entities automatically become detached at the end of transaction boundaries. Lastly, 
+removed entities will be marked for removal and will be deleted from the database upon transaction commit. 
 
 To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/dao/EventDao.java` 
 file:
@@ -204,9 +207,13 @@ In order to use the EntityManager at runtime, it must be injected into our CDI b
 `@PersistenceContext` annotation. The `@Transactional` annotation allows the application to manage
 transaction boundaries on CDI managed beans. This ensures that the required methods are executed within
 the boundaries of an active global transaction, which is why it is not necessary to explicitly begin, 
-commit or rollback transactions. At the end of the transactional method invocation, the persistence context 
+commit or rollback transactions.
+
+Since we are using a transaction-scoped persistence context, a new persistence context will begin when
+the EntityManager is invoked within an active transaction and will end when the transaction commits or 
+rolls back.  At the end of the transactional method invocation, the persistence context 
 will be notified that the transaction is committing, and will flush any changes made to entity instances 
-it is managing to the database.
+it is managing to the database. The managed entities will then become detached. 
 
 The `EventDao.java` class has a method for each CRUD operation, so let's break them down:
 
