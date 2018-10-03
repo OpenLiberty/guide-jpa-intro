@@ -200,7 +200,7 @@ include::finish/src/main/java/io/openliberty/guides/dao/EventDao.java[tags=!copy
 ----
 
 The `EventDao` class can then be injected into other components of your application. Notice how
-it is injected into the `src/main/java/io/openliberty/resources/EventService.java' file to provide
+it is injected into the `src/main/java/io/openliberty/resources/EventService.java` file to provide
 the `EventService` class with a way to persist and access data.
 
 In order to use the EntityManager at runtime, it must be injected into our CDI bean through the
