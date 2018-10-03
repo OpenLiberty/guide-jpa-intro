@@ -36,12 +36,12 @@ JPA is a Java specification for representing relational database table data as P
 JPA simplifies object-relational mapping (ORM) by using annotations to map Java objects 
 to tables in a relational database. In addition to providing an efficient API for performing
 CRUD operations, JPA also reduces the burden of having to write JDBC and SQL code when performing
-database operations and takes care of database vendor specific differences. This allows you to 
+database operations and takes care of database vendor-specific differences. This allows you to 
 focus on the business logic of your application instead of wasting time implementing repetitive CRUD logic.
 
 The application that you will be working with is an event manager, which is composed of a UI and 
 an event microservice for creating, retrieving, updating, and deleting events. The application uses an 
-Embedded Derby database as a datastore for all the events.
+Embedded Derby database as a data store for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. The interaction between your application and the database is mediated by the persistence 
@@ -65,11 +65,11 @@ include::{common-includes}/gitclone.adoc[]
 
 include::{common-includes}/trywhatyoubuild-intro.adoc[]
 
-Point your browser to the {eventapp-url} URL. The event application
-currently has no events stored in the database. Go ahead and click on the `Create Event` button 
-located in the left navigation bar. After entering an event name, location and time, click on `Submit` 
-to persist your event entity to the database. The event is now stored in the database and is visible 
-in the list of current events.
+Point your browser to the {eventapp-url} URL. The event application does not display any events
+because there are no events stored in the database. Go ahead and click `Create Event`, located in the 
+left navigation bar. After entering an event name, location and time, click `Submit` to persist your 
+event entity to the database. The event is now stored in the database and is visible in the list of 
+current events.
 
 Notice that if you stop the Open Liberty server:
 ```
@@ -139,7 +139,7 @@ removing entities.
 The EntityManager manages the lifecycle of entity instances. Every EntityManager instance is associated 
 with a persistence context. The persistence context manages a set of entities and is aware of the different 
 states that an entity can have. The configuration information of the EntityManager, such as the transaction type and 
-datastore, is also defined by the persistence unit specified in the `persistence.xml` file.
+data store, is also defined by the persistence unit specified in the `persistence.xml` file.
 
 Create the `src/main/resources/META-INF/persistence.xml` file:
 
@@ -157,11 +157,11 @@ The `eclipselink.ddl-generation` properties are used here to avoid having to man
 table to run this sample application. To learn more about the `ddl-generation` properties, see the 
 http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.]
 
-A JTA transaction type requires a data source to be provided. This is done through the 
-`eventjpadatasource` element which specifies the Java Naming and Directory Interface (JNDI) name of 
+A JTA transaction type requires a data source to be provided. The data source is defined through the 
+`eventjpadatasource` element that specifies the Java Naming and Directory Interface (JNDI) name of 
 the data source that is to be used.
 
-The Java Database Connectivity (JDBC) connection is specified in the data source which is configured
+The Java Database Connectivity (JDBC) connection is specified in the data source that is configured
 in the `server.xml` file. Create the `src/main/liberty/config/server.xml` file:
 
 [source, Xml]
@@ -173,8 +173,8 @@ The `derbyJDBCLib` element is a shared library that points to the directory of t
 JDBC driver is what enables the application to interact with the database.
 
 The data source configuration is done within the `<dataSource>` element. The `<properties.derby.embedded>` 
-attribute within the data source configuration contains embedded derby properties such as the database name 
-and whether to create the database if it does not already exist.
+attribute within the data source configuration contains Embedded Derby properties such as the database name 
+and if the database should be created if it does not exist.
 
 // =================================================================================================
 // Performing CRUD operations using JPA
@@ -183,7 +183,7 @@ and whether to create the database if it does not already exist.
 == Performing CRUD operations using JPA
 
 Every entity object has a lifecycle that consists of four states: new, managed, detached and removed. 
-Whenever a new Event object is created its state will be new, meaning that it is not mapped to a row in 
+When a new Event object is created its state will be new, meaning that it is not mapped to a row in 
 the database table and is not associated with an EntityManger. Managed entities are actively tracked 
 by the persistence context. Entities become managed when they are persisted, merged, or fetched by
 `find()` or a query. Detached entities are no longer managed by a persistence context. Entities become
@@ -203,9 +203,9 @@ The `EventDao` class can then be injected into other components of your applicat
 it is injected into the `src/main/java/io/openliberty/resources/EventService.java` file to provide
 the `EventService` class with a way to persist and access data.
 
-In order to use the EntityManager at runtime, it must be injected into our CDI bean through the
+To use the EntityManager at runtime, it must be injected into our CDI bean through the
 `@PersistenceContext` annotation. The `@Transactional` annotation allows the application to manage
-transaction boundaries on CDI managed beans. This ensures that the required methods are executed within
+transaction boundaries on CDI-managed beans. This ensures that the required methods are executed within
 the boundaries of an active global transaction, which is why it is not necessary to explicitly begin, 
 commit or rollback transactions.
 
@@ -217,7 +217,7 @@ it is managing to the database. The managed entities will then become detached.
 
 The `EventDao.java` class has a method for each CRUD operation, so let's break them down:
 
-* The `createEvent()` method persists an instance of the `Event` entity class to the datastore by
+* The `createEvent()` method persists an instance of the `Event` entity class to the data store by
 calling the `persist()` method on an EntityManager instance. The event objects state will be 
 changed from new to managed and changes to it are now tracked by the EntityManager. 
 
@@ -232,8 +232,8 @@ annotation on the `Event` class. The event instances will be returned in a manag
 * The `updateEvent()` method creates a managed instance of a detached entity object. The EntityManager 
 automatically tracks all managed entity objects in its persistence context for changes and
 synchronizes them with the database. But, if an entity becomes detached, you must merge that entity
-into the persistence context by calling the `merge()` method on an `EntityManager` instance in order
-for changes to the detached entity's loaded fields to be tracked.
+into the persistence context by calling the `merge()` method so changes to the detached entity's loaded 
+fields are tracked.
 
 * The `deleteEvent()` method removes an instance of the `Event` entity class from the database by 
 calling the `remove()` method on an `EntityManager` instance. The managed entity gets removed from
@@ -245,10 +245,10 @@ the database and its state becomes removed.
 
 include::{common-includes}/mvnbuild.adoc[]
 
-When the server is running, visit the {eventapp-url} URL to view the Event Manager application. 
+When the server is running, go to the {eventapp-url} URL to view the Event Manager application. 
 
 Using the `Create event` button in the left navigation bar you are able to create events that will 
-be persisted to the database. Once you have created an event, it will be available to view, update, 
+be persisted to the database. After you have created an event, it will be available to view, update, 
 and delete in the `Event list` section.
 
 // Use the following include to pull in the Liberty start/stop server instructions from the
