@@ -46,8 +46,8 @@ Embedded Derby database as a datastore for all the events.
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. The interaction between your application and the database is mediated by the persistence 
 context that is managed by an EntityManager. In this guide you will learn how to use a container-managed 
-EntityManager that will be obtained by the application through injection. This means, that the EntityManagers
-lifecycle will be managed transparently by the Java EE container.
+EntityManager that will be obtained by the application through injection. This means, that the lifecycle
+of the EntityManager will be managed transparently by the Java EE container.
 
 
 // =================================================================================================
