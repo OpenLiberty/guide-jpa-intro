@@ -181,12 +181,12 @@ and whether to create the database if it does not already exist.
 
 Every entity object has a lifecycle that consists of four states: new, managed, detached and removed. 
 Whenever a new Event object is created its state will be new, meaning that it is not mapped to a row in 
-the database table and is not associated with an EntityManger. Managed entities are entities that have 
-been persisted, or fetched by `find()` or a query, and are managed by the EntityManager. This means that 
-they are actively tracked by the persistence context. Detached entities are no longer managed by a 
-persistence context. When using a container-managed EntityManager, entities automatically become 
-detached at the end of transaction boundaries. Lastly, removed entities will be marked for removal 
-and will be deleted from the database upon transaction commit. 
+the database table and is not associated with an EntityManger. Managed entities are actively tracked 
+by the persistence context. Entities become managed when they are persisted, merged, or fetched by
+`find()` or a query. Detached entities are no longer managed by a persistence context. Entities become
+detached when the EntityManager is cleared, closed or explicitly detached. When using a container-managed
+EntityManager, entities automatically become detached at the end of transaction boundaries. Lastly, 
+removed entities will be marked for removal and will be deleted from the database upon transaction commit. 
 
 To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/dao/EventDao.java` 
 file:
