@@ -45,9 +45,9 @@ Embedded Derby database as a datastore for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. The interaction between your application and the database is mediated by the persistence 
-context that is managed by an EntityManager. In this guide you will learn how to use a transaction-scoped 
-container-managed persistence context EntityManager. This places the burden of managing the EntityManager's 
-lifecycle on the application server with a request scoped CDI bean. 
+context that is managed by an EntityManager. In this guide you will learn how to use a container-managed 
+EntityManager that will be obtained by the application through injection. This means, that the EntityManagers
+lifecycle will be managed transparently by the Java EE container.
 
 
 // =================================================================================================
@@ -130,8 +130,7 @@ Let's break down the new annotations that are used in this JPA entity class:
 == Configuring the EntityManager
 
 An EntityManager provides the functionality to perform operations on the database such as persisting
-new entities, fetching entities through the `find()` method and queries, updating changes, and 
-removing entities.
+new entities, fetching entities through the `find()` method and queries, and removing entities.
 
 The EntityManager manages the lifecycle of entity instances. Every EntityManager instance is associated 
 with a persistence context. The persistence context manages a set of entities and is aware of the different 
