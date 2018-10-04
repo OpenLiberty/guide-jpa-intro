@@ -55,7 +55,7 @@ public class EventService {
             if (event.equals(newEvent)) {
                 return;
             }
-        ]
+        }
 
         eventDAO.createEvent(newEvent);
     }
