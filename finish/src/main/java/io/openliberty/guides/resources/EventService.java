@@ -47,12 +47,15 @@ public class EventService {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public void addNewEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location) {
+    public void addNewEvent(@FormParam("name") String name, @FormParam("time") String time,
+        @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
 
-        for (Event event : eventDAO.readAllEvents())
-            if (event.equals(newEvent))
+        for (Event event : eventDAO.readAllEvents()) {
+            if (event.equals(newEvent)) {
                 return;
+            }
+        ]
 
         eventDAO.createEvent(newEvent);
     }
@@ -65,12 +68,15 @@ public class EventService {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public void updateEvent(@FormParam("name") String name, @FormParam("time") String time, @FormParam("location") String location, @PathParam("id") int id) {
+    public void updateEvent(@FormParam("name") String name, @FormParam("time") String time, 
+        @FormParam("location") String location, @PathParam("id") int id) {
         Event prevEvent = eventDAO.readEvent(id);
 
-        for (Event event : eventDAO.readAllEvents())
-            if (event.equals(new Event(name, location, time)))
+        for (Event event : eventDAO.readAllEvents()) {
+            if (event.equals(new Event(name, location, time))) {
                 return;
+            }
+        }
 
         prevEvent.setName(name);
         prevEvent.setLocation(location);
@@ -110,7 +116,8 @@ public class EventService {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         JsonArrayBuilder finalArray = Json.createArrayBuilder();
         for (Event event : eventDAO.readAllEvents()) {
-            builder.add("name", event.getName()).add("time", event.getTime()).add("location", event.getLocation()).add("id", event.getId());
+            builder.add("name", event.getName()).add("time", event.getTime()).add("location", 
+                event.getLocation()).add("id", event.getId());
             finalArray.add(builder.build());
         }
         return finalArray.build();
