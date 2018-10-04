@@ -142,8 +142,9 @@ public class EventEntityTest {
             Event test = new Event(testEvent.getString("name"),
                     testEvent.getString("location"),
                     testEvent.getString("time"));
-            if (test.equals(e))
+            if (test.equals(e)){
                 return testEvent;
+            }
         }
         return null;
     }
