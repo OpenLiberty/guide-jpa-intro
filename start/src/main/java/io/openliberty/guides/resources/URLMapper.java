@@ -24,7 +24,8 @@ public class URLMapper implements Filter {
     Pattern[] endpoints = {Pattern.compile("/events.*")};
 
     @Override
-    public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
+    public void doFilter(ServletRequest request, ServletResponse response,
+        FilterChain chain) throws IOException, ServletException {
         if (request instanceof HttpServletRequest) {
             String endpoint = ((HttpServletRequest) request).getRequestURI();
             if (endpoint.equals("/event") || endpoint.startsWith("/event/")) {
