@@ -129,6 +129,10 @@ The following table breaks down the new annotations:
 
 == Configuring the EntityManager
 
+The EntityManager API provides the functionality to perform operations on the database such as persisting
+new entities, fetching entities through the `find()` method and queries, updating changes, and 
+removing entities.
+
 The EntityManager interface interacts with the persistence context. Every EntityManager instance is associated 
 with a persistence context. The persistence context manages a set of entities and is aware of the different 
 states that an entity can have. The configuration information of the EntityManager, such as the transaction type and 
@@ -176,10 +180,6 @@ and whether the database is created if it does not already exist.
 // =================================================================================================
 
 == Performing CRUD operations using JPA
-
-The EntityManager API provides the functionality to perform operations on the database such as persisting
-new entities, fetching entities through the `find()` method and queries, updating changes, and 
-removing entities.
 
 To perform CRUD operations by using JPA, create the `src/main/java/io/openliberty/guides/dao/EventDao.java` 
 file:
