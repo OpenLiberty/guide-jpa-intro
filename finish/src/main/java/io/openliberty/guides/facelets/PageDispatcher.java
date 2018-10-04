@@ -40,7 +40,6 @@ public class PageDispatcher implements Serializable {
         this.pageLoader = pageLoader;
     }
 
-
     public void showEventForm() {
         pageLoader.setContent("content/eventForm.xhtml");
         pageLoader.setCurrentPage("Event Creation");
