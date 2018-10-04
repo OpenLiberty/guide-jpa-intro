@@ -12,17 +12,12 @@
 // end::copyright[]
 package it.io.openliberty.guides.event;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNull;
 
 import java.util.HashMap;
-import javax.json.JsonArray;
 import javax.json.JsonObject;
-import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
-import javax.ws.rs.core.Response;
 
 import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.junit.After;
@@ -31,7 +26,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import io.openliberty.guides.models.Event;
 
-public class EventEntityTest {
+public class EventEntityTest extends EventTest {
 
     public static final String JSONFIELD_LOCATION = "location";
     public static final String JSONFIELD_NAME = "name";
@@ -43,19 +38,6 @@ public class EventEntityTest {
     public static final String UPDATE_EVENT_TIME = "12:00 PM, February 1 2018";
     public static final String UPDATE_EVENT_LOCATION = "IBM Updated";
     public static final String UPDATE_EVENT_NAME = "JPA Guide Updated";
-
-    private static String baseUrl;
-    private static String port;
-
-    private static final String EVENTS = "events";
-
-    private Form form;
-    private Client client;
-    private WebTarget webTarget;
-    private Response response;
-    private HashMap<String, String> eventForm;
-    private HashMap<String, String> actualDataStored;
-    private Event e;
 
     @BeforeClass
     public static void oneTimeSetup() {
@@ -104,55 +86,6 @@ public class EventEntityTest {
         assertNull(getTestEvent());
     }
 
-    private void sendForm(HashMap<String, String> formDataMap, String url) {
-        formDataMap.forEach((formField, data) -> {
-            form.param(formField, data);
-        });
-        webTarget = client.target(url);
-        response = webTarget.request().post(Entity.form(form));
-        form = new Form();
-    }
-
-    private void deleteForm(String url) {
-        webTarget = client.target(url);
-        response = webTarget.request().delete();
-        form = new Form();
-    }
-
-    private void updateForm(HashMap<String, String> formDataMap, String url) {
-        formDataMap.forEach((formField, data) -> {
-            form.param(formField, data);
-        });
-        webTarget = client.target(url);
-        response = webTarget.request().put(Entity.form(form));
-        form = new Form();
-    }
-
-    private JsonObject getTestEvent() {
-        webTarget = client.target(baseUrl + EVENTS);
-        response = webTarget.request().get();
-        JsonArray eventsArray = response.readEntity(JsonArray.class);
-        JsonObject event = findTestEvent(eventsArray);
-        return event;
-    }
-
-    private JsonObject findTestEvent(JsonArray events) {
-        for (int i = 0; i < events.size(); i++) {
-            JsonObject testEvent = events.getJsonObject(i);
-            Event test = new Event(testEvent.getString("name"),
-                    testEvent.getString("location"),
-                    testEvent.getString("time"));
-            if (test.equals(e))
-                return testEvent;
-        }
-        return null;
-    }
-
-    private void assertData(HashMap<String, String> testedData) {
-        testedData.forEach((actual, expected) -> {
-            assertEquals(expected, actual);
-        });
-    }
 
     @After
     public void teardown() {

@@ -104,7 +104,7 @@ public class Event implements Serializable {
             if (other.name != null) {
                 return false;
             }
-        } else if (!name.equals(other.name)){
+        } else if (!name.equals(other.name)) {
             return false;
         }
 
