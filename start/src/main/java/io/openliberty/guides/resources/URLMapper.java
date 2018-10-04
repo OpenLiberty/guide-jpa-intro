@@ -30,12 +30,14 @@ public class URLMapper implements Filter {
             String endpoint = ((HttpServletRequest) request).getRequestURI();
             if (endpoint.equals("/event") || endpoint.startsWith("/event/")) {
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
-                httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND, "No such an endpoint");
+                httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND,
+                    "No such an endpoint");
                 return;
             }
             for (Pattern pattern : endpoints) {
                 if (pattern.matcher(endpoint).matches()) {
-                    request.getRequestDispatcher("/event" + endpoint).forward(request, response);
+                    request.getRequestDispatcher("/event" + endpoint)
+                           .forward(request, response);
                     return;
                 }
             }

@@ -49,8 +49,7 @@ public class ServiceUtil {
         String time, int id) {
         Form form = new Form().param("name", name).param("time", time)
                               .param("location", location);
-        Response response = connectToService(eventServiceURL + "/" + id);
-        response.put(Entity.form(form));
+        Response response = connectToService(eventServiceURL + "/" + id).put(Entity.form(form));
         response.close();
     }
 
