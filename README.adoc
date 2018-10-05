@@ -36,7 +36,7 @@ JPA is a Java specification for representing relational database table data as P
 JPA simplifies object-relational mapping (ORM) by using annotations to map Java objects 
 to tables in a relational database. In addition to providing an efficient API for performing
 CRUD operations, JPA also reduces the burden of having to write JDBC and SQL code when performing
-database operations and takes care of database vendor-specific differences. This allows you to 
+database operations and takes care of database vendor-specific differences. This capability allows you to 
 focus on the business logic of your application instead of wasting time implementing repetitive CRUD logic.
 
 The application that you will be working with is an event manager, which is composed of a UI and 
@@ -45,12 +45,12 @@ Embedded Derby database as a data store for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. The interaction between your application and the database is mediated by the persistence 
-context that is managed by an EntityManager. The EntityManager can be application-managed or
-container-managed. In this guide you will be using a container-managed EntityManager, placing the
-burden of managing the lifecycle of the EntityManager on the application server. The lifecycle of the
-persistence context can either be transaction-scoped or extended when using a container-managed EntityManager.
-You will be focused on using a container-managed EntityManager with a transaction-scoped persistence
-context to take advantage of the application server's services.
+context that is managed by an EntityManager instance. The entity manager can be application-managed or
+container-managed. In this guide you will use a container-managed entity manager, placing the
+burden of managing the lifecycle of the EntityManager instance on the application server. The lifecycle of the
+persistence context can either be transaction-scoped or extended when you use a container-managed 
+entity manager. You will be focused on using a container-managed entity manager with a 
+transaction-scoped persistence context to take advantage of the application server's services.
 
 
 // =================================================================================================
@@ -66,18 +66,16 @@ include::{common-includes}/gitclone.adoc[]
 include::{common-includes}/trywhatyoubuild-intro.adoc[]
 
 Point your browser to the {eventapp-url} URL. The event application does not display any events
-because there are no events stored in the database. Go ahead and click `Create Event`, located in the 
+because no events are stored in the database. Go ahead and click `Create Event`, located in the 
 left navigation bar. After entering an event name, location and time, click `Submit` to persist your 
 event entity to the database. The event is now stored in the database and is visible in the list of 
 current events.
 
-Notice that if you stop the Open Liberty server:
+Notice that if you stop the Open Liberty server and then restart it, the events created
+are still displayed in the list of current events. Run the following Maven goals to stop
+and then restart the server:
 ```
 mvn liberty:stop-server
-```
-
-and then restart it:
-```
 mvn liberty:start-server
 ```
 
@@ -109,21 +107,20 @@ annotations. Create the `Event` class in the `src/main/java/io/openliberty/guide
 include::finish/src/main/java/io/openliberty/guides/models/Event.java[tags=!copyright;]
 ----
 
-Let's break down the new annotations that are used in this JPA entity class:
+The following table breaks down the new annotations:
 
 [cols="35, 200", options="header"]
 |===
 | *Annotation*    | *Description*
 | `@Entity` | Declares the class as an entity
 | `@Table`  | Specifies details of the table such as name 
-| `@NamedQuery` | Specfies a predefined database query that can be executed by the EntityManager 
-                    at runtime
+| `@NamedQuery` | Specifies a predefined database query that is run by an EntityManager instance.
 | `@Id`       |  Declares the pimary key of the entity
 | `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key. 
-                        `strategy = GenerationType.AUTO` indicates that a generation strategy 
-                        will be chosen based on the database being used
-| `@Column`    | Specifies that the field is mapped to a column in the database table, `name` is 
-                 optional and indicates the name of the column in the table
+                        The `strategy = GenerationType.AUTO` code indicates that a generation strategy 
+                        is chosen based on the database that is used
+| `@Column`    | Specifies that the field is mapped to a column in the database table. The `name`
+                 attribute is optional and indicates the name of the column in the table
 |===
 
 // =================================================================================================
@@ -132,14 +129,14 @@ Let's break down the new annotations that are used in this JPA entity class:
 
 == Configuring the EntityManager
 
-An EntityManager provides the functionality to perform operations on the database such as persisting
+The EntityManager API provides the functionality to perform operations on the database such as persisting
 new entities, fetching entities through the `find()` method and queries, updating changes, and 
 removing entities.
 
-The EntityManager manages the lifecycle of entity instances. Every EntityManager instance is associated 
+The entity manager interacts with the persistence context. Every EntityManager instance is associated 
 with a persistence context. The persistence context manages a set of entities and is aware of the different 
-states that an entity can have. The configuration information of the EntityManager, such as the transaction type and 
-data store, is also defined by the persistence unit specified in the `persistence.xml` file.
+states that an entity can have. The configuration information of the entity manager, such as the transaction type and 
+data store, is defined by the persistence unit specified in the `persistence.xml` file.
 
 Create the `src/main/resources/META-INF/persistence.xml` file:
 
@@ -150,11 +147,12 @@ include::finish/src/main/resources/META-INF/persistence.xml[tags=**;]
 
 The persistence unit is defined by the `<persistence-unit>` XML element. The `name` attribute is 
 required and is used to identify the persistent unit. The `transaction-type=”JTA”` element specifies 
-that the persistence context will enlist with Java Transaction API (JTA) global transactions. Since 
-we are using a container-managed EntityManager, it is required that JTA transactions are used. 
+that the persistence context enlists in Java Transaction API (JTA) global transactions. Since 
+we are using a container-managed entity manager, JTA transactions must be used. 
 
-The `eclipselink.ddl-generation` properties are used here to avoid having to manually create a database 
-table to run this sample application. To learn more about the `ddl-generation` properties, see the 
+The `eclipselink.ddl-generation` properties are used here so that you aren't required to 
+manually create a database table to run this sample application. To learn more about the 
+`ddl-generation` properties, see the 
 http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.]
 
 A JTA transaction type requires a data source to be provided. The data source is defined through the 
@@ -174,7 +172,8 @@ JDBC driver is what enables the application to interact with the database.
 
 The data source configuration is done within the `<dataSource>` element. The `<properties.derby.embedded>` 
 attribute within the data source configuration contains Embedded Derby properties such as the database name 
-and if the database should be created if it does not exist.
+and whether the database is created if it does not already exist.
+
 
 // =================================================================================================
 // Performing CRUD operations using JPA
@@ -182,16 +181,7 @@ and if the database should be created if it does not exist.
 
 == Performing CRUD operations using JPA
 
-Every entity object has a lifecycle that consists of four states: new, managed, detached and removed. 
-When a new Event object is created its state will be new, meaning that it is not mapped to a row in 
-the database table and is not associated with an EntityManger. Managed entities are actively tracked 
-by the persistence context. Entities become managed when they are persisted, merged, or fetched by
-`find()` or a query. Detached entities are no longer managed by a persistence context. Entities become
-detached when the EntityManager is cleared, closed or explicitly detached. When using a container-managed
-EntityManager, entities automatically become detached at the end of transaction boundaries. Lastly, 
-removed entities will be marked for removal and will be deleted from the database upon transaction commit. 
-
-To perform CRUD operations using JPA, create the `src/main/java/io/openliberty/guides/dao/EventDao.java` 
+To perform CRUD operations by using JPA, create the `src/main/java/io/openliberty/guides/dao/EventDao.java` 
 file:
 
 [source, Java]
@@ -199,45 +189,46 @@ file:
 include::finish/src/main/java/io/openliberty/guides/dao/EventDao.java[tags=!copyright;]
 ----
 
-The `EventDao` class can then be injected into other components of your application. Notice how
+You can then inject the `EventDao` class into other components of your application. Notice how
 it is injected into the `src/main/java/io/openliberty/resources/EventService.java` file to provide
 the `EventService` class with a way to persist and access data.
 
-To use the EntityManager at runtime, it must be injected into our CDI bean through the
+To use the entity manager at runtime, inject it into our CDI bean through the
 `@PersistenceContext` annotation. The `@Transactional` annotation allows the application to manage
-transaction boundaries on CDI-managed beans. This ensures that the required methods are executed within
-the boundaries of an active global transaction, which is why it is not necessary to explicitly begin, 
-commit or rollback transactions.
+transaction boundaries on CDI-managed beans. This transaction management ensures that 
+the required methods run within the boundaries of an active global transaction,
+which is why it is not necessary to explicitly begin, commit or rollback transactions.
 
-Since we are using a transaction-scoped persistence context, a new persistence context will begin when
-the EntityManager is invoked within an active transaction and will end when the transaction commits or 
+Since we are using a transaction-scoped persistence context, a new persistence context begins when
+an EntityManager instance is invoked within an active transaction and ends when the transaction commits or 
 rolls back.  At the end of the transactional method invocation, the persistence context 
-will be notified that the transaction is committing, and will flush any changes made to entity instances 
-it is managing to the database. The managed entities will then become detached. 
+is notified that the transaction is committing, and flushes any changes made to entity instances 
+it is managing to the database. The managed entities then become detached. 
 
 The `EventDao.java` class has a method for each CRUD operation, so let's break them down:
 
 * The `createEvent()` method persists an instance of the `Event` entity class to the data store by
-calling the `persist()` method on an EntityManager instance. The event objects state will be 
-changed from new to managed and changes to it are now tracked by the EntityManager. 
+calling the `persist()` method on an EntityManager instance. The event objects state 
+changes from new to managed and changes to it are now tracked by the EntityManager instance. 
 
-* The `readEvent()` method will return an instance of the `Event` entity class with the specified primary 
-key by calling the `find()` method on an `EntityManager` instance. If the event instance is found, it will
-be returned in a managed state, but, if the event instance is not found, `Null` will be returned.
+* The `readEvent()` method returns an instance of the `Event` entity class with the specified primary 
+key by calling the `find()` method on an `EntityManager` instance. If the event instance is found, it
+is returned in a managed state, but, if the event instance is not found, `Null` is returned.
 
 * The `readAllEvents()` method demonstrates an alternate way to retrieve event objects from the database.
-This method returns a list of instances of the `Event` entity class using a query specified in the `@NamedQuery` 
-annotation on the `Event` class. The event instances will be returned in a managed state. 
+This method returns a list of instances of the `Event` entity class by using a query specified in the `@NamedQuery` 
+annotation on the `Event` class. The event instances are returned in a managed state. 
 
-* The `updateEvent()` method creates a managed instance of a detached entity object. The EntityManager 
+* The `updateEvent()` method creates a managed instance of a detached entity object. The entity manager 
 automatically tracks all managed entity objects in its persistence context for changes and
-synchronizes them with the database. But, if an entity becomes detached, you must merge that entity
-into the persistence context by calling the `merge()` method so changes to the detached entity's loaded 
-fields are tracked.
+synchronizes them with the database. However, if an entity becomes detached, you must merge that entity
+into the persistence context by calling the `merge()` method so that changes to loaded 
+fields of the detached entity are tracked.
 
 * The `deleteEvent()` method removes an instance of the `Event` entity class from the database by 
-calling the `remove()` method on an `EntityManager` instance. The managed entity gets removed from
-the database and its state becomes removed.
+calling the `remove()` method on an `EntityManager` instance. The state of the entity is
+changed to removed and is removed from the database upon transaction commit. 
+
 
 // =================================================================================================
 // Building and running the application
@@ -247,9 +238,9 @@ include::{common-includes}/mvnbuild.adoc[]
 
 When the server is running, go to the {eventapp-url} URL to view the Event Manager application. 
 
-Using the `Create event` button in the left navigation bar you are able to create events that will 
-be persisted to the database. After you have created an event, it will be available to view, update, 
-and delete in the `Event list` section.
+Click `Create event` in the left navigation bar to create events that are persisted to 
+the database. After you create an event, it is available to view, update, and delete in
+the `Event list` section.
 
 // Use the following include to pull in the Liberty start/stop server instructions from the
 // guides-common repo.
@@ -272,10 +263,11 @@ include::finish/src/test/java/it/io/openliberty/guides/event/EventEntityTest.jav
 ----
 
 The `testCRUD()` method creates a test event and persists it to the database. The event object is then 
-retrieved from the database to verify that the test event was actually persisted. Next, the test event's 
-name, location, and time is updated. The event object is retrieved from the database to verify that 
-the updated event is stored. Finally, the updated test event is deleted and one final check is done 
-to ensure the updated test event is no longer stored in the database.
+retrieved from the database to verify that the test event was actually persisted. Next, the  
+name, location, and time of the test event are updated. The event object is retrieved 
+from the database to verify that the updated event is stored. Finally, the updated test 
+event is deleted and one final check is done to ensure that the updated test event is no longer 
+stored in the database.
 
 // Include this for info on how to run the tests
 include::{common-includes}/mvnverify.adoc[]
@@ -299,10 +291,10 @@ Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
 
 == Great work! You're done!
 
-You have learned how to map Java objects to database tables by defining a JPA entity class whose 
+You learned how to map Java objects to database tables by defining a JPA entity class whose 
 instances are represented as rows in the table.
 
-You have have learned how to configure an EntityManager and use container-managed transactions
-to perform basic CRUD operations on a database using JPA. 
+You have learned how to configure an entity manager and use container-managed transactions
+to perform basic CRUD operations on a database by using JPA. 
 
 include::{common-includes}/finish.adoc[]
