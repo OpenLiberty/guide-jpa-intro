@@ -45,9 +45,9 @@ Embedded Derby database as a data store for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. The interaction between your application and the database is mediated by the persistence 
-context that is managed by an EntityManager instance. The entity manager can be application-managed or
+context that is managed by an entity manager. The entity manager can be application-managed or
 container-managed. In this guide you will use a container-managed entity manager, placing the
-burden of managing the lifecycle of the EntityManager instance on the application server. The lifecycle of the
+burden of managing the lifecycle of an EntityManager instance on the application server. The lifecycle of the
 persistence context can either be transaction-scoped or extended when you use a container-managed 
 entity manager. You will be focused on using a container-managed entity manager with a 
 transaction-scoped persistence context to take advantage of the application server's services.
@@ -124,19 +124,14 @@ The following table breaks down the new annotations:
 |===
 
 // =================================================================================================
-// Configuring the EntityManager
+// Creating the persistence.xml
 // =================================================================================================
 
-== Configuring the EntityManager
+== Creating the persistence.xml file
 
-The EntityManager API provides the functionality to perform operations on the database such as persisting
-new entities, fetching entities through the `find()` method and queries, updating changes, and 
-removing entities.
-
-The entity manager interacts with the persistence context. Every EntityManager instance is associated 
-with a persistence context. The persistence context manages a set of entities and is aware of the different 
-states that an entity can have. The configuration information of the entity manager, such as the transaction type and 
-data store, is defined by the persistence unit specified in the `persistence.xml` file.
+The `persistence.xml` file is a configuration file that defines a persistence unit. The 
+persistence unit contains configuration information for the entity manager, the transaction
+type, and the data source that the application uses. 
 
 Create the `src/main/resources/META-INF/persistence.xml` file:
 
@@ -146,34 +141,22 @@ include::finish/src/main/resources/META-INF/persistence.xml[tags=**;]
 ----
 
 The persistence unit is defined by the `<persistence-unit>` XML element. The `name` attribute is 
-required and is used to identify the persistent unit. The `transaction-type=”JTA”` element specifies 
+required and is used to identify the persistent unit when using the `@PersistenceContext`
+annotation later in this guide. The `transaction-type=”JTA”` element specifies 
 that the persistence context enlists in Java Transaction API (JTA) global transactions. Since 
 we are using a container-managed entity manager, JTA transactions must be used. 
+
+A JTA transaction type requires a JTA data source to be provided. The data source is defined through the 
+`eventjpadatasource` element that specifies the Java Naming and Directory Interface (JNDI) name of 
+the data source that is used. The data source has already been configured for you
+in the `src/main/liberty/config/server.xml` file. This data source configuration is where 
+the Java Database Connectivity (JDBC) connection is defined along with some database
+vendor-specific properties.
 
 The `eclipselink.ddl-generation` properties are used here so that you aren't required to 
 manually create a database table to run this sample application. To learn more about the 
 `ddl-generation` properties, see the 
 http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.]
-
-A JTA transaction type requires a data source to be provided. The data source is defined through the 
-`eventjpadatasource` element that specifies the Java Naming and Directory Interface (JNDI) name of 
-the data source that is to be used.
-
-The Java Database Connectivity (JDBC) connection is specified in the data source that is configured
-in the `server.xml` file. Create the `src/main/liberty/config/server.xml` file:
-
-[source, Xml]
-----
-include::finish/src/main/liberty/config/server.xml[tags=**;]
-----
-
-The `derbyJDBCLib` element is a shared library that points to the directory of the JDBC driver. The 
-JDBC driver is what enables the application to interact with the database.
-
-The data source configuration is done within the `<dataSource>` element. The `<properties.derby.embedded>` 
-attribute within the data source configuration contains Embedded Derby properties such as the database name 
-and whether the database is created if it does not already exist.
-
 
 // =================================================================================================
 // Performing CRUD operations using JPA
@@ -189,12 +172,13 @@ file:
 include::finish/src/main/java/io/openliberty/guides/dao/EventDao.java[tags=!copyright;]
 ----
 
-You can then inject the `EventDao` class into other components of your application. Notice how
-it is injected into the `src/main/java/io/openliberty/resources/EventService.java` file to provide
-the `EventService` class with a way to persist and access data.
-
 To use the entity manager at runtime, inject it into our CDI bean through the
-`@PersistenceContext` annotation. The `@Transactional` annotation allows the application to manage
+`@PersistenceContext` annotation. The entity manager interacts with the persistence context. 
+Every EntityManager instance is associated with a persistence context. The persistence context 
+manages a set of entities and is aware of the different states that an entity can have.
+The persistence context then synchronizes with the database when a transaction commits.
+
+ The `@Transactional` annotation allows the application to manage
 transaction boundaries on CDI-managed beans. This transaction management ensures that 
 the required methods run within the boundaries of an active global transaction,
 which is why it is not necessary to explicitly begin, commit or rollback transactions.
@@ -209,7 +193,7 @@ The `EventDao.java` class has a method for each CRUD operation, so let's break t
 
 * The `createEvent()` method persists an instance of the `Event` entity class to the data store by
 calling the `persist()` method on an EntityManager instance. The event objects state 
-changes from new to managed and changes to it are now tracked by the EntityManager instance. 
+changes from new to managed and changes to it are now tracked by the entity manager. 
 
 * The `readEvent()` method returns an instance of the `Event` entity class with the specified primary 
 key by calling the `find()` method on an `EntityManager` instance. If the event instance is found, it
@@ -217,7 +201,7 @@ is returned in a managed state, but, if the event instance is not found, `Null` 
 
 * The `readAllEvents()` method demonstrates an alternate way to retrieve event objects from the database.
 This method returns a list of instances of the `Event` entity class by using a query specified in the `@NamedQuery` 
-annotation on the `Event` class. The event instances are returned in a managed state. 
+annotation on the `Event` class. 
 
 * The `updateEvent()` method creates a managed instance of a detached entity object. The entity manager 
 automatically tracks all managed entity objects in its persistence context for changes and
@@ -229,6 +213,9 @@ fields of the detached entity are tracked.
 calling the `remove()` method on an `EntityManager` instance. The state of the entity is
 changed to removed and is removed from the database upon transaction commit. 
 
+You can then inject the `EventDao` class into other components of your application. Notice how
+it is injected into the `src/main/java/io/openliberty/resources/EventService.java` file to provide
+the `EventService` class with a way to persist and access data.
 
 // =================================================================================================
 // Building and running the application
