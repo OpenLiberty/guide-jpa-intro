@@ -86,7 +86,6 @@ public class EventEntityTest extends EventTest {
         assertNull(getTestEvent());
     }
 
-
     @After
     public void teardown() {
         response.close();
