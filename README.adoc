@@ -178,7 +178,7 @@ Every EntityManager instance is associated with a persistence context. The persi
 manages a set of entities and is aware of the different states that an entity can have.
 The persistence context then synchronizes with the database when a transaction commits.
 
- The `@Transactional` annotation allows the application to manage
+The `@Transactional` annotation allows the application to manage
 transaction boundaries on CDI-managed beans. This transaction management ensures that 
 the required methods run within the boundaries of an active global transaction,
 which is why it is not necessary to explicitly begin, commit or rollback transactions.
