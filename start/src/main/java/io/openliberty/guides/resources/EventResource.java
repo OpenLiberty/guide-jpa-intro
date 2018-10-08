@@ -35,7 +35,7 @@ import io.openliberty.guides.models.Event;
 
 @RequestScoped
 @Path("events")
-public class EventService {
+public class EventResource {
 
     @Inject
     private EventDao eventDAO;
