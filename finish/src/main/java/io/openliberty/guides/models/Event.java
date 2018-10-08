@@ -113,6 +113,7 @@ public class Event implements Serializable {
 
     @Override
     public String toString() {
-        return "Event [name=" + name + ", location=" + location + ", time=" + time + "]";
+        return "Event [name=" + name + ", location=" + location + ", time=" + time
+                + "]";
     }
 }
