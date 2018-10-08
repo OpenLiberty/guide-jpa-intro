@@ -21,23 +21,23 @@ import javax.servlet.annotation.WebFilter;
 
 @WebFilter(urlPatterns = "/*")
 public class URLMapper implements Filter {
-    Pattern[] endpoints = {Pattern.compile("/events.*")};
+    Pattern[] endpoints = { Pattern.compile("/events.*") };
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
-        FilterChain chain) throws IOException, ServletException {
+            FilterChain chain) throws IOException, ServletException {
         if (request instanceof HttpServletRequest) {
             String endpoint = ((HttpServletRequest) request).getRequestURI();
             if (endpoint.equals("/event") || endpoint.startsWith("/event/")) {
                 HttpServletResponse httpResponse = (HttpServletResponse) response;
                 httpResponse.sendError(HttpServletResponse.SC_NOT_FOUND,
-                    "No such an endpoint");
+                        "No such an endpoint");
                 return;
             }
             for (Pattern pattern : endpoints) {
                 if (pattern.matcher(endpoint).matches()) {
-                    request.getRequestDispatcher("/event" + endpoint)
-                           .forward(request, response);
+                    request.getRequestDispatcher("/event" + endpoint).forward(request,
+                            response);
                     return;
                 }
             }
