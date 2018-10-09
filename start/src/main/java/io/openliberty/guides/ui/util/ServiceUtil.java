@@ -37,7 +37,7 @@ public class ServiceUtil {
      */
     public static void submitEventToService(String name, String location, String time) {
         Form form = new Form().param("name", name).param("time", time).param("location",
-                location);
+            location);
         Response response = connectToService(eventServiceURL).post(Entity.form(form));
         response.close();
     }
@@ -48,10 +48,10 @@ public class ServiceUtil {
     public static void submitUpdatedEventToService(String name, String location,
             String time, int id) {
         Form form = new Form().param("name", name).param("time", time).param("location",
-                location);
+            location);
         Entity<Form> entityForm = Entity.form(form);
         Response response = connectToService(eventServiceURL + "/" + id)
-                .put(entityForm);
+            .put(entityForm);
         response.close();
     }
 
@@ -70,8 +70,8 @@ public class ServiceUtil {
         JsonArray jr = retrieveFromService();
         List<Event> events = jr.stream().map(eventJson -> {
             Event event = new Event(((JsonObject) eventJson).getString("name"),
-                    ((JsonObject) eventJson).getString("location"),
-                    ((JsonObject) eventJson).getString("time"));
+                ((JsonObject) eventJson).getString("location"),
+                ((JsonObject) eventJson).getString("time"));
             event.setId(((JsonObject) eventJson).getInt("id"));
             return event;
         }).collect(Collectors.toList());

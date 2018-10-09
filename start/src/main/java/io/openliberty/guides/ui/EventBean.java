@@ -152,7 +152,7 @@ public class EventBean implements Serializable {
     public void submitUpdateToService() {
         String time = createStoredTime();
         ServiceUtil.submitUpdatedEventToService(this.name, this.location, time,
-                this.selectedId);
+            this.selectedId);
         pageDispatcher.showMainPage();
         clear();
     }
@@ -296,7 +296,7 @@ public class EventBean implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         FacesMessage message = new FacesMessage(errorMessage);
         HtmlPanelGroup divEventTime = (HtmlPanelGroup) event.getComponent()
-                .findComponent("eventform:eventTime");
+            .findComponent("eventform:eventTime");
         context.addMessage(divEventTime.getClientId(context), message);
     }
 
@@ -323,7 +323,7 @@ public class EventBean implements Serializable {
     private void allowSubmission(ComponentSystemEvent event, boolean allowSubmission) {
         UIComponent components = event.getComponent();
         HtmlInputHidden formInput = (HtmlInputHidden) components
-                .findComponent("eventform:eventSubmit");
+            .findComponent("eventform:eventSubmit");
         formInput.setValid(allowSubmission);
     }
 
