@@ -76,8 +76,7 @@ public class EventTest {
         for (int i = 0; i < events.size(); i++) {
             JsonObject testEvent = events.getJsonObject(i);
             Event test = new Event(testEvent.getString("name"),
-                    testEvent.getString("location"),
-                    testEvent.getString("time"));
+                    testEvent.getString("location"), testEvent.getString("time"));
             if (test.equals(e)) {
                 return testEvent;
             }

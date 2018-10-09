@@ -78,7 +78,8 @@ public class EventEntityTest extends EventTest {
         e = new Event(UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
         event = getTestEvent();
         actualDataStored.put(event.getString(JSONFIELD_NAME), UPDATE_EVENT_NAME);
-        actualDataStored.put(event.getString(JSONFIELD_LOCATION), UPDATE_EVENT_LOCATION);
+        actualDataStored.put(event.getString(JSONFIELD_LOCATION),
+                UPDATE_EVENT_LOCATION);
         actualDataStored.put(event.getString(JSONFIELD_TIME), UPDATE_EVENT_TIME);
         assertData(actualDataStored);
 
@@ -93,4 +94,3 @@ public class EventEntityTest extends EventTest {
     }
 
 }
-	

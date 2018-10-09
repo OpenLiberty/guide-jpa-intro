@@ -36,8 +36,8 @@ public class ServiceUtil {
      * Post event form data to back end service
      */
     public static void submitEventToService(String name, String location, String time) {
-        Form form = new Form().param("name", name).param("time", time)
-                              .param("location", location);
+        Form form = new Form().param("name", name).param("time", time).param("location",
+            location);
         Response response = connectToService(eventServiceURL).post(Entity.form(form));
         response.close();
     }
@@ -46,11 +46,12 @@ public class ServiceUtil {
      * Post updated event form data to back end service
      */
     public static void submitUpdatedEventToService(String name, String location,
-        String time, int id) {
-        Form form = new Form().param("name", name).param("time", time)
-                              .param("location", location);
+            String time, int id) {
+        Form form = new Form().param("name", name).param("time", time).param("location",
+            location);
         Entity<Form> entityForm = Entity.form(form);
-        Response response = connectToService(eventServiceURL + "/" + id).put(entityForm);
+        Response response = connectToService(eventServiceURL + "/" + id)
+            .put(entityForm);
         response.close();
     }
 
@@ -68,8 +69,8 @@ public class ServiceUtil {
     public static List<Event> retrieveEvents() {
         JsonArray jr = retrieveFromService();
         List<Event> events = jr.stream().map(eventJson -> {
-            Event event = new Event(((JsonObject) eventJson).getString("name"), 
-                ((JsonObject) eventJson).getString("location"), 
+            Event event = new Event(((JsonObject) eventJson).getString("name"),
+                ((JsonObject) eventJson).getString("location"),
                 ((JsonObject) eventJson).getString("time"));
             event.setId(((JsonObject) eventJson).getInt("id"));
             return event;

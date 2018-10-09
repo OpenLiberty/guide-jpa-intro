@@ -21,7 +21,7 @@ import javax.servlet.annotation.WebFilter;
 
 @WebFilter(urlPatterns = "/*")
 public class URLMapper implements Filter {
-    Pattern[] endpoints = {Pattern.compile("/events.*")};
+    Pattern[] endpoints = { Pattern.compile("/events.*") };
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response,
@@ -36,8 +36,8 @@ public class URLMapper implements Filter {
             }
             for (Pattern pattern : endpoints) {
                 if (pattern.matcher(endpoint).matches()) {
-                    request.getRequestDispatcher("/event" + endpoint)
-                           .forward(request, response);
+                    request.getRequestDispatcher("/event" + endpoint).forward(request,
+                        response);
                     return;
                 }
             }

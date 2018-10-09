@@ -151,7 +151,7 @@ public class EventBean implements Serializable {
      */
     public void submitUpdateToService() {
         String time = createStoredTime();
-        ServiceUtil.submitUpdatedEventToService(this.name, this.location, time, 
+        ServiceUtil.submitUpdatedEventToService(this.name, this.location, time,
             this.selectedId);
         pageDispatcher.showMainPage();
         clear();
@@ -281,8 +281,8 @@ public class EventBean implements Serializable {
     }
 
     /**
-     * Parses time (in format: hh:mm AM, dd mm yyyy) into time, meridiem, month, day,
-     * year respectively.
+     * Parses time (in format: hh:mm AM, dd mm yyyy) into time, meridiem, month,
+     * day, year respectively.
      */
     private String[] parseTime(String time) {
         String delims = "[ ,]+";
@@ -295,8 +295,8 @@ public class EventBean implements Serializable {
     private void addErrorMessage(ComponentSystemEvent event, String errorMessage) {
         FacesContext context = FacesContext.getCurrentInstance();
         FacesMessage message = new FacesMessage(errorMessage);
-        HtmlPanelGroup divEventTime = (HtmlPanelGroup) event.getComponent();
-        divEventTime.findComponent("eventform:eventTime");
+        HtmlPanelGroup divEventTime = (HtmlPanelGroup) event.getComponent()
+            .findComponent("eventform:eventTime");
         context.addMessage(divEventTime.getClientId(context), message);
     }
 
@@ -322,8 +322,8 @@ public class EventBean implements Serializable {
      */
     private void allowSubmission(ComponentSystemEvent event, boolean allowSubmission) {
         UIComponent components = event.getComponent();
-        HtmlInputHidden formInput = (HtmlInputHidden) 
-            components.findComponent("eventform:eventSubmit");
+        HtmlInputHidden formInput = (HtmlInputHidden) components
+            .findComponent("eventform:eventSubmit");
         formInput.setValid(allowSubmission);
     }
 

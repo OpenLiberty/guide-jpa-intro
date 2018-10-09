@@ -35,7 +35,7 @@ import io.openliberty.guides.models.Event;
 
 @RequestScoped
 @Path("events")
-public class EventService {
+public class EventResource {
 
     @Inject
     private EventDao eventDAO;
@@ -47,8 +47,8 @@ public class EventService {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public void addNewEvent(@FormParam("name") String name, @FormParam("time") String time,
-        @FormParam("location") String location) {
+    public void addNewEvent(@FormParam("name") String name,
+        @FormParam("time") String time, @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
 
         for (Event event : eventDAO.readAllEvents()) {
@@ -68,8 +68,9 @@ public class EventService {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public void updateEvent(@FormParam("name") String name, @FormParam("time") String time, 
-        @FormParam("location") String location, @PathParam("id") int id) {
+    public void updateEvent(@FormParam("name") String name,
+        @FormParam("time") String time, @FormParam("location") String location,
+        @PathParam("id") int id) {
         Event prevEvent = eventDAO.readEvent(id);
 
         for (Event event : eventDAO.readAllEvents()) {
@@ -116,8 +117,8 @@ public class EventService {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         JsonArrayBuilder finalArray = Json.createArrayBuilder();
         for (Event event : eventDAO.readAllEvents()) {
-            builder.add("name", event.getName()).add("time", event.getTime()).add("location", 
-                event.getLocation()).add("id", event.getId());
+            builder.add("name", event.getName()).add("time", event.getTime())
+                   .add("location", event.getLocation()).add("id", event.getId());
             finalArray.add(builder.build());
         }
         return finalArray.build();
