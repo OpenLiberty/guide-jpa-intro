@@ -24,7 +24,7 @@ import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
-import io.openliberty.guides.models.Event;
+import io.openliberty.guides.jpa.models.Event;
 
 public class ServiceUtil {
 

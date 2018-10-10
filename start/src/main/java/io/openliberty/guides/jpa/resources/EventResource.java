@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.resources;
+package io.openliberty.guides.jpa.resources;
 
 import javax.json.Json;
 import javax.json.JsonArray;
@@ -30,8 +30,8 @@ import javax.ws.rs.core.MediaType;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
-import io.openliberty.guides.dao.EventDao;
-import io.openliberty.guides.models.Event;
+import io.openliberty.guides.jpa.dao.EventDao;
+import io.openliberty.guides.jpa.models.Event;
 
 @RequestScoped
 @Path("events")

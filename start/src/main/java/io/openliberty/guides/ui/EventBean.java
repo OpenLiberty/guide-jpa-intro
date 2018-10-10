@@ -20,9 +20,8 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.annotation.ManagedProperty;
 
-import io.openliberty.guides.dao.EventDao;
-import io.openliberty.guides.facelets.PageDispatcher;
-import io.openliberty.guides.models.Event;
+import io.openliberty.guides.jpa.models.Event;
+import io.openliberty.guides.ui.facelets.PageDispatcher;
 import io.openliberty.guides.ui.util.ServiceUtil;
 import io.openliberty.guides.ui.util.TimeMapUtil;
 
@@ -57,9 +56,6 @@ public class EventBean implements Serializable {
     @Inject
     @ManagedProperty(value = "#{pageDispatcher}")
     private PageDispatcher pageDispatcher;
-
-    @Inject
-    private EventDao eventDAO;
 
     public void setName(String name) {
         this.name = name;
@@ -158,7 +154,7 @@ public class EventBean implements Serializable {
     }
 
     public void editEvent() {
-        Event e = retrieveSelectedEvent();
+        Event e = retrieveEventByCurrentId(this.selectedId);
 
         String[] fullDateInfo = parseTime(e.getTime());
         this.hour = fullDateInfo[0] + " " + fullDateInfo[1];
@@ -199,13 +195,6 @@ public class EventBean implements Serializable {
      */
     public void removeSelectedId() {
         this.selectedId = -1;
-    }
-
-    /**
-     * Retrieve a selected event with the selected event name.
-     */
-    public Event retrieveSelectedEvent() {
-        return eventDAO.readEvent(this.selectedId);
     }
 
     /**
