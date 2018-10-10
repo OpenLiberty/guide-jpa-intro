@@ -40,8 +40,12 @@ database operations and takes care of database vendor-specific differences. This
 focus on the business logic of your application instead of wasting time implementing repetitive CRUD logic.
 
 The application that you will be working with is an event manager, which is composed of a UI and 
-an event microservice for creating, retrieving, updating, and deleting events. The application uses an 
-Embedded Derby database as a data store for all the events.
+an event microservice for creating, retrieving, updating, and deleting events. The UI uses 
+a bean which consumes a REST API to interact with the backend services. The database logic
+is implemented in a Data Access Object (DAO) to isolate the database operations from the 
+rest of the application. This DAO accesses and persists data model instances to the database
+and can be injected and consumed by other components in the application. The application 
+uses an Embedded Derby database as a data store for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. The interaction between your application and the database is mediated by the persistence 
