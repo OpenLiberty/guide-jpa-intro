@@ -101,10 +101,10 @@ constructor. JPA maps an entity type to a database table and persisted instances
 as rows in the table.
 
 The `Event` class is a data model that represents events in the application and is annotated with JPA
-annotations. Create the `Event` class in the `src/main/java/io/openliberty/guides/models/Event.java` file:
+annotations. Create the `Event` class in the `src/main/java/io/openliberty/guides/jpa/models/Event.java` file:
 [source, Java]
 ----
-include::finish/src/main/java/io/openliberty/guides/models/Event.java[tags=!copyright;]
+include::finish/src/main/java/io/openliberty/guides/jpa/models/Event.java[tags=!copyright;]
 ----
 
 The following table breaks down the new annotations:
@@ -130,12 +130,12 @@ The following table breaks down the new annotations:
 
 == Performing CRUD operations using JPA
 
-To perform CRUD operations by using JPA, create the `src/main/java/io/openliberty/guides/dao/EventDao.java` 
+To perform CRUD operations by using JPA, create the `src/main/java/io/openliberty/guides/jpa/dao/EventDao.java` 
 file:
 
 [source, Java]
 ----
-include::finish/src/main/java/io/openliberty/guides/dao/EventDao.java[tags=!copyright;]
+include::finish/src/main/java/io/openliberty/guides/jpa/dao/EventDao.java[tags=!copyright;]
 ----
 
 To use the entity manager at runtime, inject it into our CDI bean through the
