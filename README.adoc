@@ -51,11 +51,7 @@ You will use JPA annotations to define an entity class whose fields are persiste
 database. The interaction between your application and the database is mediated by the persistence 
 context that is managed by an entity manager. The entity manager can be application-managed or
 container-managed. In this guide you will use a container-managed entity manager, placing the
-burden of managing the lifecycle of an EntityManager instance on the application server. The lifecycle of the
-persistence context can either be transaction-scoped or extended when you use a container-managed 
-entity manager. You will be focused on using a container-managed entity manager with a 
-transaction-scoped persistence context to take advantage of the application server's services.
-
+burden of managing the lifecycle of an EntityManager instance on the application server. 
 
 // =================================================================================================
 // Getting Started
@@ -148,22 +144,19 @@ Every EntityManager instance is associated with a persistence context. The persi
 manages a set of `Event` entities and is aware of the different states that an entity can have.
 The persistence context then synchronizes with the database when a transaction commits.
 
-The `@Transactional` annotation allows the application to manage
-transaction boundaries on CDI-managed beans. This transaction management ensures that 
-the required methods run within the boundaries of an active global transaction,
-which is why it is not necessary to explicitly begin, commit or rollback transactions.
-
-Since we are using a transaction-scoped persistence context, a new persistence context begins when
-an EntityManager instance is invoked within an active transaction and ends when the transaction commits or 
-rolls back.  At the end of the transactional method invocation, the persistence context 
-is notified that the transaction is committing, and flushes any changes made to entity instances 
-it is managing to the database. The managed entities then become detached. 
+The `@Transactional` annotation allows the application to manage transaction boundaries 
+on CDI-managed beans. This transaction management ensures that the required methods run 
+within the boundaries of an active global transaction, which is why it is not necessary 
+to explicitly begin, commit or rollback transactions. At the end of the transactional 
+method invocation, the persistance context is notified that the transaction is committing, 
+and flushes any changes to `Event` entity instances it is managing to the database. Note
+that after the transaction commits, managed entities become unmanaged (detached).
 
 The `EventDao.java` class has a method for each CRUD operation, so let's break them down:
 
 * The `createEvent()` method persists an instance of the `Event` entity class to the data store by
-calling the `persist()` method on an EntityManager instance. The event objects state 
-changes from new to managed and changes to it are now tracked by the entity manager. 
+calling the `persist()` method on an EntityManager instance. The event instance becomes 
+managed and changes to it are now tracked by the entity manager. 
 
 * The `readEvent()` method returns an instance of the `Event` entity class with the specified primary 
 key by calling the `find()` method on an `EntityManager` instance. If the event instance is found, it
@@ -173,19 +166,14 @@ is returned in a managed state, but, if the event instance is not found, `Null` 
 This method returns a list of instances of the `Event` entity class by using a query specified in the `@NamedQuery` 
 annotation on the `Event` class. 
 
-* The `updateEvent()` method creates a managed instance of a detached entity object. The entity manager 
-automatically tracks all managed entity objects in its persistence context for changes and
-synchronizes them with the database. However, if an entity becomes detached, you must merge that entity
-into the persistence context by calling the `merge()` method so that changes to loaded 
-fields of the detached entity are tracked.
+* The `updateEvent()` method creates a managed instance of a detached entity instance.
+The entity manager automatically tracks all managed entity objects in its persistence context
+for changes and synchronizes them with the database. However, if an entity becomes detached, 
+you must merge that entity into the persistence context by calling the `merge()` method 
+so that changes to loaded fields of the detached entity are tracked.
 
 * The `deleteEvent()` method removes an instance of the `Event` entity class from the database by 
-calling the `remove()` method on an `EntityManager` instance. The state of the entity is
-changed to removed and is removed from the database upon transaction commit. 
-
-You can then inject the `EventDao` class into other components of your application. Notice how
-it is injected into the `src/main/java/io/openliberty/resources/EventResource.java` file to provide
-the `EventResource` class with a way to persist and access data.
+calling the `remove()` method on an `EntityManager` instance. 
 
 // =================================================================================================
 // Configuring JPA
