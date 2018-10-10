@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.facelets;
+package io.openliberty.guides.ui.facelets;
 
 import javax.inject.Named;
 import java.io.Serializable;

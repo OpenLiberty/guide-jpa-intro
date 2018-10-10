@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.resources;
+package io.openliberty.guides.jpa.resources;
 
 import java.io.IOException;
 import java.util.regex.Pattern;

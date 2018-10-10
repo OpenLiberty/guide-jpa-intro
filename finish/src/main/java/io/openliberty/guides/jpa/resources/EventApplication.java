@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.resources;
+package io.openliberty.guides.jpa.resources;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;

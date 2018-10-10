@@ -10,7 +10,7 @@
  *     IBM Corporation - Initial implementation
  *******************************************************************************/
 // end::copyright[]
-package io.openliberty.guides.models;
+package io.openliberty.guides.jpa.models;
 
 import java.io.Serializable;
 import javax.persistence.*;

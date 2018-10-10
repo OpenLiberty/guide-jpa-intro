@@ -100,7 +100,7 @@ with the `@Entity` annotation, must not be declared final and must have a public
 constructor. JPA maps an entity type to a database table and persisted instances will be represented 
 as rows in the table.
 
-The `Event` class is a model that represents events in the application and is annotated with JPA
+The `Event` class is a data model that represents events in the application and is annotated with JPA
 annotations. Create the `Event` class in the `src/main/java/io/openliberty/guides/models/Event.java` file:
 [source, Java]
 ----
@@ -123,40 +123,6 @@ The following table breaks down the new annotations:
                  attribute is optional and indicates the name of the column in the table
 |===
 
-// =================================================================================================
-// Creating the persistence.xml
-// =================================================================================================
-
-== Creating the persistence.xml file
-
-The `persistence.xml` file is a configuration file that defines a persistence unit. The 
-persistence unit contains configuration information for the entity manager, the transaction
-type, and the data source that the application uses. 
-
-Create the `src/main/resources/META-INF/persistence.xml` file:
-
-[source, Xml]
-----
-include::finish/src/main/resources/META-INF/persistence.xml[tags=**;]
-----
-
-The persistence unit is defined by the `<persistence-unit>` XML element. The `name` attribute is 
-required and is used to identify the persistent unit when using the `@PersistenceContext`
-annotation later in this guide. The `transaction-type=”JTA”` element specifies 
-that the persistence context enlists in Java Transaction API (JTA) global transactions. Since 
-we are using a container-managed entity manager, JTA transactions must be used. 
-
-A JTA transaction type requires a JTA data source to be provided. The data source is defined through the 
-`eventjpadatasource` element that specifies the Java Naming and Directory Interface (JNDI) name of 
-the data source that is used. The data source has already been configured for you
-in the `src/main/liberty/config/server.xml` file. This data source configuration is where 
-the Java Database Connectivity (JDBC) connection is defined along with some database
-vendor-specific properties.
-
-The `eclipselink.ddl-generation` properties are used here so that you aren't required to 
-manually create a database table to run this sample application. To learn more about the 
-`ddl-generation` properties, see the 
-http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.]
 
 // =================================================================================================
 // Performing CRUD operations using JPA
@@ -175,7 +141,7 @@ include::finish/src/main/java/io/openliberty/guides/dao/EventDao.java[tags=!copy
 To use the entity manager at runtime, inject it into our CDI bean through the
 `@PersistenceContext` annotation. The entity manager interacts with the persistence context. 
 Every EntityManager instance is associated with a persistence context. The persistence context 
-manages a set of entities and is aware of the different states that an entity can have.
+manages a set of `Event` entities and is aware of the different states that an entity can have.
 The persistence context then synchronizes with the database when a transaction commits.
 
 The `@Transactional` annotation allows the application to manage
@@ -216,6 +182,41 @@ changed to removed and is removed from the database upon transaction commit.
 You can then inject the `EventDao` class into other components of your application. Notice how
 it is injected into the `src/main/java/io/openliberty/resources/EventResource.java` file to provide
 the `EventResource` class with a way to persist and access data.
+
+// =================================================================================================
+// Configuring JPA
+// =================================================================================================
+
+== Configuring JPA
+
+The `persistence.xml` file is a configuration file that defines a persistence unit. The 
+persistence unit contains configuration information for the entity manager, the transaction
+type, and the data source that the application uses. 
+
+Create the `src/main/resources/META-INF/persistence.xml` file:
+
+[source, Xml]
+----
+include::finish/src/main/resources/META-INF/persistence.xml[tags=**;]
+----
+
+The persistence unit is defined by the `<persistence-unit>` XML element. The `name` attribute is 
+required and is used to identify the persistent unit when using the `@PersistenceContext`
+annotation later in this guide. The `transaction-type=”JTA”` element specifies 
+that the persistence context enlists in Java Transaction API (JTA) global transactions. Since 
+we are using a container-managed entity manager, JTA transactions must be used. 
+
+A JTA transaction type requires a JTA data source to be provided. The data source is defined through the 
+`eventjpadatasource` element that specifies the Java Naming and Directory Interface (JNDI) name of 
+the data source that is used. The data source has already been configured for you
+in the `src/main/liberty/config/server.xml` file. This data source configuration is where 
+the Java Database Connectivity (JDBC) connection is defined along with some database
+vendor-specific properties.
+
+The `eclipselink.ddl-generation` properties are used here so that you aren't required to 
+manually create a database table to run this sample application. To learn more about the 
+`ddl-generation` properties, see the 
+http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.]
 
 // =================================================================================================
 // Building and running the application
