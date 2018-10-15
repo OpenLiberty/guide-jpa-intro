@@ -15,14 +15,13 @@ package io.openliberty.guides.ui;
 import java.util.Map;
 import java.util.List;
 
+import javax.json.JsonObject;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.annotation.ManagedProperty;
 
-import io.openliberty.guides.dao.EventDao;
 import io.openliberty.guides.facelets.PageDispatcher;
-import io.openliberty.guides.models.Event;
 import io.openliberty.guides.ui.util.ServiceUtil;
 import io.openliberty.guides.ui.util.TimeMapUtil;
 
@@ -38,6 +37,9 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+
+import io.openliberty.guides.ui.Event;
 
 @Named
 @ViewScoped
@@ -57,9 +59,6 @@ public class EventBean implements Serializable {
     @Inject
     @ManagedProperty(value = "#{pageDispatcher}")
     private PageDispatcher pageDispatcher;
-
-    @Inject
-    private EventDao eventDAO;
 
     public void setName(String name) {
         this.name = name;
@@ -158,16 +157,15 @@ public class EventBean implements Serializable {
     }
 
     public void editEvent() {
-        Event e = retrieveSelectedEvent();
-
-        String[] fullDateInfo = parseTime(e.getTime());
+        JsonObject event = retrieveEventByCurrentId(this.selectedId);
+        String[] fullDateInfo = parseTime(event.getString("time"));
         this.hour = fullDateInfo[0] + " " + fullDateInfo[1];
         this.month = fullDateInfo[2];
         this.day = fullDateInfo[3];
         this.year = fullDateInfo[4];
-        this.name = e.getName();
-        this.location = e.getLocation();
-        this.selectedId = e.getId();
+        this.name = event.getString("name");
+        this.location = event.getString("location");
+        this.selectedId = event.getInt("id");
 
         pageDispatcher.showEditPage();
     }
@@ -202,16 +200,9 @@ public class EventBean implements Serializable {
     }
 
     /**
-     * Retrieve a selected event with the selected event name.
-     */
-    public Event retrieveSelectedEvent() {
-        return eventDAO.readEvent(this.selectedId);
-    }
-
-    /**
      * Retrieve a selected event by Id
      */
-    public Event retrieveEventByCurrentId(int currentId) {
+    public JsonObject retrieveEventByCurrentId(int currentId) {
         return ServiceUtil.retrieveEventById(currentId);
     }
 

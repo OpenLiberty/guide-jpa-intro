@@ -24,12 +24,12 @@ import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
-import io.openliberty.guides.models.Event;
+import io.openliberty.guides.ui.Event;
 
 public class ServiceUtil {
 
     // Back end service URLs
-    private static String port = System.getProperty("default.http.port");
+    private static String port = System.getProperty("backend.port");
     private static String eventServiceURL = "http://localhost:" + port + "/events";
 
     /**
@@ -82,17 +82,11 @@ public class ServiceUtil {
     /**
      * Retrieve an event by its id.
      */
-    public static Event retrieveEventById(int eventId) {
-        if (eventId < 0) {
-            return null;
-        }
-        List<Event> events = retrieveEvents();
-        for (Event e : events) {
-            if (e.getId() == eventId) {
-                return e;
-            }
-        }
-        return null;
+    public static JsonObject retrieveEventById(int eventId) {
+        Response response = connectToService(eventServiceURL + "/" + eventId).get();
+        JsonObject jobj = response.readEntity(JsonObject.class);
+        response.close();
+        return jobj;
     }
 
     /**

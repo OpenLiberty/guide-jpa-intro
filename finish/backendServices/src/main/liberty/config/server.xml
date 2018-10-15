@@ -4,15 +4,13 @@
     <feature>jaxrs-2.1</feature>
     <feature>jsonp-1.1</feature>
     <feature>cdi-2.0</feature>
-    <feature>jsf-2.3</feature>
     <feature>jpa-2.2</feature>
   </featureManager>
 
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
     id="defaultHttpEndpoint" host="*" />
 
-  <application location="jpa-intro.war" type="war" id="jpa-intro" name="jpa-intro"
-                context-root="/">
+  <application location="backendServices.war" type="war" context-root="/">
   </application>
 
   <!-- Derby Library Configuration -->    

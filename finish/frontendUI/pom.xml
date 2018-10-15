@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>io.openliberty.guides</groupId>
+        <artifactId>jpa-intro</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>frontendUI</artifactId>
+    <packaging>war</packaging>
+
+    <dependencies>
+        <!--Open Liberty features -->
+        <dependency>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>jaxrs-2.1</artifactId>
+            <type>esa</type>
+        </dependency>
+        <dependency>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>jsonp-1.1</artifactId>
+            <type>esa</type>
+        </dependency>
+        <dependency>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>cdi-2.0</artifactId>
+            <type>esa</type>
+        </dependency>
+        <dependency>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>jsf-2.3</artifactId>
+            <type>esa</type>
+        </dependency>
+        <!--For JDK 9 & 10 support -->   
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>        
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.6</version>
+                <configuration>
+                    <warName>${project.artifactId}</warName>
+                    <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <packagingExcludes>pom.xml</packagingExcludes>
+                </configuration>
+            </plugin>
+            <!-- Enable liberty-maven plugin -->
+            <plugin>
+              <groupId>net.wasdev.wlp.maven.plugins</groupId>
+              <artifactId>liberty-maven-plugin</artifactId>
+              <configuration>
+                <configFile>src/main/liberty/config/server.xml</configFile>
+                <packageFile>${package.file}</packageFile>
+                <include>${packaging.type}</include>
+                <bootstrapProperties>
+                  <default.http.port>${frontend.service.http.port}</default.http.port>
+                  <default.https.port>${frontend.service.https.port}</default.https.port>
+                  <backend.port>${backend.service.http.port}</backend.port>
+                </bootstrapProperties>
+              </configuration>
+              <executions>
+                <execution>
+                  <id>install-liberty</id>
+                  <phase>prepare-package</phase>
+                  <goals>
+                    <goal>install-server</goal>
+                  </goals>
+                </execution>
+                <execution>
+                  <id>install-app</id>
+                  <phase>pre-integration-test</phase>
+                  <goals>
+                    <goal>install-apps</goal>
+                  </goals>
+                  <configuration>
+                    <looseApplication>true</looseApplication>
+                    <stripVersion>true</stripVersion>
+                    <installAppPackages>project</installAppPackages>
+                  </configuration>
+                </execution>
+                <execution>
+                  <id>start-server</id>
+                  <phase>pre-integration-test</phase>
+                  <goals>
+                    <goal>start-server</goal>
+                  </goals>
+                </execution>
+                <execution>
+                  <id>stop-server</id>
+                  <phase>post-integration-test</phase>
+                  <goals>
+                    <goal>stop-server</goal>
+                  </goals>
+                </execution>
+                <execution>
+                  <id>package-app</id>
+                  <phase>package</phase>
+                  <goals>
+                    <goal>package-server</goal>
+                  </goals>
+                </execution>
+              </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

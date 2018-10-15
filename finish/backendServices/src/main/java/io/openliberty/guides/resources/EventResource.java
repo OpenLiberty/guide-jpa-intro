@@ -12,8 +12,10 @@
 // end::copyright[]
 package io.openliberty.guides.resources;
 
+import java.util.List;
 import javax.json.Json;
 import javax.json.JsonArray;
+import javax.json.JsonObject;
 import javax.json.JsonArrayBuilder;
 import javax.json.JsonObjectBuilder;
 import javax.transaction.Transactional;
@@ -50,7 +52,6 @@ public class EventResource {
     public void addNewEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
-
         for (Event event : eventDAO.readAllEvents()) {
             if (event.equals(newEvent)) {
                 return;
@@ -103,8 +104,13 @@ public class EventResource {
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public Event getEvent(@PathParam("id") int eventId) {
-        return eventDAO.readEvent(eventId);
+    public JsonObject getEvent(@PathParam("id") int eventId) {
+
+        JsonObjectBuilder builder = Json.createObjectBuilder();
+        Event event = eventDAO.readEvent(eventId);
+        builder.add("name", event.getName()).add("time", event.getTime())
+               .add("location", event.getLocation()).add("id", event.getId());
+        return builder.build();
     }
 
     /**
@@ -113,7 +119,7 @@ public class EventResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public JsonArray getEvents() {
+    public List getEvents() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         JsonArrayBuilder finalArray = Json.createArrayBuilder();
         for (Event event : eventDAO.readAllEvents()) {

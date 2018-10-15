@@ -41,7 +41,7 @@ public class EventEntityTest extends EventTest {
 
     @BeforeClass
     public static void oneTimeSetup() {
-        port = System.getProperty("liberty.test.port");
+        port = System.getProperty("backend.http.port");
         baseUrl = "http://localhost:" + port + "/";
     }
 
