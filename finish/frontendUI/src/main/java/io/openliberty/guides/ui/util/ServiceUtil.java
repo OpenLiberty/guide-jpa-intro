@@ -24,8 +24,6 @@ import javax.ws.rs.client.Invocation.Builder;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
-import io.openliberty.guides.ui.Event;
-
 public class ServiceUtil {
 
     // Back end service URLs
@@ -66,17 +64,9 @@ public class ServiceUtil {
     /**
      * Retrieve list of events from back end storage.
      */
-    public static List<Event> retrieveEvents() {
+    public static JsonArray retrieveEvents() {
         JsonArray jr = retrieveFromService();
-        List<Event> events = jr.stream().map(eventJson -> {
-            Event event = new Event(((JsonObject) eventJson).getString("name"),
-                ((JsonObject) eventJson).getString("location"),
-                ((JsonObject) eventJson).getString("time"));
-            event.setId(((JsonObject) eventJson).getInt("id"));
-            return event;
-        }).collect(Collectors.toList());
-
-        return events;
+        return jr;
     }
 
     /**

@@ -14,7 +14,9 @@ package io.openliberty.guides.ui;
 
 import java.util.Map;
 import java.util.List;
+import java.util.ArrayList;
 
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.inject.Inject;
 import javax.inject.Named;
@@ -37,9 +39,6 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-
-import io.openliberty.guides.ui.Event;
 
 @Named
 @ViewScoped
@@ -181,8 +180,15 @@ public class EventBean implements Serializable {
     /**
      * Retrieve the list of events from back end service.
      */
-    public static List<Event> retrieveEventList() {
-        return ServiceUtil.retrieveEvents();
+    public static List<JsonObject> retrieveEventList() {
+        JsonArray jArray = ServiceUtil.retrieveEvents();
+
+        List<JsonObject> eventList = new ArrayList<>();
+        for(int i = 0; i < jArray.size(); i++) {
+            eventList.add(jArray.getJsonObject(i));
+        }
+        
+        return eventList;
     }
 
     /**

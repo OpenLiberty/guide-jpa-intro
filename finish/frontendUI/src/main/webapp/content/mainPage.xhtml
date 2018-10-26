@@ -40,21 +40,21 @@
           rendered="#{not empty eventBean.retrieveEventList()}">
           <h:column>
             <f:facet name="header">Name</f:facet>
-            #{event.name}
+            #{event.getString("name")}
           </h:column>
           <h:column>
             <f:facet name="header">Location</f:facet>
-            #{event.location}
+            #{event.getString("location")}
           </h:column>
           <h:column>
             <f:facet name="header">Time</f:facet>
-            #{event.time}
+            #{event.getString("time")}
           </h:column>
           <h:column>
             <f:facet name="header"></f:facet>
             <h:commandLink class="eventsLink" value="Update"
               action="#{eventBean.editEvent()}">
-              <f:actionListener binding="#{eventBean.setSelectedId(event.id)}" />
+              <f:actionListener binding="#{eventBean.setSelectedId(event.getInt('id'))}" />
               <f:ajax execute="mainform" render=":content header" />
             </h:commandLink>
           </h:column>
@@ -62,7 +62,7 @@
             <f:facet name="header"></f:facet>
             <h:commandLink class="eventsLink" value="Delete"
               action="#{eventBean.submitDeletetoService()}">
-              <f:actionListener binding="#{eventBean.setSelectedId(event.id)}" />
+              <f:actionListener binding="#{eventBean.setSelectedId(event.getInt('id'))}" />
               <f:ajax execute="mainform" render=":content header" />
             </h:commandLink>
           </h:column>
