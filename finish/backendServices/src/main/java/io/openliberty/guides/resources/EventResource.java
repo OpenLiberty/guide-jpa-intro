@@ -119,7 +119,7 @@ public class EventResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
-    public List getEvents() {
+    public JsonArray getEvents() {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         JsonArrayBuilder finalArray = Json.createArrayBuilder();
         for (Event event : eventDAO.readAllEvents()) {

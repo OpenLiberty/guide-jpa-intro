@@ -24,8 +24,10 @@ import javax.faces.view.ViewScoped;
 import javax.faces.annotation.ManagedProperty;
 
 import io.openliberty.guides.facelets.PageDispatcher;
-import io.openliberty.guides.ui.util.ServiceUtil;
 import io.openliberty.guides.ui.util.TimeMapUtil;
+import io.openliberty.guides.client.EventClient;
+import org.eclipse.microprofile.rest.client.inject.RestClient;
+import io.openliberty.guides.client.UnknownUrlException;
 
 import javax.faces.component.UIComponent;
 import javax.faces.component.UIInput;
@@ -54,6 +56,10 @@ public class EventBean implements Serializable {
     private String hour;
     private int selectedId;
     private boolean notValidTime;
+
+    @Inject
+    @RestClient
+    private EventClient eventClient;
 
     @Inject
     @ManagedProperty(value = "#{pageDispatcher}")
@@ -139,7 +145,12 @@ public class EventBean implements Serializable {
      */
     public void submitToService() {
         String time = createStoredTime();
-        ServiceUtil.submitEventToService(name, location, time);
+        try {
+            eventClient.addEvent(name, time, location);
+        } catch (UnknownUrlException e){ 
+            System.err.println("The given URL is unreachable.");
+        }
+
         pageDispatcher.showMainPage();
         clear();
     }
@@ -149,8 +160,12 @@ public class EventBean implements Serializable {
      */
     public void submitUpdateToService() {
         String time = createStoredTime();
-        ServiceUtil.submitUpdatedEventToService(this.name, this.location, time,
-            this.selectedId);
+        try {
+            eventClient.updateEvent(this.name, time, this.location, this.selectedId);
+        } catch (UnknownUrlException e) {
+            System.err.println("The given URL is unreachable");
+        }
+
         pageDispatcher.showMainPage();
         clear();
     }
@@ -173,22 +188,27 @@ public class EventBean implements Serializable {
      * Delete event form data to back end service.
      */
     public void submitDeletetoService() {
-        ServiceUtil.deleteEventService(this.selectedId);
+        try {
+            eventClient.deleteEvent(this.selectedId);
+        } catch (UnknownUrlException e) {
+            System.err.println("The given URL is unreachable");
+        }
+
         pageDispatcher.showMainPage();
     }
 
     /**
      * Retrieve the list of events from back end service.
      */
-    public static List<JsonObject> retrieveEventList() {
-        JsonArray jArray = ServiceUtil.retrieveEvents();
+    public JsonArray retrieveEventList() {
+        JsonArray jArray;
 
-        List<JsonObject> eventList = new ArrayList<>();
-        for(int i = 0; i < jArray.size(); i++) {
-            eventList.add(jArray.getJsonObject(i));
+        try {
+            return eventClient.getEvents();
+        } catch (UnknownUrlException e){
+            System.err.println("The given URL is unreachable.");
+            return null;
         }
-        
-        return eventList;
     }
 
     /**
@@ -209,7 +229,12 @@ public class EventBean implements Serializable {
      * Retrieve a selected event by Id
      */
     public JsonObject retrieveEventByCurrentId(int currentId) {
-        return ServiceUtil.retrieveEventById(currentId);
+        try {
+            return eventClient.getEvent(currentId);
+        } catch (UnknownUrlException e) {
+            System.err.println("The given URL is unreachable");
+            return null;
+        }
     }
 
     /**

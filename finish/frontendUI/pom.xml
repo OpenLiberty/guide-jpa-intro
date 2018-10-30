@@ -35,6 +35,18 @@
             <artifactId>jsf-2.3</artifactId>
             <type>esa</type>
         </dependency>
+        <dependency>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>mpConfig-1.3</artifactId>
+            <type>esa</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>mpRestClient-1.1</artifactId>
+            <type>esa</type>
+            <scope>provided</scope>
+        </dependency>
         <!--For JDK 9 & 10 support -->   
         <dependency>
             <groupId>javax.xml.bind</groupId>
