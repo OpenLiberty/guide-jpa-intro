@@ -65,8 +65,7 @@ public class ServiceUtil {
      * Retrieve list of events from back end storage.
      */
     public static JsonArray retrieveEvents() {
-        JsonArray jr = retrieveFromService();
-        return jr;
+        return retrieveFromService();
     }
 
     /**

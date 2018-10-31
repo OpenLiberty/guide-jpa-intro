@@ -180,15 +180,8 @@ public class EventBean implements Serializable {
     /**
      * Retrieve the list of events from back end service.
      */
-    public static List<JsonObject> retrieveEventList() {
-        JsonArray jArray = ServiceUtil.retrieveEvents();
-
-        List<JsonObject> eventList = new ArrayList<>();
-        for(int i = 0; i < jArray.size(); i++) {
-            eventList.add(jArray.getJsonObject(i));
-        }
-        
-        return eventList;
+    public static JsonArray retrieveEventList() {
+        return ServiceUtil.retrieveEvents();
     }
 
     /**
