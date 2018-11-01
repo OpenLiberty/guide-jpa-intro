@@ -13,8 +13,6 @@
 package io.openliberty.guides.ui;
 
 import java.util.Map;
-import java.util.List;
-import java.util.ArrayList;
 
 import javax.json.JsonArray;
 import javax.json.JsonObject;
@@ -23,7 +21,7 @@ import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import javax.faces.annotation.ManagedProperty;
 
-import io.openliberty.guides.facelets.PageDispatcher;
+import io.openliberty.guides.ui.facelets.PageDispatcher;
 import io.openliberty.guides.ui.util.TimeMapUtil;
 import io.openliberty.guides.client.EventClient;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
@@ -201,8 +199,6 @@ public class EventBean implements Serializable {
      * Retrieve the list of events from back end service.
      */
     public JsonArray retrieveEventList() {
-        JsonArray jArray;
-
         try {
             return eventClient.getEvents();
         } catch (UnknownUrlException e){

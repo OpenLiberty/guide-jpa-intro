@@ -13,7 +13,6 @@
 package io.openliberty.guides.client;
 
 import javax.enterprise.context.Dependent;
-import javax.ws.rs.ProcessingException;
 import javax.ws.rs.GET;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.POST;
@@ -29,7 +28,6 @@ import javax.ws.rs.PathParam;
 
 import javax.json.JsonObject;
 import javax.json.JsonArray;
-import java.util.List;
 
 @Dependent
 @RegisterRestClient
