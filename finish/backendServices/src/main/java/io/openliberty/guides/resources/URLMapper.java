@@ -14,10 +14,15 @@ package io.openliberty.guides.resources;
 
 import java.io.IOException;
 import java.util.regex.Pattern;
-import javax.servlet.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.annotation.WebFilter;
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.ServletException;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
+import javax.servlet.FilterConfig;
 
 @WebFilter(urlPatterns = "/*")
 public class URLMapper implements Filter {
