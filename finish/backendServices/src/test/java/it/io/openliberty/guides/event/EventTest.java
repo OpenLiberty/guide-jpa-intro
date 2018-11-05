@@ -40,39 +40,62 @@ public class EventTest {
     protected static String port;
     protected static final String EVENTS = "events";
 
-    protected void sendForm(HashMap<String, String> formDataMap, String url) {
+    /**
+     *  Makes a POST request to the /events endpoint
+     */
+    protected void postRequest(HashMap<String, String> formDataMap) {
         formDataMap.forEach((formField, data) -> {
             form.param(formField, data);
         });
-        webTarget = client.target(url);
+        webTarget = client.target(baseUrl + EVENTS);
         response = webTarget.request().post(Entity.form(form));
         form = new Form();
     }
 
-    protected void deleteForm(String url) {
-        webTarget = client.target(url);
-        response = webTarget.request().delete();
-        form = new Form();
-    }
-
-    protected void updateForm(HashMap<String, String> formDataMap, String url) {
+    /**
+     *  Makes a PUT request to the /events/{eventId} endpoint
+     */
+    protected void updateRequest(HashMap<String, String> formDataMap, int eventId) {
         formDataMap.forEach((formField, data) -> {
             form.param(formField, data);
         });
-        webTarget = client.target(url);
+        webTarget = client.target(baseUrl + EVENTS + "/" + eventId);
         response = webTarget.request().put(Entity.form(form));
         form = new Form();
     }
-
-    protected JsonObject getTestEvent() {
+    
+    /**
+     *  Makes a DELETE request to /events/{eventId} endpoint 
+     */
+    protected void deleteRequest(int eventId) {
+        webTarget = client.target(baseUrl + EVENTS + "/" + eventId);
+        response = webTarget.request().delete();
+    }
+    
+    /**
+     *  Makes a GET request to the /events endpoint and returns result in a JsonArray
+     */
+    protected JsonArray getRequest() {
         webTarget = client.target(baseUrl + EVENTS);
         response = webTarget.request().get();
-        JsonArray eventsArray = response.readEntity(JsonArray.class);
-        JsonObject event = findTestEvent(eventsArray);
-        return event;
+        return response.readEntity(JsonArray.class);
     }
 
-    protected JsonObject findTestEvent(JsonArray events) {
+    /**
+     *  Makes a GET request to the /events/{eventId} endpoint and returns a JsonObject
+     */ 
+    protected JsonObject getIndividualEvent(int eventId) {
+        webTarget = client.target(baseUrl + EVENTS + "/" + eventId);
+        response = webTarget.request().get();
+        return response.readEntity(JsonObject.class);
+    }
+    
+    /**
+     *  Makes a GET request to the /events endpoint and returns the test event created
+     *  in EventEntityTest.java
+     */
+    protected JsonObject getTestEvent() {
+        JsonArray events = getRequest();
         for (int i = 0; i < events.size(); i++) {
             JsonObject testEvent = events.getJsonObject(i);
             Event test = new Event(testEvent.getString("name"),
@@ -84,6 +107,9 @@ public class EventTest {
         return null;
     }
 
+    /**
+     *  Asserts values in hashmap are equal
+     */
     protected void assertData(HashMap<String, String> testedData) {
         testedData.forEach((actual, expected) -> {
             assertEquals(expected, actual);

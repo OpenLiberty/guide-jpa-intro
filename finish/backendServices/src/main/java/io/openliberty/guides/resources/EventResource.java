@@ -61,7 +61,7 @@ public class EventResource {
     }
 
     /**
-     * This method creates a new event from the submitted data (name, time and
+     * This method updates a new event from the submitted data (name, time and
      * location) by the user.
      */
     @PUT
@@ -97,23 +97,25 @@ public class EventResource {
     }
 
     /**
-     * This method displays a specific existing/stored event in Json format
+     * This method returns a specific existing/stored event in Json format
      */
     @GET
     @Path("{id}")
     @Produces(MediaType.APPLICATION_JSON)
     @Transactional
     public JsonObject getEvent(@PathParam("id") int eventId) {
-
         JsonObjectBuilder builder = Json.createObjectBuilder();
         Event event = eventDAO.readEvent(eventId);
-        builder.add("name", event.getName()).add("time", event.getTime())
-               .add("location", event.getLocation()).add("id", event.getId());
+
+        if(event != null) {
+            builder.add("name", event.getName()).add("time", event.getTime())
+                .add("location", event.getLocation()).add("id", event.getId());
+        }
         return builder.build();
     }
 
     /**
-     * This method displays the existing/stored events in Json format
+     * This method returns the existing/stored events in Json format
      */
     @GET
     @Produces(MediaType.APPLICATION_JSON)

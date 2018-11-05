@@ -13,6 +13,7 @@
 package it.io.openliberty.guides.event;
 
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import javax.json.JsonObject;
@@ -62,8 +63,34 @@ public class EventEntityTest extends EventTest {
     }
 
     @Test
+    public void testInvalidRead() {
+        assertEquals(getIndividualEvent(-1).size(), 0);
+    }
+
+    @Test
+    public void testInvalidDelete() {
+        deleteRequest(-1);
+    }
+
+    @Test
+    public void testReadIndividualEvent() {
+        postRequest(eventForm);
+        JsonObject event = getTestEvent();
+        event = getIndividualEvent(event.getInt("id"));
+
+        actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
+        actualDataStored.put(event.getString(JSONFIELD_LOCATION), EVENT_LOCATION);
+        actualDataStored.put(event.getString(JSONFIELD_TIME), EVENT_TIME);
+        assertData(actualDataStored);
+
+        deleteRequest(event.getInt("id"));
+    }
+
+    @Test
     public void testCRUD() {
-        sendForm(eventForm, baseUrl + EVENTS);
+        assertEquals(getRequest().size(), 0);
+        postRequest(eventForm);
+      
         JsonObject event = getTestEvent();
         actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
         actualDataStored.put(event.getString(JSONFIELD_LOCATION), EVENT_LOCATION);
@@ -73,7 +100,7 @@ public class EventEntityTest extends EventTest {
         eventForm.put(JSONFIELD_NAME, UPDATE_EVENT_NAME);
         eventForm.put(JSONFIELD_LOCATION, UPDATE_EVENT_LOCATION);
         eventForm.put(JSONFIELD_TIME, UPDATE_EVENT_TIME);
-        updateForm(eventForm, baseUrl + EVENTS + "/" + event.getInt("id"));
+        updateRequest(eventForm, event.getInt("id"));
 
         e = new Event(UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
         event = getTestEvent();
@@ -83,8 +110,8 @@ public class EventEntityTest extends EventTest {
         actualDataStored.put(event.getString(JSONFIELD_TIME), UPDATE_EVENT_TIME);
         assertData(actualDataStored);
 
-        deleteForm(baseUrl + EVENTS + "/" + event.getInt("id"));
-        assertNull(getTestEvent());
+        deleteRequest(event.getInt("id"));
+        assertEquals(getRequest().size(), 0);
     }
 
     @After
