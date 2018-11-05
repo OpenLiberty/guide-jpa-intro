@@ -24,8 +24,6 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
 import io.openliberty.guides.models.Event;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class EventTest {
 
@@ -41,8 +39,6 @@ public class EventTest {
     protected static String baseUrl;
     protected static String port;
     protected static final String EVENTS = "events";
-
-    private static Logger LOGGER = Logger.getLogger(EventTest.class.getName());
 
     /**
      *  Makes a POST request to the /events endpoint
@@ -99,7 +95,6 @@ public class EventTest {
      *  in EventEntityTest.java
      */
     protected JsonObject getTestEvent() {
-        LOGGER.log(Level.SEVERE, "HERE: " + e);
         JsonArray events = getRequest();
         for (int i = 0; i < events.size(); i++) {
             JsonObject testEvent = events.getJsonObject(i);
