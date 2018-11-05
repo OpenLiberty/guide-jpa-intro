@@ -90,6 +90,7 @@ public class EventEntityTest extends EventTest {
     public void testCRUD() {
         assertEquals(getRequest().size(), 0);
         postRequest(eventForm);
+      
         JsonObject event = getTestEvent();
         actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
         actualDataStored.put(event.getString(JSONFIELD_LOCATION), EVENT_LOCATION);
