@@ -299,6 +299,18 @@ public class EventBean implements Serializable {
     }
 
     /**
+     *  Method to clean the bean after form submission and before event creation form
+     */
+    public void clear() {
+        setName(null);
+        setLocation(null);
+        setDay(null);
+        setMonth(null);
+        setYear(null);
+        setHour(null);
+    }
+
+    /**
      * Parses time (in format: hh:mm AM, dd mm yyyy) into time, meridiem, month,
      * day, year respectively.
      */
@@ -343,17 +355,5 @@ public class EventBean implements Serializable {
         HtmlInputHidden formInput = (HtmlInputHidden) components
             .findComponent("eventform:eventSubmit");
         formInput.setValid(allowSubmission);
-    }
-
-    /**
-     * Helper method to clean the bean after form submission.
-     */
-    private void clear() {
-        setName(null);
-        setLocation(null);
-        setDay(null);
-        setMonth(null);
-        setYear(null);
-        setHour(null);
     }
 }
