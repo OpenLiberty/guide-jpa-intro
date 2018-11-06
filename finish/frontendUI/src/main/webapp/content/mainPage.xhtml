@@ -33,11 +33,11 @@
       <br />
       <h:form id="mainform">
         <h:outputText style="font-size: 1.1vw;" value="No events are currently running."
-          rendered="#{empty eventBean.retrieveEventList()}" />
-        <h:dataTable value="#{eventBean.retrieveEventList()}" var="event"
+          rendered="#{empty eventUtilBean.retrieveEventList()}" />
+        <h:dataTable value="#{eventUtilBean.retrieveEventList()}" var="event"
           styleClass="event-table" headerClass="event-table-header"
           columnClasses="column1,column2,column3,column4,column5"
-          rendered="#{not empty eventBean.retrieveEventList()}">
+          rendered="#{not empty eventUtilBean.retrieveEventList()}">
           <h:column>
             <f:facet name="header">Name</f:facet>
             #{event.getString("name")}
@@ -53,16 +53,16 @@
           <h:column>
             <f:facet name="header"></f:facet>
             <h:commandLink class="eventsLink" value="Update"
-              action="#{eventBean.editEvent()}">
-              <f:actionListener binding="#{eventBean.setSelectedId(event.getInt('id'))}" />
+              action="#{eventUtilBean.editEvent()}">
+              <f:actionListener binding="#{eventUtilBean.setSelectedId(event.getInt('id'))}" />
               <f:ajax execute="mainform" render=":content header" />
             </h:commandLink>
           </h:column>
           <h:column>
             <f:facet name="header"></f:facet>
             <h:commandLink class="eventsLink" value="Delete"
-              action="#{eventBean.submitDeletetoService()}">
-              <f:actionListener binding="#{eventBean.setSelectedId(event.getInt('id'))}" />
+              action="#{eventUtilBean.submitDeletetoService()}">
+              <f:actionListener binding="#{eventUtilBean.setSelectedId(event.getInt('id'))}" />
               <f:ajax execute="mainform" render=":content header" />
             </h:commandLink>
           </h:column>

@@ -42,7 +42,7 @@ import java.util.Date;
 
 @Named
 @ViewScoped
-public class EventBean implements Serializable {
+public class EventUtilBean implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

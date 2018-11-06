@@ -30,7 +30,7 @@
       <h:commandButton class="button" value="Create Event"
         action="#{pageDispatcher.showEventForm}">
         <f:ajax render=":sidebar content header" />
-        <f:actionListener binding="#{eventBean.displayError(false)}" />
+        <f:actionListener binding="#{eventUtilBean.displayError(false)}" />
       </h:commandButton>
     </h:form>
   </ui:composition>
