@@ -15,7 +15,7 @@ package io.openliberty.guides.resources;
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@ApplicationPath("/event")
+@ApplicationPath("/")
 public class EventApplication extends Application {
 
 }

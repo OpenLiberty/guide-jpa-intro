@@ -12,7 +12,6 @@
 // end::copyright[]
 package it.io.openliberty.guides.event;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
