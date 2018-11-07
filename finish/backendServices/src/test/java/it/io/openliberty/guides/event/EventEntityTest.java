@@ -18,6 +18,7 @@ import java.util.HashMap;
 import javax.json.JsonObject;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.Form;
+import javax.ws.rs.core.Response.Status;
 
 import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.junit.After;
@@ -63,12 +64,13 @@ public class EventEntityTest extends EventTest {
 
     @Test
     public void testInvalidRead() {
-        assertEquals(getIndividualEvent(-1).size(), 0);
+        assertEquals(getIndividualEvent(-1).isEmpty(), true);
     }
 
     @Test
     public void testInvalidDelete() {
-        deleteRequest(-1);
+        int responseStatus = deleteRequest(-1);
+        assertEquals(responseStatus, Status.INTERNAL_SERVER_ERROR.getStatusCode());
     }
 
     @Test

@@ -65,11 +65,13 @@ public class EventTest {
     }
     
     /**
-     *  Makes a DELETE request to /events/{eventId} endpoint 
+     *  Makes a DELETE request to /events/{eventId} endpoint and return the response 
+     *  code 
      */
-    protected void deleteRequest(int eventId) {
+    protected int deleteRequest(int eventId) {
         webTarget = client.target(baseUrl + EVENTS + "/" + eventId);
         response = webTarget.request().delete();
+        return response.getStatus();
     }
     
     /**
