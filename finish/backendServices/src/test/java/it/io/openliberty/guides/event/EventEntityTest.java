@@ -75,7 +75,8 @@ public class EventEntityTest extends EventTest {
 
     @Test
     public void testReadIndividualEvent() {
-        postRequest(eventForm);
+        int postResponseStatus = postRequest(eventForm);
+        assertEquals(postResponseStatus, Status.NO_CONTENT.getStatusCode());
         JsonObject event = getTestEvent();
         event = getIndividualEvent(event.getInt("id"));
 
@@ -84,13 +85,15 @@ public class EventEntityTest extends EventTest {
         actualDataStored.put(event.getString(JSONFIELD_TIME), EVENT_TIME);
         assertData(actualDataStored);
 
-        deleteRequest(event.getInt("id"));
+        int deleteResponseStatus = deleteRequest(event.getInt("id"));
+        assertEquals(deleteResponseStatus, Status.NO_CONTENT.getStatusCode());
     }
 
     @Test
     public void testCRUD() {
-        assertEquals(getRequest().size(), 0);
-        postRequest(eventForm);
+        assertEquals(getRequest().isEmpty(), true);
+        int postResponseStatus = postRequest(eventForm);
+        assertEquals(postResponseStatus, Status.NO_CONTENT.getStatusCode());
       
         JsonObject event = getTestEvent();
         actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
@@ -101,8 +104,9 @@ public class EventEntityTest extends EventTest {
         eventForm.put(JSONFIELD_NAME, UPDATE_EVENT_NAME);
         eventForm.put(JSONFIELD_LOCATION, UPDATE_EVENT_LOCATION);
         eventForm.put(JSONFIELD_TIME, UPDATE_EVENT_TIME);
-        updateRequest(eventForm, event.getInt("id"));
-
+        int updateResponseStatus = updateRequest(eventForm, event.getInt("id"));
+        assertEquals(updateResponseStatus, Status.NO_CONTENT.getStatusCode());
+        
         e = new Event(UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
         event = getTestEvent();
         actualDataStored.put(event.getString(JSONFIELD_NAME), UPDATE_EVENT_NAME);
@@ -111,8 +115,9 @@ public class EventEntityTest extends EventTest {
         actualDataStored.put(event.getString(JSONFIELD_TIME), UPDATE_EVENT_TIME);
         assertData(actualDataStored);
 
-        deleteRequest(event.getInt("id"));
-        assertEquals(getRequest().size(), 0);
+        int deleteResponseStatus = deleteRequest(event.getInt("id"));
+        assertEquals(deleteResponseStatus, Status.NO_CONTENT.getStatusCode());
+        assertEquals(getRequest().isEmpty(), true);
     }
 
     @After
