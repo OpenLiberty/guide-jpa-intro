@@ -27,6 +27,7 @@ import javax.ws.rs.DELETE;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.BadRequestException;
 import javax.ws.rs.core.MediaType;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -51,9 +52,10 @@ public class EventResource {
     public void addNewEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
-        if(eventDAO.findEvent(name, location, time).isEmpty()) {
-            eventDAO.createEvent(newEvent);
+        if(!eventDAO.findEvent(name, location, time).isEmpty()) {
+            throw new BadRequestException("Event already exists!");
         }
+        eventDAO.createEvent(newEvent);
     }
 
     /**
@@ -68,13 +70,14 @@ public class EventResource {
         @FormParam("time") String time, @FormParam("location") String location,
         @PathParam("id") int id) {
         Event prevEvent = eventDAO.readEvent(id);
-        if(eventDAO.findEvent(name, location, time).isEmpty()) {
-            prevEvent.setName(name);
-            prevEvent.setLocation(location);
-            prevEvent.setTime(time);
-
-            eventDAO.updateEvent(prevEvent);
+        if(!eventDAO.findEvent(name, location, time).isEmpty()) {
+            throw new BadRequestException("Event already exists!");
         }
+        prevEvent.setName(name);
+        prevEvent.setLocation(location);
+        prevEvent.setTime(time);
+
+        eventDAO.updateEvent(prevEvent);
     }
 
     /**

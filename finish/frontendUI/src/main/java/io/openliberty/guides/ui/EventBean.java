@@ -18,8 +18,7 @@ import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.faces.view.ViewScoped;
-import javax.faces.annotation.ManagedProperty;
+import javax.ws.rs.BadRequestException;
 
 import io.openliberty.guides.ui.facelets.PageDispatcher;
 import io.openliberty.guides.ui.util.TimeMapUtil;
@@ -34,6 +33,8 @@ import javax.faces.component.html.HtmlPanelGroup;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ComponentSystemEvent;
 import javax.faces.application.FacesMessage;
+import javax.faces.view.ViewScoped;
+import javax.faces.annotation.ManagedProperty;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -53,7 +54,9 @@ public class EventBean implements Serializable {
     private String year;
     private String hour;
     private int selectedId;
-    private boolean notValidTime;
+    private boolean notValid;
+    private boolean eventExists;
+    private ComponentSystemEvent currentComponent;
 
     @Inject
     @RestClient
@@ -111,8 +114,8 @@ public class EventBean implements Serializable {
         return this.year;
     }
 
-    public boolean getNotValidTime() {
-        return notValidTime;
+    public boolean getNotValid() {
+        return notValid;
     }
 
     public PageDispatcher getPageDispatcher() {
@@ -123,12 +126,24 @@ public class EventBean implements Serializable {
         this.pageDispatcher = pageDispatcher;
     }
 
-    /**
-     * Helper method to create the time string to be stored at the back end.
-     */
-    private String createStoredTime() {
-        return hour + ", " + month + " " + day + " " + year;
+    public void setCurrentComponent(ComponentSystemEvent component) {
+        this.currentComponent = component;
     }
+
+    /**
+     * Set a selected event id.
+     */
+    public void setSelectedId(int selectedId) {
+        this.selectedId = selectedId;
+    }
+
+    /**
+     * Remove stored event id.
+     */
+    public void removeSelectedId() {
+        this.selectedId = -1;
+    }
+
 
     /**
      * Mapped the time string retrieved from back end service to a user readable
@@ -145,12 +160,14 @@ public class EventBean implements Serializable {
         String time = createStoredTime();
         try {
             eventClient.addEvent(name, time, location);
-        } catch (UnknownUrlException e){ 
+            pageDispatcher.showMainPage();
+            clear();
+       } catch (UnknownUrlException e) { 
             System.err.println("The given URL is unreachable.");
+        } catch (BadRequestException e) {
+            displayInvalidEventError();
         }
 
-        pageDispatcher.showMainPage();
-        clear();
     }
 
     /**
@@ -160,12 +177,13 @@ public class EventBean implements Serializable {
         String time = createStoredTime();
         try {
             eventClient.updateEvent(this.name, time, this.location, this.selectedId);
+            pageDispatcher.showMainPage();
+            clear();
         } catch (UnknownUrlException e) {
             System.err.println("The given URL is unreachable");
+        } catch (BadRequestException e) {
+            displayInvalidEventError();
         }
-
-        pageDispatcher.showMainPage();
-        clear();
     }
 
     public void editEvent() {
@@ -205,20 +223,6 @@ public class EventBean implements Serializable {
             System.err.println("The given URL is unreachable.");
             return null;
         }
-    }
-
-    /**
-     * Set a selected event id.
-     */
-    public void setSelectedId(int selectedId) {
-        this.selectedId = selectedId;
-    }
-
-    /**
-     * Remove stored event id.
-     */
-    public void removeSelectedId() {
-        this.selectedId = -1;
     }
 
     /**
@@ -292,10 +296,10 @@ public class EventBean implements Serializable {
     }
 
     /**
-     * Displays the error message if time is not valid
+     * Displays the error message if time is not valid or the event already exists
      */
     public void displayError(boolean display) {
-        notValidTime = display;
+        notValid = display;
     }
 
     /**
@@ -308,6 +312,13 @@ public class EventBean implements Serializable {
         setMonth(null);
         setYear(null);
         setHour(null);
+    }
+
+    /**
+     * Helper method to create the time string to be stored at the back end.
+     */
+    private String createStoredTime() {
+        return hour + ", " + month + " " + day + " " + year;
     }
 
     /**
@@ -355,5 +366,14 @@ public class EventBean implements Serializable {
         HtmlInputHidden formInput = (HtmlInputHidden) components
             .findComponent("eventform:eventSubmit");
         formInput.setValid(allowSubmission);
+    }
+
+    /**
+     *  Display error message if Event already exists and don't allow form submission
+     */
+    private void displayInvalidEventError() {
+        allowSubmission(currentComponent, false);
+        addErrorMessage(currentComponent, "Event already exists!");
+        displayError(true);
     }
 }
