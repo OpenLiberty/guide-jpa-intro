@@ -24,8 +24,8 @@ view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty websi
 
 Learn how to use Java Persistence API to access and persist data to a database for your microservices.
 
-:eventapp-url: http://localhost:9080/eventmanager.jsf
-:get-events-url: http://localhost:9080/events
+:eventapp-url: http://localhost:9090/eventmanager.jsf
+:get-events-url: http://localhost:9090/events
 
 == What you'll learn
 
@@ -39,19 +39,20 @@ CRUD operations, JPA also reduces the burden of having to write JDBC and SQL cod
 database operations and takes care of database vendor-specific differences. This capability allows you to 
 focus on the business logic of your application instead of wasting time implementing repetitive CRUD logic.
 
-The application that you will be working with is an event manager, which is composed of a UI and 
-an event microservice for creating, retrieving, updating, and deleting events. The application uses an 
-Embedded Derby database as a data store for all the events.
+The application that you will be working with is an event manager, which is composed of a UI
+that uses MicroProfile Rest Client to access RESTful services and an event microservice 
+for creating, retrieving, updating, and deleting events. In this guide you will be focused 
+on the event microservice. The database logic is implemented in a Data Access Object (DAO) 
+to isolate the database operations from the rest of the application. This DAO accesses 
+and persists data model instances to the database and can be injected and consumed by other 
+components in the application. An Embedded Derby database is used as a data store for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. The interaction between your application and the database is mediated by the persistence 
-context that is managed by an entity manager. The entity manager can be application-managed or
-container-managed. In this guide you will use a container-managed entity manager, placing the
-burden of managing the lifecycle of an EntityManager instance on the application server. The lifecycle of the
-persistence context can either be transaction-scoped or extended when you use a container-managed 
-entity manager. You will be focused on using a container-managed entity manager with a 
-transaction-scoped persistence context to take advantage of the application server's services.
-
+context that is managed by an entity manager. In a Java EE environment, one type of entity
+manager is a container-managed entity manager. In this guide you will use dependency injection
+to acquire a container-managed entity manager, placing the burden of opening and closing 
+the entity manager on the application server. 
 
 // =================================================================================================
 // Getting Started
@@ -100,11 +101,11 @@ with the `@Entity` annotation, must not be declared final and must have a public
 constructor. JPA maps an entity type to a database table and persisted instances will be represented 
 as rows in the table.
 
-The `Event` class is a model that represents events in the application and is annotated with JPA
-annotations. Create the `Event` class in the `src/main/java/io/openliberty/guides/models/Event.java` file:
+The `Event` class is a data model that represents events in the application and is annotated with JPA
+annotations. Create the `Event` class in the `backendServices/src/main/java/io/openliberty/guides/models/Event.java` file:
 [source, Java]
 ----
-include::finish/src/main/java/io/openliberty/guides/models/Event.java[tags=!copyright;]
+include::finish/backendServices/src/main/java/io/openliberty/guides/models/Event.java[tags=!copyright;]
 ----
 
 The following table breaks down the new annotations:
@@ -115,7 +116,7 @@ The following table breaks down the new annotations:
 | `@Entity` | Declares the class as an entity
 | `@Table`  | Specifies details of the table such as name 
 | `@NamedQuery` | Specifies a predefined database query that is run by an EntityManager instance.
-| `@Id`       |  Declares the pimary key of the entity
+| `@Id`       |  Declares the primary key of the entity
 | `@GeneratedValue`    | Specifies the generation strategy for the value of the primary key. 
                         The `strategy = GenerationType.AUTO` code indicates that a generation strategy 
                         is chosen based on the database that is used
@@ -124,20 +125,20 @@ The following table breaks down the new annotations:
 |===
 
 // =================================================================================================
-// Creating the persistence.xml
+// Configuring JPA
 // =================================================================================================
 
-== Creating the persistence.xml file
+== Configuring JPA
 
 The `persistence.xml` file is a configuration file that defines a persistence unit. The 
 persistence unit contains configuration information for the entity manager, the transaction
 type, and the data source that the application uses. 
 
-Create the `src/main/resources/META-INF/persistence.xml` file:
+Create the `backendServices/src/main/resources/META-INF/persistence.xml` file:
 
 [source, Xml]
 ----
-include::finish/src/main/resources/META-INF/persistence.xml[tags=**;]
+include::finish/backendServices/src/main/resources/META-INF/persistence.xml[tags=**;]
 ----
 
 The persistence unit is defined by the `<persistence-unit>` XML element. The `name` attribute is 
@@ -149,7 +150,7 @@ we are using a container-managed entity manager, JTA transactions must be used.
 A JTA transaction type requires a JTA data source to be provided. The data source is defined through the 
 `eventjpadatasource` element that specifies the Java Naming and Directory Interface (JNDI) name of 
 the data source that is used. The data source has already been configured for you
-in the `src/main/liberty/config/server.xml` file. This data source configuration is where 
+in the `backendServices/src/main/liberty/config/server.xml` file. This data source configuration is where 
 the Java Database Connectivity (JDBC) connection is defined along with some database
 vendor-specific properties.
 
@@ -164,12 +165,12 @@ http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_genera
 
 == Performing CRUD operations using JPA
 
-To perform CRUD operations by using JPA, create the `src/main/java/io/openliberty/guides/dao/EventDao.java` 
+To perform CRUD operations by using JPA, create the `backendServices/src/main/java/io/openliberty/guides/dao/EventDao.java` 
 file:
 
 [source, Java]
 ----
-include::finish/src/main/java/io/openliberty/guides/dao/EventDao.java[tags=!copyright;]
+include::finish/backendServices/src/main/java/io/openliberty/guides/dao/EventDao.java[tags=!copyright;]
 ----
 
 To use the entity manager at runtime, inject it into our CDI bean through the
@@ -181,13 +182,11 @@ The persistence context then synchronizes with the database when a transaction c
 The `@Transactional` annotation allows the application to manage
 transaction boundaries on CDI-managed beans. This transaction management ensures that 
 the required methods run within the boundaries of an active global transaction,
-which is why it is not necessary to explicitly begin, commit or rollback transactions.
-
-Since we are using a transaction-scoped persistence context, a new persistence context begins when
-an EntityManager instance is invoked within an active transaction and ends when the transaction commits or 
-rolls back.  At the end of the transactional method invocation, the persistence context 
-is notified that the transaction is committing, and flushes any changes made to entity instances 
-it is managing to the database. The managed entities then become detached. 
+which is why it is not necessary to explicitly begin, commit or rollback transactions. 
+At the end of the transactional method invocation, the persistance context is notified 
+that the transaction is committing, and flushes any changes to Event entity instances it 
+is managing to the database. Note that after the transaction commits, managed entities 
+become unmanaged (detached).
 
 The `EventDao.java` class has a method for each CRUD operation, so let's break them down:
 
@@ -203,19 +202,15 @@ is returned in a managed state, but, if the event instance is not found, `Null` 
 This method returns a list of instances of the `Event` entity class by using a query specified in the `@NamedQuery` 
 annotation on the `Event` class. 
 
-* The `updateEvent()` method creates a managed instance of a detached entity object. The entity manager 
-automatically tracks all managed entity objects in its persistence context for changes and
-synchronizes them with the database. However, if an entity becomes detached, you must merge that entity
-into the persistence context by calling the `merge()` method so that changes to loaded 
-fields of the detached entity are tracked.
+* The `updateEvent()` method creates a managed instance of a detached entity instance. 
+The entity manager automatically tracks all managed entity objects in its persistence context 
+for changes and synchronizes them with the database. However, if an entity becomes detached, 
+you must merge that entity into the persistence context by calling the `merge()` method 
+so that changes to loaded fields of the detached entity are tracked.
 
 * The `deleteEvent()` method removes an instance of the `Event` entity class from the database by 
 calling the `remove()` method on an `EntityManager` instance. The state of the entity is
 changed to removed and is removed from the database upon transaction commit. 
-
-You can then inject the `EventDao` class into other components of your application. Notice how
-it is injected into the `src/main/java/io/openliberty/resources/EventResource.java` file to provide
-the `EventResource` class with a way to persist and access data.
 
 // =================================================================================================
 // Building and running the application
@@ -241,13 +236,19 @@ include::{common-includes}/mvncompile.adoc[]
 
 == Testing the application
 
-Create the `EventEntityTest` test class in the `src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
+Create the `EventEntityTest` test class in the `backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
 file:
 
 [source, Java]
 ----
-include::finish/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
+include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
 ----
+
+The `testInvalidRead()` and `testInvalidDelete()` methods test reading and deleting an
+event that does not exist, respectively, by using a primary key that does not exist in the database.
+
+The `testIndividualRead()` method persists a test event to the database and retrieves the 
+event object from the database using the primary key of the entity.
 
 The `testCRUD()` method creates a test event and persists it to the database. The event object is then 
 retrieved from the database to verify that the test event was actually persisted. Next, the  
@@ -264,12 +265,12 @@ include::{common-includes}/mvnverify.adoc[]
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
-Running it.io.openliberty.guides.jpaguide.tests.EventEntityTest
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.9 sec - in it.io.openliberty.guides.jpaguide.tests.EventEntityTest
+Running it.io.openliberty.guides.event.EventEntityTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.923 sec - in it.io.openliberty.guides.event.EventEntityTest
 
 Results :
 
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
 ----
 
 // =================================================================================================
