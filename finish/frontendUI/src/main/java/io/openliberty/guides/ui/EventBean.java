@@ -55,7 +55,6 @@ public class EventBean implements Serializable {
     private String hour;
     private int selectedId;
     private boolean notValid;
-    private boolean eventExists;
     private ComponentSystemEvent currentComponent;
 
     @Inject
