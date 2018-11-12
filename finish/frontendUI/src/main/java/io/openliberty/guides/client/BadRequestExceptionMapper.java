@@ -32,6 +32,6 @@ public class BadRequestExceptionMapper
 
   @Override
   public BadRequestException toThrowable(Response response) {
-    return new BadRequestException();
+    return new BadRequestException(response.readEntity(String.class));
   }
 }
