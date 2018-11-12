@@ -28,6 +28,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 
@@ -48,16 +49,15 @@ public class EventResource {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public void addNewEvent(@FormParam("name") String name,
+    public Response addNewEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
-        for (Event event : eventDAO.readAllEvents()) {
-            if (event.equals(newEvent)) {
-                return;
-            }
+        if(!eventDAO.findEvent(name, location, time).isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                           .entity("Event already exists").build();
         }
-
         eventDAO.createEvent(newEvent);
+        return Response.status(Response.Status.NO_CONTENT).build(); 
     }
 
     /**
@@ -68,22 +68,24 @@ public class EventResource {
     @Path("{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     @Transactional
-    public void updateEvent(@FormParam("name") String name,
+    public Response updateEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location,
         @PathParam("id") int id) {
         Event prevEvent = eventDAO.readEvent(id);
-
-        for (Event event : eventDAO.readAllEvents()) {
-            if (event.equals(new Event(name, location, time))) {
-                return;
-            }
+        if(prevEvent == null) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                           .entity("Event does not exist").build();
         }
-
+        if(!eventDAO.findEvent(name, location, time).isEmpty()) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                           .entity("Event already exists").build();
+        }
         prevEvent.setName(name);
         prevEvent.setLocation(location);
         prevEvent.setTime(time);
 
         eventDAO.updateEvent(prevEvent);
+        return Response.status(Response.Status.NO_CONTENT).build(); 
     }
 
     /**
@@ -92,8 +94,14 @@ public class EventResource {
     @DELETE
     @Path("{id}")
     @Transactional
-    public void deleteEvent(@PathParam("id") int id) {
-        eventDAO.deleteEvent(eventDAO.readEvent(id));
+    public Response deleteEvent(@PathParam("id") int id) {
+        Event event = eventDAO.readEvent(id);
+        if(event == null) {
+            return Response.status(Response.Status.BAD_REQUEST)
+                           .entity("Event does not exist").build();
+        }
+        eventDAO.deleteEvent(event);
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     /**
@@ -106,7 +114,6 @@ public class EventResource {
     public JsonObject getEvent(@PathParam("id") int eventId) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         Event event = eventDAO.readEvent(eventId);
-
         if(event != null) {
             builder.add("name", event.getName()).add("time", event.getTime())
                 .add("location", event.getLocation()).add("id", event.getId());

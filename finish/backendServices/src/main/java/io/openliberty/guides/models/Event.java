@@ -24,6 +24,8 @@ import javax.persistence.GenerationType;
 @Entity
 @Table(name = "Event")
 @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e")
+@NamedQuery(name = "Event.findEvent", query = "SELECT e FROM Event e WHERE "
+    + "e.name = :name AND e.location = :location AND e.time = :time")
 public class Event implements Serializable {
     private static final long serialVersionUID = 1L;
 

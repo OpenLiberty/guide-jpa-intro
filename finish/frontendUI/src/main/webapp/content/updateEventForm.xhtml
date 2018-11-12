@@ -33,6 +33,7 @@
       <br />
       <h:form id="eventform">
         <f:event listener="#{eventBean.checkTime}" type="postValidate" />
+        <f:event listener="#{eventBean.setCurrentComponent}" type="postValidate" />
         Name
         <br />
         <h:inputText id="eventNameField" value="#{eventBean.name}"
@@ -72,7 +73,7 @@
           </h:selectOneMenu>
           <br />
         </h:panelGroup>
-        <h:panelGroup rendered="#{eventBean.notValidTime}">
+        <h:panelGroup rendered="#{eventBean.notValid}">
           <br />
           <h:message for="eventTime" style="color:red" />
           <br />

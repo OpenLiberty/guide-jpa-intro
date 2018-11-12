@@ -31,6 +31,7 @@
         action="#{pageDispatcher.showEventForm}">
         <f:ajax render=":sidebar content header" />
         <f:actionListener binding="#{eventBean.displayError(false)}" />
+        <f:actionListener binding="#{eventBean.clear()}" />
       </h:commandButton>
     </h:form>
   </ui:composition>
