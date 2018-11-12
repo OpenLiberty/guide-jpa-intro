@@ -131,8 +131,7 @@ The following table breaks down the new annotations:
 == Configuring JPA
 
 The `persistence.xml` file is a configuration file that defines a persistence unit. The 
-persistence unit contains configuration information for the entity manager, the transaction
-type, and the data source that the application uses. 
+persistence unit defines the set of entities managed by the entity manager. 
 
 Create the `backendServices/src/main/resources/META-INF/persistence.xml` file:
 
@@ -177,7 +176,7 @@ To use the entity manager at runtime, inject it into our CDI bean through the
 `@PersistenceContext` annotation. The entity manager interacts with the persistence context. 
 Every EntityManager instance is associated with a persistence context. The persistence context 
 manages a set of entities and is aware of the different states that an entity can have.
-The persistence context then synchronizes with the database when a transaction commits.
+The persistence context synchronizes with the database when a transaction commits.
 
 The `@Transactional` annotation allows the application to manage
 transaction boundaries on CDI-managed beans. This transaction management ensures that 
@@ -191,8 +190,8 @@ become unmanaged (detached).
 The `EventDao.java` class has a method for each CRUD operation, so let's break them down:
 
 * The `createEvent()` method persists an instance of the `Event` entity class to the data store by
-calling the `persist()` method on an EntityManager instance. The event objects state 
-changes from new to managed and changes to it are now tracked by the entity manager. 
+calling the `persist()` method on an EntityManager instance. The entity instance becomes managed
+and changes to it will be tracked by the entity manager.
 
 * The `readEvent()` method returns an instance of the `Event` entity class with the specified primary 
 key by calling the `find()` method on an `EntityManager` instance. If the event instance is found, it
