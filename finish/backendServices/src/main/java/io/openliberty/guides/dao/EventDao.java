@@ -47,4 +47,11 @@ public class EventDao {
     public List<Event> readAllEvents() {
         return em.createNamedQuery("Event.findAll", Event.class).getResultList();
     }
+
+    public List<Event> findEvent(String name, String location, String time) {
+        return em.createNamedQuery("Event.findEvent", Event.class)
+            .setParameter("name", name)
+            .setParameter("location", location)
+            .setParameter("time", time).getResultList();
+    }
 }

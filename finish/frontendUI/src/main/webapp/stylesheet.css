@@ -248,17 +248,16 @@ h1.list {
   font-size: 1vw;
 }
 
-.column1, .column2, .column3, .column4, .column5 {
+.column1, .column2, .column3, .column4, .column5, .column6 {
   padding: 15px;
   text-align: center;
   color: black;
   border-bottom: 1px dashed black;
   font-size: 0.9vw;
-  text-transform: capitalize;
 }
 
-.column5 {
-  text-align: left;
+.column5, .column6 {
+  text-align: center;
 }
 
 .formSpacing {
@@ -271,7 +270,6 @@ h1.list {
   text-align-last: center;
   text-align: center;
   font-size: 0.9vw;
-  text-transform: capitalize;
   height: 5%;
   margin-top: 1%;
   margin-bottom: 1%;
@@ -279,5 +277,4 @@ h1.list {
 
 .columnEvents {
   font-size: 0.9vw;
-  text-transform: capitalize;
 }

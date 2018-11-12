@@ -25,6 +25,7 @@ import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.PathParam;
+import javax.ws.rs.BadRequestException;
 
 import javax.json.JsonObject;
 import javax.json.JsonArray;
@@ -32,6 +33,7 @@ import javax.json.JsonArray;
 @Dependent
 @RegisterRestClient
 @RegisterProvider(UnknownUrlExceptionMapper.class)
+@RegisterProvider(BadRequestExceptionMapper.class)
 @Path("/events")
 public interface EventClient {
 
@@ -52,13 +54,13 @@ public interface EventClient {
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public void addEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location) throws 
-        UnknownUrlException;
+        UnknownUrlException, BadRequestException;
 
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public void updateEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location, 
-        @PathParam("id") int id) throws UnknownUrlException;
+        @PathParam("id") int id) throws UnknownUrlException, BadRequestException;
 
 }

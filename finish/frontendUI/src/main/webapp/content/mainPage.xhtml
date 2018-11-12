@@ -36,8 +36,12 @@
           rendered="#{empty eventBean.retrieveEventList()}" />
         <h:dataTable value="#{eventBean.retrieveEventList()}" var="event"
           styleClass="event-table" headerClass="event-table-header"
-          columnClasses="column1,column2,column3,column4,column5"
+          columnClasses="column1,column2,column3,column4,column5,column6"
           rendered="#{not empty eventBean.retrieveEventList()}">
+          <h:column>
+            <f:facet name="header">Event ID</f:facet>
+            #{event.getInt("id")}
+          </h:column>
           <h:column>
             <f:facet name="header">Name</f:facet>
             #{event.getString("name")}

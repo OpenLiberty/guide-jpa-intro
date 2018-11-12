@@ -43,33 +43,37 @@ public class EventTest {
     /**
      *  Makes a POST request to the /events endpoint
      */
-    protected void postRequest(HashMap<String, String> formDataMap) {
+    protected int postRequest(HashMap<String, String> formDataMap) {
         formDataMap.forEach((formField, data) -> {
             form.param(formField, data);
         });
         webTarget = client.target(baseUrl + EVENTS);
         response = webTarget.request().post(Entity.form(form));
         form = new Form();
+        return response.getStatus();
     }
 
     /**
      *  Makes a PUT request to the /events/{eventId} endpoint
      */
-    protected void updateRequest(HashMap<String, String> formDataMap, int eventId) {
+    protected int updateRequest(HashMap<String, String> formDataMap, int eventId) {
         formDataMap.forEach((formField, data) -> {
             form.param(formField, data);
         });
         webTarget = client.target(baseUrl + EVENTS + "/" + eventId);
         response = webTarget.request().put(Entity.form(form));
         form = new Form();
+        return response.getStatus();
     }
     
     /**
-     *  Makes a DELETE request to /events/{eventId} endpoint 
+     *  Makes a DELETE request to /events/{eventId} endpoint and return the response 
+     *  code 
      */
-    protected void deleteRequest(int eventId) {
+    protected int deleteRequest(int eventId) {
         webTarget = client.target(baseUrl + EVENTS + "/" + eventId);
         response = webTarget.request().delete();
+        return response.getStatus();
     }
     
     /**
