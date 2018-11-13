@@ -243,8 +243,9 @@ file:
 include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
 ----
 
-The `testInvalidRead()` and `testInvalidDelete()` methods test reading and deleting an
-event that does not exist, respectively, by using a primary key that does not exist in the database.
+The `testInvalidRead()`, `testInvalidDelete()` and `testInvalidUpdate` methods test reading, 
+deleting and updating an event that does not exist, respectively, by using a primary key 
+that does not exist in the database.
 
 The `testIndividualRead()` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
