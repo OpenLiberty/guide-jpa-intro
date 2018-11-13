@@ -198,8 +198,10 @@ key by calling the `find()` method on an `EntityManager` instance. If the event 
 is returned in a managed state, but, if the event instance is not found, `Null` is returned.
 
 * The `readAllEvents()` method demonstrates an alternate way to retrieve event objects from the database.
-This method returns a list of instances of the `Event` entity class by using a query specified in the `@NamedQuery` 
-annotation on the `Event` class. 
+This method returns a list of instances of the `Event` entity class by using the 
+`Event.findAll` query specified in the `@NamedQuery` annotation on the `Event` class. 
+Similarly, the `findEvent()` method uses the `Event.findEvent` named query to find an event 
+with the given name, location and time. 
 
 * The `updateEvent()` method creates a managed instance of a detached entity instance. 
 The entity manager automatically tracks all managed entity objects in its persistence context 
@@ -243,8 +245,9 @@ file:
 include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
 ----
 
-The `testInvalidRead()` and `testInvalidDelete()` methods test reading and deleting an
-event that does not exist, respectively, by using a primary key that does not exist in the database.
+The `testInvalidRead()`, `testInvalidDelete()` and `testInvalidUpdate` methods test reading, 
+deleting and updating an event that does not exist, respectively, by using a primary key 
+that does not exist in the database.
 
 The `testIndividualRead()` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
