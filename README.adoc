@@ -14,8 +14,11 @@
 :page-tags: ['JPA']
 :page-related-guides: ['cdi-intro']
 :page-permalink: /guides/{projectid}
+:page-guide-category: none 
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
+:page-seo-title: Accessing and persisting data in microservices
+:page-seo-description: Learn how to access and persist data in microservices using the Java Persistence API.
 = Accessing and persisting data in microservices
 
 [.hidden]
@@ -268,11 +271,11 @@ include::{common-includes}/mvnverify.adoc[]
  T E S T S
 -------------------------------------------------------
 Running it.io.openliberty.guides.event.EventEntityTest
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.923 sec - in it.io.openliberty.guides.event.EventEntityTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.703 sec - in it.io.openliberty.guides.event.EventEntityTest
 
 Results :
 
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0 
 ----
 
 // =================================================================================================
