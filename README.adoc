@@ -14,8 +14,11 @@
 :page-tags: ['JPA']
 :page-related-guides: ['cdi-intro']
 :page-permalink: /guides/{projectid}
+:page-guide-category: none 
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
+:page-seo-title: Accessing and persisting data in microservices
+:page-seo-description: Learn how to access and persist data in microservices using the Java Persistence API.
 = Accessing and persisting data in microservices
 
 [.hidden]
