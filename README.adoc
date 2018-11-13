@@ -14,8 +14,11 @@
 :page-tags: ['JPA']
 :page-related-guides: ['cdi-intro']
 :page-permalink: /guides/{projectid}
+:page-guide-category: none 
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
+:page-seo-title: Accessing and persisting data in microservices
+:page-seo-description: Learn how to access and persist data in microservices using the Java Persistence API.
 = Accessing and persisting data in microservices
 
 [.hidden]
@@ -198,8 +201,10 @@ key by calling the `find()` method on an `EntityManager` instance. If the event 
 is returned in a managed state, but, if the event instance is not found, `Null` is returned.
 
 * The `readAllEvents()` method demonstrates an alternate way to retrieve event objects from the database.
-This method returns a list of instances of the `Event` entity class by using a query specified in the `@NamedQuery` 
-annotation on the `Event` class. 
+This method returns a list of instances of the `Event` entity class by using the 
+`Event.findAll` query specified in the `@NamedQuery` annotation on the `Event` class. 
+Similarly, the `findEvent()` method uses the `Event.findEvent` named query to find an event 
+with the given name, location and time. 
 
 * The `updateEvent()` method creates a managed instance of a detached entity instance. 
 The entity manager automatically tracks all managed entity objects in its persistence context 
@@ -243,8 +248,9 @@ file:
 include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
 ----
 
-The `testInvalidRead()` and `testInvalidDelete()` methods test reading and deleting an
-event that does not exist, respectively, by using a primary key that does not exist in the database.
+The `testInvalidRead()`, `testInvalidDelete()` and `testInvalidUpdate` methods test reading, 
+deleting and updating an event that does not exist, respectively, by using a primary key 
+that does not exist in the database.
 
 The `testIndividualRead()` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
@@ -265,11 +271,11 @@ include::{common-includes}/mvnverify.adoc[]
  T E S T S
 -------------------------------------------------------
 Running it.io.openliberty.guides.event.EventEntityTest
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.923 sec - in it.io.openliberty.guides.event.EventEntityTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.703 sec - in it.io.openliberty.guides.event.EventEntityTest
 
 Results :
 
-Tests run: 4, Failures: 0, Errors: 0, Skipped: 0
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0 
 ----
 
 // =================================================================================================
