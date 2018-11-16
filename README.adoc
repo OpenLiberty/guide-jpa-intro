@@ -44,7 +44,7 @@ focus on the business logic of your application instead of wasting time implemen
 
 The application that you will be working with is an event manager, which is composed of a UI
 that uses MicroProfile Rest Client to access RESTful services and an event microservice 
-for creating, retrieving, updating, and deleting events. In this guide you will be focused 
+for creating, retrieving, updating, and deleting events. In this guide, you will be focused 
 on the event microservice. The database logic is implemented in a Data Access Object (DAO) 
 to isolate the database operations from the rest of the application. This DAO accesses 
 and persists data model instances to the database and can be injected and consumed by other 
@@ -185,7 +185,7 @@ The `@Transactional` annotation allows the application to manage
 transaction boundaries on CDI-managed beans. This transaction management ensures that 
 the required methods run within the boundaries of an active global transaction,
 which is why it is not necessary to explicitly begin, commit or rollback transactions. 
-At the end of the transactional method invocation, the persistance context is notified 
+At the end of the transactional method invocation, the persistence context is notified 
 that the transaction is committing, and flushes any changes to Event entity instances it 
 is managing to the database. Note that after the transaction commits, managed entities 
 become unmanaged (detached).
@@ -200,9 +200,9 @@ and changes to it will be tracked by the entity manager.
 key by calling the `find()` method on an `EntityManager` instance. If the event instance is found, it
 is returned in a managed state, but, if the event instance is not found, `Null` is returned.
 
-* The `readAllEvents()` method demonstrates an alternate way to retrieve event objects from the database.
-This method returns a list of instances of the `Event` entity class by using the 
-`Event.findAll` query specified in the `@NamedQuery` annotation on the `Event` class. 
+* The `readAllEvents()` method demonstrates an alternative way to retrieve event objects 
+from the database. This method returns a list of instances of the `Event` entity class by 
+using the `Event.findAll` query specified in the `@NamedQuery` annotation on the `Event` class. 
 Similarly, the `findEvent()` method uses the `Event.findEvent` named query to find an event 
 with the given name, location and time. 
 
@@ -248,9 +248,9 @@ file:
 include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
 ----
 
-The `testInvalidRead()`, `testInvalidDelete()` and `testInvalidUpdate` methods test reading, 
-deleting and updating an event that does not exist, respectively, by using a primary key 
-that does not exist in the database.
+The `testInvalidRead()`, `testInvalidUpdate()` and `testInvalidDelete` methods use a primary
+key that does not exist in the database to test reading, updating and deleting an event
+that does not exist, respectively.
 
 The `testIndividualRead()` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
