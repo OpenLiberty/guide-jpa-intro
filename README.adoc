@@ -252,7 +252,6 @@ The `testInvalidRead()`, `testInvalidUpdate()` and `testInvalidDelete` methods u
 key that is not in the database to test reading, updating and deleting an event that does not
 exist, respectively.
 
-
 The `testIndividualRead()` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
 
