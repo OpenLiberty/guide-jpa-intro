@@ -249,8 +249,9 @@ include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/Eve
 ----
 
 The `testInvalidRead()`, `testInvalidUpdate()` and `testInvalidDelete` methods use a primary
-key that does not exist in the database to test reading, updating and deleting an event
-that does not exist, respectively.
+key that is not in the database to test reading, updating and deleting an event that does not
+exist, respectively.
+
 
 The `testIndividualRead()` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
