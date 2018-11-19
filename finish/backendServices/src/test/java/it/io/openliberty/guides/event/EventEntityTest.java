@@ -70,13 +70,13 @@ public class EventEntityTest extends EventTest {
     @Test
     public void testInvalidDelete() {
         int responseStatus = deleteRequest(-1);
-        assertEquals(responseStatus, Status.BAD_REQUEST.getStatusCode());
+        assertEquals(responseStatus, Status.NOT_FOUND.getStatusCode());
     }
 
     @Test
     public void testInvalidUpdate() {
         int updateResponseStatus = updateRequest(eventForm, -1);
-        assertEquals(updateResponseStatus, Status.BAD_REQUEST.getStatusCode());
+        assertEquals(updateResponseStatus, Status.NOT_FOUND.getStatusCode());
     }
 
     @Test
