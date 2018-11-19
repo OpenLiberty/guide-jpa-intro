@@ -73,7 +73,7 @@ public class EventResource {
         @PathParam("id") int id) {
         Event prevEvent = eventDAO.readEvent(id);
         if(prevEvent == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
+            return Response.status(Response.Status.NOT_FOUND)
                            .entity("Event does not exist").build();
         }
         if(!eventDAO.findEvent(name, location, time).isEmpty()) {
@@ -97,7 +97,7 @@ public class EventResource {
     public Response deleteEvent(@PathParam("id") int id) {
         Event event = eventDAO.readEvent(id);
         if(event == null) {
-            return Response.status(Response.Status.BAD_REQUEST)
+            return Response.status(Response.Status.NOT_FOUND)
                            .entity("Event does not exist").build();
         }
         eventDAO.deleteEvent(event);
