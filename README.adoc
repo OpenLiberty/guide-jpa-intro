@@ -35,7 +35,7 @@ Learn how to use Java Persistence API to access and persist data to a database f
 You will learn how to use the Java Persistence API (JPA) to map Java objects to relational database 
 tables and perform create, read, update and delete (CRUD) operations on the data in your microservices. 
 
-JPA is a Java specification for representing relational database table data as Plain Old Java Objects (POJO).
+JPA is a Java EE specification for representing relational database table data as Plain Old Java Objects (POJO).
 JPA simplifies object-relational mapping (ORM) by using annotations to map Java objects 
 to tables in a relational database. In addition to providing an efficient API for performing
 CRUD operations, JPA also reduces the burden of having to write JDBC and SQL code when performing
@@ -198,7 +198,7 @@ and changes to it will be tracked by the entity manager.
 
 * The `readEvent()` method returns an instance of the `Event` entity class with the specified primary 
 key by calling the `find()` method on an `EntityManager` instance. If the event instance is found, it
-is returned in a managed state, but, if the event instance is not found, `Null` is returned.
+is returned in a managed state, but, if the event instance is not found, `null` is returned.
 
 * The `readAllEvents()` method demonstrates an alternative way to retrieve event objects 
 from the database. This method returns a list of instances of the `Event` entity class by 
