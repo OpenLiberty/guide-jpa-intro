@@ -23,7 +23,7 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
-import io.openliberty.guides.models.Event;
+import io.openliberty.guides.event.models.Event;
 
 public class EventTest {
 
