@@ -106,8 +106,7 @@ public class EventEntityTest extends EventTest {
 
     @Test
     public void testCRUD() {
-        assertEquals("Retrieving all events should return an empty list", 
-            getRequest().isEmpty(), true);
+        int eventCount = getRequest().size();
         int postResponseStatus = postRequest(eventForm);
         assertEquals("Creating an event should return the HTTP reponse code " + 
             Status.NO_CONTENT.getStatusCode(), postResponseStatus, 
@@ -139,8 +138,8 @@ public class EventEntityTest extends EventTest {
         assertEquals("Deleting an event should return the HTTP response code " + 
             Status.NO_CONTENT.getStatusCode(), deleteResponseStatus, 
             Status.NO_CONTENT.getStatusCode());
-        assertEquals("Retrieving all events should return an empty list", 
-            getRequest().isEmpty(), true);
+        assertEquals("Total number of events stored should be the same after testing "
+            + "CRUD operations.", getRequest().size(), eventCount);
     }
 
     @After
