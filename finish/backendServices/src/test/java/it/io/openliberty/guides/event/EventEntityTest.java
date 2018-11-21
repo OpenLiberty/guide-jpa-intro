@@ -64,25 +64,32 @@ public class EventEntityTest extends EventTest {
 
     @Test
     public void testInvalidRead() {
-        assertEquals(getIndividualEvent(-1).isEmpty(), true);
+        assertEquals("Reading an event that does not exist should return an empty list",
+            getIndividualEvent(-1).isEmpty(), true);
     }
 
     @Test
     public void testInvalidDelete() {
         int responseStatus = deleteRequest(-1);
-        assertEquals(responseStatus, Status.NOT_FOUND.getStatusCode());
+        assertEquals("Attempting to delete an event that does not exist should return "
+            + "the HTTP response code " + Status.NOT_FOUND.getStatusCode(), 
+            responseStatus, Status.NOT_FOUND.getStatusCode());
     }
 
     @Test
     public void testInvalidUpdate() {
         int updateResponseStatus = updateRequest(eventForm, -1);
-        assertEquals(updateResponseStatus, Status.NOT_FOUND.getStatusCode());
+        assertEquals("Attempting to update an event that does not exist should return "
+            + "the HTTP response code " + Status.NOT_FOUND.getStatusCode(), 
+            updateResponseStatus, Status.NOT_FOUND.getStatusCode());
     }
 
     @Test
     public void testReadIndividualEvent() {
         int postResponseStatus = postRequest(eventForm);
-        assertEquals(postResponseStatus, Status.NO_CONTENT.getStatusCode());
+        assertEquals("Creating an event should return the HTTP reponse code " + 
+            Status.NO_CONTENT.getStatusCode(), postResponseStatus, 
+            Status.NO_CONTENT.getStatusCode());
         JsonObject event = getTestEvent();
         event = getIndividualEvent(event.getInt("id"));
 
@@ -92,15 +99,20 @@ public class EventEntityTest extends EventTest {
         assertData(actualDataStored);
 
         int deleteResponseStatus = deleteRequest(event.getInt("id"));
-        assertEquals(deleteResponseStatus, Status.NO_CONTENT.getStatusCode());
+        assertEquals("Deleting an event should return the HTTP response code " + 
+            Status.NO_CONTENT.getStatusCode(), deleteResponseStatus, 
+            Status.NO_CONTENT.getStatusCode());
     }
 
     @Test
     public void testCRUD() {
-        assertEquals(getRequest().isEmpty(), true);
+        assertEquals("Retrieving all events should return an empty list", 
+            getRequest().isEmpty(), true);
         int postResponseStatus = postRequest(eventForm);
-        assertEquals(postResponseStatus, Status.NO_CONTENT.getStatusCode());
-      
+        assertEquals("Creating an event should return the HTTP reponse code " + 
+            Status.NO_CONTENT.getStatusCode(), postResponseStatus, 
+            Status.NO_CONTENT.getStatusCode());
+     
         JsonObject event = getTestEvent();
         actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
         actualDataStored.put(event.getString(JSONFIELD_LOCATION), EVENT_LOCATION);
@@ -111,7 +123,9 @@ public class EventEntityTest extends EventTest {
         eventForm.put(JSONFIELD_LOCATION, UPDATE_EVENT_LOCATION);
         eventForm.put(JSONFIELD_TIME, UPDATE_EVENT_TIME);
         int updateResponseStatus = updateRequest(eventForm, event.getInt("id"));
-        assertEquals(updateResponseStatus, Status.NO_CONTENT.getStatusCode());
+        assertEquals("Updating an event should return the HTTP response code " + 
+            Status.NO_CONTENT.getStatusCode(), updateResponseStatus, 
+            Status.NO_CONTENT.getStatusCode());
         
         e = new Event(UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
         event = getTestEvent();
@@ -122,8 +136,11 @@ public class EventEntityTest extends EventTest {
         assertData(actualDataStored);
 
         int deleteResponseStatus = deleteRequest(event.getInt("id"));
-        assertEquals(deleteResponseStatus, Status.NO_CONTENT.getStatusCode());
-        assertEquals(getRequest().isEmpty(), true);
+        assertEquals("Deleting an event should return the HTTP response code " + 
+            Status.NO_CONTENT.getStatusCode(), deleteResponseStatus, 
+            Status.NO_CONTENT.getStatusCode());
+        assertEquals("Retrieving all events should return an empty list", 
+            getRequest().isEmpty(), true);
     }
 
     @After

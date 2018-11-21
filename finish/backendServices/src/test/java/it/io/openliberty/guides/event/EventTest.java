@@ -116,7 +116,7 @@ public class EventTest {
      */
     protected void assertData(HashMap<String, String> testedData) {
         testedData.forEach((actual, expected) -> {
-            assertEquals(expected, actual);
+            assertEquals("Actual data stored doesn't match expected", expected, actual);
         });
     }
 
