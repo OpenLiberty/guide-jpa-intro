@@ -25,7 +25,7 @@ import javax.ws.rs.core.Response;
 
 import io.openliberty.guides.event.models.Event;
 
-public class EventTest {
+public abstract class EventTest {
 
     private WebTarget webTarget;
 
