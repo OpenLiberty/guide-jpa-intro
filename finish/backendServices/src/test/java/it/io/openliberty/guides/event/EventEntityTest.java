@@ -39,6 +39,10 @@ public class EventEntityTest extends EventTest {
     public static final String UPDATE_EVENT_TIME = "12:00 PM, February 1 2018";
     public static final String UPDATE_EVENT_LOCATION = "IBM Updated";
     public static final String UPDATE_EVENT_NAME = "JPA Guide Updated";
+    
+    private int noContentCode = Status.NO_CONTENT.getStatusCode();
+    private int notFoundCode = Status.NOT_FOUND.getStatusCode();
+    private Event e;
 
     @BeforeClass
     public static void oneTimeSetup() {
@@ -53,7 +57,6 @@ public class EventEntityTest extends EventTest {
         client.register(JsrJsonpProvider.class);
 
         eventForm = new HashMap<String, String>();
-        actualDataStored = new HashMap<String, String>();
 
         eventForm.put(JSONFIELD_NAME, EVENT_NAME);
         eventForm.put(JSONFIELD_LOCATION, EVENT_LOCATION);
@@ -65,43 +68,36 @@ public class EventEntityTest extends EventTest {
     @Test
     public void testInvalidRead() {
         assertEquals("Reading an event that does not exist should return an empty list",
-            getIndividualEvent(-1).isEmpty(), true);
+            true, getIndividualEvent(-1).isEmpty());
     }
 
     @Test
     public void testInvalidDelete() {
         int responseStatus = deleteRequest(-1);
-        assertEquals("Attempting to delete an event that does not exist should return "
-            + "the HTTP response code " + Status.NOT_FOUND.getStatusCode(), 
-            responseStatus, Status.NOT_FOUND.getStatusCode());
+        assertEquals("Trying to delete an event that does not exist should return the "
+            + "HTTP response code " + notFoundCode, notFoundCode, responseStatus);
     }
 
     @Test
     public void testInvalidUpdate() {
         int updateResponseStatus = updateRequest(eventForm, -1);
-        assertEquals("Attempting to update an event that does not exist should return "
-            + "the HTTP response code " + Status.NOT_FOUND.getStatusCode(), 
-            updateResponseStatus, Status.NOT_FOUND.getStatusCode());
+        assertEquals("Trying to update an event that does not exist should return the "
+            + "HTTP response code " + notFoundCode, notFoundCode, updateResponseStatus);
     }
 
     @Test
     public void testReadIndividualEvent() {
         int postResponseStatus = postRequest(eventForm);
-        assertEquals("Creating an event should return the HTTP reponse code " + 
-            Status.NO_CONTENT.getStatusCode(), postResponseStatus, 
-            Status.NO_CONTENT.getStatusCode());
-        JsonObject event = getTestEvent();
-        event = getIndividualEvent(event.getInt("id"));
+        assertEquals("Creating an event should return the HTTP reponse code " +  
+            noContentCode, noContentCode, postResponseStatus);
 
-        actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
-        actualDataStored.put(event.getString(JSONFIELD_LOCATION), EVENT_LOCATION);
-        actualDataStored.put(event.getString(JSONFIELD_TIME), EVENT_TIME);
-        assertData(actualDataStored);
+        JsonObject event = findEvent(e);
+        event = getIndividualEvent(event.getInt("id"));
+        assertData(event, EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
 
         int deleteResponseStatus = deleteRequest(event.getInt("id"));
         assertEquals("Deleting an event should return the HTTP response code " + 
-            Status.NO_CONTENT.getStatusCode(), deleteResponseStatus, 
-            Status.NO_CONTENT.getStatusCode());
+            noContentCode, noContentCode, deleteResponseStatus);
     }
 
     @Test
@@ -109,37 +105,27 @@ public class EventEntityTest extends EventTest {
         int eventCount = getRequest().size();
         int postResponseStatus = postRequest(eventForm);
         assertEquals("Creating an event should return the HTTP reponse code " + 
-            Status.NO_CONTENT.getStatusCode(), postResponseStatus, 
-            Status.NO_CONTENT.getStatusCode());
+            noContentCode, noContentCode, postResponseStatus);
      
-        JsonObject event = getTestEvent();
-        actualDataStored.put(event.getString(JSONFIELD_NAME), EVENT_NAME);
-        actualDataStored.put(event.getString(JSONFIELD_LOCATION), EVENT_LOCATION);
-        actualDataStored.put(event.getString(JSONFIELD_TIME), EVENT_TIME);
-        assertData(actualDataStored);
+        JsonObject event = findEvent(e);
+        assertData(event, EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
 
         eventForm.put(JSONFIELD_NAME, UPDATE_EVENT_NAME);
         eventForm.put(JSONFIELD_LOCATION, UPDATE_EVENT_LOCATION);
         eventForm.put(JSONFIELD_TIME, UPDATE_EVENT_TIME);
         int updateResponseStatus = updateRequest(eventForm, event.getInt("id"));
         assertEquals("Updating an event should return the HTTP response code " + 
-            Status.NO_CONTENT.getStatusCode(), updateResponseStatus, 
-            Status.NO_CONTENT.getStatusCode());
+            noContentCode, noContentCode, updateResponseStatus);
         
         e = new Event(UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
-        event = getTestEvent();
-        actualDataStored.put(event.getString(JSONFIELD_NAME), UPDATE_EVENT_NAME);
-        actualDataStored.put(event.getString(JSONFIELD_LOCATION),
-                UPDATE_EVENT_LOCATION);
-        actualDataStored.put(event.getString(JSONFIELD_TIME), UPDATE_EVENT_TIME);
-        assertData(actualDataStored);
+        event = findEvent(e);
+        assertData(event, UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
 
         int deleteResponseStatus = deleteRequest(event.getInt("id"));
         assertEquals("Deleting an event should return the HTTP response code " + 
-            Status.NO_CONTENT.getStatusCode(), deleteResponseStatus, 
-            Status.NO_CONTENT.getStatusCode());
+            noContentCode, noContentCode, deleteResponseStatus);
         assertEquals("Total number of events stored should be the same after testing "
-            + "CRUD operations.", getRequest().size(), eventCount);
+            + "CRUD operations.", eventCount, getRequest().size());
     }
 
     @After
