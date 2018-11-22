@@ -42,7 +42,6 @@ public class EventEntityTest extends EventTest {
     
     private int noContentCode = Status.NO_CONTENT.getStatusCode();
     private int notFoundCode = Status.NOT_FOUND.getStatusCode();
-    private Event e;
 
     @BeforeClass
     public static void oneTimeSetup() {
@@ -61,8 +60,6 @@ public class EventEntityTest extends EventTest {
         eventForm.put(JSONFIELD_NAME, EVENT_NAME);
         eventForm.put(JSONFIELD_LOCATION, EVENT_LOCATION);
         eventForm.put(JSONFIELD_TIME, EVENT_TIME);
-
-        e = new Event(EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
     }
 
     @Test
@@ -91,6 +88,7 @@ public class EventEntityTest extends EventTest {
         assertEquals("Creating an event should return the HTTP reponse code " +  
             noContentCode, noContentCode, postResponseStatus);
 
+        Event e = new Event(EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
         JsonObject event = findEvent(e);
         event = getIndividualEvent(event.getInt("id"));
         assertData(event, EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
@@ -107,6 +105,7 @@ public class EventEntityTest extends EventTest {
         assertEquals("Creating an event should return the HTTP reponse code " + 
             noContentCode, noContentCode, postResponseStatus);
      
+        Event e = new Event(EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
         JsonObject event = findEvent(e);
         assertData(event, EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
 
