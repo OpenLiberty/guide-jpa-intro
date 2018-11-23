@@ -29,19 +29,19 @@ import io.openliberty.guides.event.models.Event;
 
 public class EventEntityTest extends EventTest {
 
-    public static final String JSONFIELD_LOCATION = "location";
-    public static final String JSONFIELD_NAME = "name";
-    public static final String JSONFIELD_TIME = "time";
-    public static final String JSONFIELD_ID = "id";
-    public static final String EVENT_TIME = "12:00 PM, January 1 2018";
-    public static final String EVENT_LOCATION = "IBM";
-    public static final String EVENT_NAME = "JPA Guide";
-    public static final String UPDATE_EVENT_TIME = "12:00 PM, February 1 2018";
-    public static final String UPDATE_EVENT_LOCATION = "IBM Updated";
-    public static final String UPDATE_EVENT_NAME = "JPA Guide Updated";
+    private static final String JSONFIELD_LOCATION = "location";
+    private static final String JSONFIELD_NAME = "name";
+    private static final String JSONFIELD_TIME = "time";
+    private static final String JSONFIELD_ID = "id";
+    private static final String EVENT_TIME = "12:00 PM, January 1 2018";
+    private static final String EVENT_LOCATION = "IBM";
+    private static final String EVENT_NAME = "JPA Guide";
+    private static final String UPDATE_EVENT_TIME = "12:00 PM, February 1 2018";
+    private static final String UPDATE_EVENT_LOCATION = "IBM Updated";
+    private static final String UPDATE_EVENT_NAME = "JPA Guide Updated";
     
-    private int noContentCode = Status.NO_CONTENT.getStatusCode();
-    private int notFoundCode = Status.NOT_FOUND.getStatusCode();
+    private static final int NO_CONTENT_CODE = Status.NO_CONTENT.getStatusCode();
+    private static final int NOT_FOUND_CODE = Status.NOT_FOUND.getStatusCode();
 
     @BeforeClass
     public static void oneTimeSetup() {
@@ -70,40 +70,40 @@ public class EventEntityTest extends EventTest {
 
     @Test
     public void testInvalidDelete() {
-        int responseStatus = deleteRequest(-1);
+        int deleteResponse = deleteRequest(-1);
         assertEquals("Trying to delete an event that does not exist should return the "
-            + "HTTP response code " + notFoundCode, notFoundCode, responseStatus);
+            + "HTTP response code " + NOT_FOUND_CODE, NOT_FOUND_CODE, deleteResponse);
     }
 
     @Test
     public void testInvalidUpdate() {
-        int updateResponseStatus = updateRequest(eventForm, -1);
+        int updateResponse = updateRequest(eventForm, -1);
         assertEquals("Trying to update an event that does not exist should return the "
-            + "HTTP response code " + notFoundCode, notFoundCode, updateResponseStatus);
+            + "HTTP response code " + NOT_FOUND_CODE, NOT_FOUND_CODE, updateResponse);
     }
 
     @Test
     public void testReadIndividualEvent() {
-        int postResponseStatus = postRequest(eventForm);
+        int postResponse = postRequest(eventForm);
         assertEquals("Creating an event should return the HTTP reponse code " +  
-            noContentCode, noContentCode, postResponseStatus);
+            NO_CONTENT_CODE, NO_CONTENT_CODE, postResponse);
 
         Event e = new Event(EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
         JsonObject event = findEvent(e);
         event = getIndividualEvent(event.getInt("id"));
         assertData(event, EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
 
-        int deleteResponseStatus = deleteRequest(event.getInt("id"));
+        int deleteResponse = deleteRequest(event.getInt("id"));
         assertEquals("Deleting an event should return the HTTP response code " + 
-            noContentCode, noContentCode, deleteResponseStatus);
+            NO_CONTENT_CODE, NO_CONTENT_CODE, deleteResponse);
     }
 
     @Test
     public void testCRUD() {
         int eventCount = getRequest().size();
-        int postResponseStatus = postRequest(eventForm);
+        int postResponse = postRequest(eventForm);
         assertEquals("Creating an event should return the HTTP reponse code " + 
-            noContentCode, noContentCode, postResponseStatus);
+            NO_CONTENT_CODE, NO_CONTENT_CODE, postResponse);
      
         Event e = new Event(EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
         JsonObject event = findEvent(e);
@@ -112,17 +112,17 @@ public class EventEntityTest extends EventTest {
         eventForm.put(JSONFIELD_NAME, UPDATE_EVENT_NAME);
         eventForm.put(JSONFIELD_LOCATION, UPDATE_EVENT_LOCATION);
         eventForm.put(JSONFIELD_TIME, UPDATE_EVENT_TIME);
-        int updateResponseStatus = updateRequest(eventForm, event.getInt("id"));
+        int updateResponse = updateRequest(eventForm, event.getInt("id"));
         assertEquals("Updating an event should return the HTTP response code " + 
-            noContentCode, noContentCode, updateResponseStatus);
+            NO_CONTENT_CODE, NO_CONTENT_CODE, updateResponse);
         
         e = new Event(UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
         event = findEvent(e);
         assertData(event, UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
 
-        int deleteResponseStatus = deleteRequest(event.getInt("id"));
+        int deleteResponse = deleteRequest(event.getInt("id"));
         assertEquals("Deleting an event should return the HTTP response code " + 
-            noContentCode, noContentCode, deleteResponseStatus);
+            NO_CONTENT_CODE, NO_CONTENT_CODE, deleteResponse);
         assertEquals("Total number of events stored should be the same after testing "
             + "CRUD operations.", eventCount, getRequest().size());
     }
