@@ -23,9 +23,9 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response;
 
-import io.openliberty.guides.models.Event;
+import io.openliberty.guides.event.models.Event;
 
-public class EventTest {
+public abstract class EventTest {
 
     private WebTarget webTarget;
 
@@ -33,8 +33,6 @@ public class EventTest {
     protected Client client;
     protected Response response;
     protected HashMap<String, String> eventForm;
-    protected HashMap<String, String> actualDataStored;
-    protected Event e;
 
     protected static String baseUrl;
     protected static String port;
@@ -95,10 +93,10 @@ public class EventTest {
     }
     
     /**
-     *  Makes a GET request to the /events endpoint and returns the test event created
-     *  in EventEntityTest.java
+     *  Makes a GET request to the /events endpoint and returns the event provided
+     *  if it exists. 
      */
-    protected JsonObject getTestEvent() {
+    protected JsonObject findEvent(Event e) {
         JsonArray events = getRequest();
         for (int i = 0; i < events.size(); i++) {
             JsonObject testEvent = events.getJsonObject(i);
@@ -112,12 +110,13 @@ public class EventTest {
     }
 
     /**
-     *  Asserts values in hashmap are equal
+     *  Asserts event fields (name, location, time) equal the provided name, location
+     *  and date
      */
-    protected void assertData(HashMap<String, String> testedData) {
-        testedData.forEach((actual, expected) -> {
-            assertEquals(expected, actual);
-        });
+    protected void assertData(JsonObject event, String name, String loc, String date) {
+        assertEquals(event.getString("name"), name);
+        assertEquals(event.getString("location"), loc);
+        assertEquals(event.getString("time"), date);
     }
 
 }
