@@ -22,7 +22,6 @@ import javax.enterprise.context.RequestScoped;
 import javax.transaction.Transactional;
 
 @RequestScoped
-@Transactional
 public class EventDao {
 
     @PersistenceContext(name = "jpa-unit")
