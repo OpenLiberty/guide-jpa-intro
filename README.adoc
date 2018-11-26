@@ -53,10 +53,10 @@ as a data store for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the 
 database. The interaction between your service and the database is mediated by the persistence 
-context that is managed by an entity manager. In a Java EE environment, one type of entity
-manager is a container-managed entity manager. In this guide you will use a container-managed
-entity manager that is injected into the DAO, placing the burden of opening and closing 
-the entity manager on the application server. 
+context that is managed by an entity manager. In a Java EE environment, you can use an
+application-managed entity manager or a container-managed entity manager. In this guide 
+you will use a container-managed entity manager that is injected into the DAO, placing the 
+burden of opening and closing the entity manager on the application server. 
 
 // =================================================================================================
 // Getting Started
