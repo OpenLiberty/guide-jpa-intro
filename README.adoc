@@ -169,7 +169,7 @@ http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_genera
 
 == Performing CRUD operations using JPA
 
-The CRUD operations operations are defined in the DAO. To perform these operations by using 
+The CRUD operations are defined in the DAO. To perform these operations by using 
 JPA, create the `backendServices/src/main/java/io/openliberty/guides/event/dao/EventDao.java` 
 file:
 
