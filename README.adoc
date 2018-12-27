@@ -205,7 +205,7 @@ The persistence context synchronizes with the database when a transaction commit
 
 The [hotspot=13-44]`EventDao` class has a method for each CRUD operation, so let's break them down:
 
-* The [hotspot18-20]`createEvent()` method persists an instance of the `Event` entity class to the data store by
+* The [hotspot=18-20]`createEvent()` method persists an instance of the `Event` entity class to the data store by
 calling the [hotspot=19]`persist()` method on an EntityManager instance. The entity instance becomes managed
 and changes to it will be tracked by the entity manager.
 
@@ -213,10 +213,10 @@ and changes to it will be tracked by the entity manager.
 key by calling the [hotspot=23]`find()` method on an `EntityManager` instance. If the event instance is found, it
 is returned in a managed state, but, if the event instance is not found, `null` is returned.
 
-* The [hotspot=35-37]`readAllEvents()` method demonstrates an alternative way to retrieve event objects 
+* The [hotspot=34-36]`readAllEvents()` method demonstrates an alternative way to retrieve event objects 
 from the database. This method returns a list of instances of the `Event` entity class by 
 using the `Event.findAll` query specified in the `@NamedQuery` annotation on the `Event` class. 
-Similarly, the [hotspot=39-44]`findEvent()` method uses the `Event.findEvent` named query to find an event 
+Similarly, the [hotspot=38-43]`findEvent()` method uses the `Event.findEvent` named query to find an event 
 with the given name, location and time. 
 
 * The [hotspot=26-28]`updateEvent()` method creates a managed instance of a detached entity instance. 
@@ -231,7 +231,7 @@ changed to removed and is removed from the database upon transaction commit.
 
 The DAO is injected into the `finish/backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
 class and used to access and persist data. The `@Transactional` annotation is used in the
-`EventResource` class to declaratively control the transaction boundaries on the `@RequestScoped` CDI bean.
+`EventResource` class to declaratively control the transaction boundaries on the [hotspot=12]`@RequestScoped` CDI bean.
 This ensures that the methods run within the boundaries of an active global transaction, which is why it is not
 necessary to explicitly begin, commit or rollback transactions. At the end of the transactional
 method invocation, the transaction commits and the persistence context flushes any changes
@@ -257,7 +257,7 @@ the `Current Events` section.
 
 == Testing the application
 
-[role="code_command hotspot=28-134", subs="quotes"]
+[role="code_command hotspot=18-124", subs="quotes"]
 ----
 Create the `EventEntityTest` class.
 `backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
@@ -268,13 +268,13 @@ EventEntityTest.java
 include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
 ----
 
-The [hotspot=64-67]`testInvalidRead()`, [hotspot=70-74]`testInvalidDelete()` and [hotspot=77-81]`testInvalidUpdate()` methods use a primary key that is not in the database to test reading, updating and deleting an event that does not
+The [hotspot=54-57]`testInvalidRead()`, [hotspot=60-64]`testInvalidDelete()` and [hotspot=67-71]`testInvalidUpdate()` methods use a primary key that is not in the database to test reading, updating and deleting an event that does not
 exist, respectively.
 
-The [hotspot=84-97]`testIndividualRead()` method persists a test event to the database and retrieves the 
+The [hotspot=74-87]`testIndividualRead()` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
 
-The [hotspot=100-126]`testCRUD()` method creates a test event and persists it to the database. The event object is then 
+The [hotspot=90-116]`testCRUD()` method creates a test event and persists it to the database. The event object is then 
 retrieved from the database to verify that the test event was actually persisted. Next, the  
 name, location, and time of the test event are updated. The event object is retrieved 
 from the database to verify that the updated event is stored. Finally, the updated test 
