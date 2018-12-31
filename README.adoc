@@ -152,7 +152,7 @@ persistence unit specifies configuration information for the entity manager.
 [role="code_command hotspot=1-14", subs="quotes"]
 ----
 Create the configuration file.
-`backendServices/src/main/resources/META-INF/persistence.xml` file:
+`backendServices/src/main/resources/META-INF/persistence.xml`
 ----
 persistence.xml
 [source, Xml, linenums, role='code_column']
@@ -162,7 +162,7 @@ include::finish/backendServices/src/main/resources/META-INF/persistence.xml[tags
 
 The persistence unit is defined by the [hotspot=7-13]`<persistence-unit />` XML element. The `name` attribute is 
 required and is used to identify the persistent unit when using the `@PersistenceContext`
-annotation to inject the entity manager later in this guide. The `transaction-type="JTA"` 
+annotation to inject the entity manager later in this guide. The [hotspot=7]`transaction-type="JTA"` 
 attribute specifies to use Java Transaction API (JTA) transaction management.
 Since we are using a container-managed entity manager, JTA transactions must be used. 
 
