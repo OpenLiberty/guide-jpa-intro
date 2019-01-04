@@ -173,6 +173,12 @@ in the [hotspot=1-28 file=1]`backendServices/src/main/liberty/config/server.xml`
 the Java Database Connectivity (JDBC) connection is defined along with some database
 vendor-specific properties.
 
+server.xml
+[source, Xml, linenums, role='code_column']
+----
+include::finish/backendServices/src/main/liberty/config/server.xml[tags=**]
+----
+
 The [hotspot=10-11 file=0]`eclipselink.ddl-generation` properties are used here so that you aren't required to 
 manually create a database table to run this sample application. To learn more about the 
 `ddl-generation` properties, see the 
