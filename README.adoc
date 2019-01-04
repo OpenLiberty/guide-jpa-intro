@@ -169,7 +169,7 @@ Since we are using a container-managed entity manager, JTA transactions must be 
 A JTA transaction type requires a JTA data source to be provided. The [hotspot=8 file=0]`<jta-data-source/>` 
 element specifies the Java Naming and Directory Interface (JNDI) name of 
 the data source that is used. The data source has already been configured for you
-in the `backendServices/src/main/liberty/config/server.xml` file. This data source configuration is where 
+in the [hotspot=1-28 file=1]`backendServices/src/main/liberty/config/server.xml` file. This data source configuration is where 
 the Java Database Connectivity (JDBC) connection is defined along with some database
 vendor-specific properties.
 
