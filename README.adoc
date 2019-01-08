@@ -115,7 +115,7 @@ annotations.
 
 [role="code_command hotspot=17-70", subs="quotes"]
 ----
-Create the `Event` class.
+#Create the `Event` class.#
 `backendServices/src/main/java/io/openliberty/guides/event/models/Event.java`
 ----
 Event.java
@@ -152,7 +152,7 @@ persistence unit specifies configuration information for the entity manager.
 
 [role="code_command hotspot=1-14", subs="quotes"]
 ----
-Create the configuration file.
+#Create the configuration file.#
 `backendServices/src/main/resources/META-INF/persistence.xml`
 ----
 persistence.xml
@@ -195,7 +195,7 @@ The CRUD operations are defined in the DAO. To perform these operations by using
 
 [role="code_command hotspot=13-44", subs="quotes"]
 ----
-Create the `EventDao` class.
+#Create the `EventDao` class.#
 `backendServices/src/main/java/io/openliberty/guides/event/dao/EventDao.java`
 ----
 EventDao.java
@@ -284,7 +284,7 @@ mvn liberty:stop-server
 
 [role="code_command hotspot=18-124", subs="quotes"]
 ----
-Create the `EventEntityTest` class.
+#Create the `EventEntityTest` class.#
 `backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
 ----
 EventEntityTest.java
