@@ -242,7 +242,8 @@ so that changes to loaded fields of the detached entity are tracked.
 calling the [hotspot=31 file=0]`remove()` method on an `EntityManager` instance. The state of the entity is
 changed to removed and is removed from the database upon transaction commit. 
 
-The DAO is injected into the [hotspot=28-128 file=2]`finish/backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
+The DAO is injected into the [hotspot=28-128 file=2]`finish/backendServices/src/main/java/io/openliberty/guides/event/`
+[hotspot=28-128 file=2]`resources/EventResource.java`
 class and used to access and persist data. The [hotspot=39 file=2]`@Transactional` annotation is used in the
 [hotspot=28-128]`EventResource` class to declaratively control the transaction boundaries on the [hotspot=12 file=0]`@RequestScoped` CDI bean.
 This ensures that the methods run within the boundaries of an active global transaction, which is why it is not
