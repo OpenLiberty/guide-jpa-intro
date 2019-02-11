@@ -113,7 +113,7 @@ as rows in the table.
 The `Event` class is a data model that represents events in the event microservice and is annotated with JPA
 annotations.
 
-[role="code_command hotspot=17-70", subs="quotes"]
+[role="code_command hotspot", subs="quotes"]
 ----
 #Create the `Event` class.#
 `backendServices/src/main/java/io/openliberty/guides/event/models/Event.java`
@@ -150,7 +150,7 @@ The following table breaks down the new annotations:
 The `persistence.xml` file is a configuration file that defines a persistence unit. The
 persistence unit specifies configuration information for the entity manager.
 
-[role="code_command hotspot=1-14", subs="quotes"]
+[role="code_command hotspot", subs="quotes"]
 ----
 #Create the configuration file.#
 `backendServices/src/main/resources/META-INF/persistence.xml`
@@ -170,7 +170,7 @@ Since we are using a container-managed entity manager, JTA transactions must be 
 A JTA transaction type requires a JTA data source to be provided. The [hotspot=8 file=0]`<jta-data-source/>` 
 element specifies the Java Naming and Directory Interface (JNDI) name of 
 the data source that is used. The data source has already been configured for you
-in the [hotspot=1-28 file=1]`backendServices/src/main/liberty/config/server.xml` file. This data source configuration is where 
+in the [hotspot file=1]`backendServices/src/main/liberty/config/server.xml` file. This data source configuration is where 
 the Java Database Connectivity (JDBC) connection is defined along with some database
 vendor-specific properties.
 
@@ -193,7 +193,7 @@ http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_genera
 
 The CRUD operations are defined in the DAO. To perform these operations by using JPA, 
 
-[role="code_command hotspot=13-44", subs="quotes"]
+[role="code_command hotspot", subs="quotes"]
 ----
 #Create the `EventDao` class.#
 `backendServices/src/main/java/io/openliberty/guides/event/dao/EventDao.java`
@@ -243,7 +243,7 @@ calling the [hotspot=31 file=0]`remove()` method on an `EntityManager` instance.
 changed to removed and is removed from the database upon transaction commit. 
 
 The DAO is injected into the [hotspot=28-128 file=2]`finish/backendServices/src/main/java/io/`
-[hotspot=28-128 file=2]`openliberty/guides/event/resources/EventResource.java`
+[hotspot file=2]`openliberty/guides/event/resources/EventResource.java`
 class and used to access and persist data. The [hotspot=39 file=2]`@Transactional` annotation is used in the
 [hotspot=28-128]`EventResource` class to declaratively control the transaction boundaries on the [hotspot=12 file=0]`@RequestScoped` CDI bean.
 This ensures that the methods run within the boundaries of an active global transaction, which is why it is not
@@ -283,7 +283,7 @@ mvn liberty:stop-server
 
 == Testing the application
 
-[role="code_command hotspot=18-124", subs="quotes"]
+[role="code_command hotspot", subs="quotes"]
 ----
 #Create the `EventEntityTest` class.#
 `backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
