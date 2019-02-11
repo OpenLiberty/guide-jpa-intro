@@ -57,7 +57,7 @@
             <groupId>org.glassfish</groupId>
             <artifactId>javax.json</artifactId>
         </dependency>
-        <!--For JDK 9 & 10 support -->   
+        <!-- Support for JDK 9 and above -->   
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
