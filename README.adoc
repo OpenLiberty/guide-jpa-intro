@@ -161,7 +161,7 @@ persistence.xml
 include::finish/backendServices/src/main/resources/META-INF/persistence.xml[tags=**;]
 ----
 
-The persistence unit is defined by the [hotspot=7-13 file=0]`<persistence-unit/>` XML element. The `name` attribute is 
+The persistence unit is defined by the [hotspot=7-13 file=0]`<persistence-unit/>` XML element. The [hotspot=7 file=0]`name` attribute is 
 required and is used to identify the persistent unit when using the `@PersistenceContext`
 annotation to inject the entity manager later in this guide. The [hotspot=7 file=0]`transaction-type="JTA"` 
 attribute specifies to use Java Transaction API (JTA) transaction management.
@@ -169,7 +169,7 @@ Since we are using a container-managed entity manager, JTA transactions must be 
 
 A JTA transaction type requires a JTA data source to be provided. The [hotspot=8 file=0]`<jta-data-source/>` 
 element specifies the Java Naming and Directory Interface (JNDI) name of 
-the data source that is used. The data source has already been configured for you
+the data source that is used. The [hotspot=22-26 file=1]`data source` has already been configured for you
 in the [hotspot file=1]`backendServices/src/main/liberty/config/server.xml` file. This data source configuration is where 
 the Java Database Connectivity (JDBC) connection is defined along with some database
 vendor-specific properties.
@@ -183,7 +183,7 @@ include::finish/backendServices/src/main/liberty/config/server.xml[tags=**]
 The [hotspot=10-11 file=0]`eclipselink.ddl-generation` properties are used here so that you aren't required to 
 manually create a database table to run this sample application. To learn more about the 
 `ddl-generation` properties, see the 
-http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.]
+http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.^]
 
 // =================================================================================================
 // Performing CRUD operations using JPA
@@ -191,7 +191,7 @@ http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_genera
 
 == Performing CRUD operations using JPA
 
-The CRUD operations are defined in the DAO. To perform these operations by using JPA, 
+The CRUD operations are defined in the DAO. To perform these operations by using JPA, we need an `EventDao` class. 
 
 [role="code_command hotspot", subs="quotes"]
 ----
@@ -242,7 +242,7 @@ so that changes to loaded fields of the detached entity are tracked.
 calling the [hotspot=31 file=0]`remove()` method on an `EntityManager` instance. The state of the entity is
 changed to removed and is removed from the database upon transaction commit. 
 
-The DAO is injected into the [hotspot=28-128 file=2]`finish/backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
+The DAO is injected into the [hotspot=28-128 file=2]`backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
 class and used to access and persist data. The [hotspot=39 file=2]`@Transactional` annotation is used in the
 [hotspot=28-128]`EventResource` class to declaratively control the transaction boundaries on the [hotspot=12 file=0]`@RequestScoped` CDI bean.
 This ensures that the methods run within the boundaries of an active global transaction, which is why it is not
@@ -330,8 +330,8 @@ Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
 == Great work! You're done!
 
 You learned how to map Java objects to database tables by defining a JPA entity class whose 
-instances are represented as rows in the table in Open Liberty. You have injected a container-managed 
-entity manager into a DAO and learned how to perform CRUD operations in your microservice.
+instances are represented as rows in the table. You have injected a container-managed 
+entity manager into a DAO and learned how to perform CRUD operations in your microservice in Open Liberty.
 
 
 include::https://raw.githubusercontent.com/OpenLiberty/guides-common/multipane/attribution.adoc[subs="attributes"]
