@@ -131,7 +131,7 @@ The following table breaks down the new annotations:
 | *Annotation*    | *Description*
 | [hotspot=12]`@Entity` | Declares the class as an entity
 | [hotspot=13]`@Table`  | Specifies details of the table such as name 
-| [hotspot=14-16]`@NamedQuery` | Specifies a predefined database query that is run by an EntityManager instance.
+| [hotspot=14-16]`@NamedQuery` | Specifies a predefined database query that is run by an `EntityManager` instance.
 | [hotspot=21]`@Id`       |  Declares the primary key of the entity
 | [hotspot=20]`@GeneratedValue`    | Specifies the strategy used for generating the value of the primary key. 
                         The `strategy = GenerationType.AUTO` code indicates that the generation strategy 
@@ -206,17 +206,17 @@ include::finish/backendServices/src/main/java/io/openliberty/guides/event/dao/Ev
 
 To use the entity manager at runtime, inject it into our CDI bean through the
 [hotspot=15 file=0]`@PersistenceContext` annotation. The entity manager interacts with the persistence context. 
-Every EntityManager instance is associated with a persistence context. The persistence context 
+Every `EntityManager` instance is associated with a persistence context. The persistence context 
 manages a set of entities and is aware of the different states that an entity can have.
 The persistence context synchronizes with the database when a transaction commits.
 
 The [hotspot=13-44 file=0]`EventDao` class has a method for each CRUD operation, so let's break them down:
 
-* The [hotspot=18-20 file=0]`createEvent()` method persists an instance of the `Event` entity class to the data store by
-calling the [hotspot=19 file=0]`persist()` method on an EntityManager instance. The entity instance becomes managed
+* The [hotspot=18-20 file=0]`createEvent()` method persists an instance of the [hotspot=17-70 file=1]`Event` entity class to the data store by
+calling the [hotspot=19 file=0]`persist()` method on an `EntityManager` instance. The entity instance becomes managed
 and changes to it will be tracked by the entity manager.
 
-* The [hotspot=22-24 file=0]`readEvent()` method returns an instance of the `Event` entity class with the specified primary 
+* The [hotspot=22-24 file=0]`readEvent()` method returns an instance of the [hotspot=17-70 file=1]`Event` entity class with the specified primary 
 key by calling the [hotspot=23 file=0]`find()` method on an `EntityManager` instance. If the event instance is found, it
 is returned in a managed state, but, if the event instance is not found, `null` is returned.
 
@@ -238,13 +238,13 @@ for changes and synchronizes them with the database. However, if an entity becom
 you must merge that entity into the persistence context by calling the [hotspot=27 file=0]`merge()` method 
 so that changes to loaded fields of the detached entity are tracked.
 
-* The [hotspot=30-32 file=0]`deleteEvent()` method removes an instance of the `Event` entity class from the database by 
+* The [hotspot=30-32 file=0]`deleteEvent()` method removes an instance of the [hotspot=17-70 file=1]`Event` entity class from the database by 
 calling the [hotspot=31 file=0]`remove()` method on an `EntityManager` instance. The state of the entity is
 changed to removed and is removed from the database upon transaction commit. 
 
 The DAO is injected into the [hotspot=28-128 file=2]`backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
 class and used to access and persist data. The [hotspot=39 file=2]`@Transactional` annotation is used in the
-[hotspot=28-128]`EventResource` class to declaratively control the transaction boundaries on the [hotspot=12 file=0]`@RequestScoped` CDI bean.
+[hotspot=28-128]`EventResource` class to declaratively control the transaction boundaries on the [hotspot=26 file=1]`@RequestScoped` CDI bean.
 This ensures that the methods run within the boundaries of an active global transaction, which is why it is not
 necessary to explicitly begin, commit or rollback transactions. At the end of the transactional
 method invocation, the transaction commits and the persistence context flushes any changes
