@@ -244,7 +244,7 @@ changed to removed and is removed from the database upon transaction commit.
 
 The DAO is injected into the [hotspot=28-128 file=2]`backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
 class and used to access and persist data. The [hotspot=39 file=2]`@Transactional` annotation is used in the
-[hotspot=28-128]`EventResource` class to declaratively control the transaction boundaries on the [hotspot=26 file=1]`@RequestScoped` CDI bean.
+[hotspot=28-128]`EventResource` class to declaratively control the transaction boundaries on the [hotspot=26 file=2]`@RequestScoped` CDI bean.
 This ensures that the methods run within the boundaries of an active global transaction, which is why it is not
 necessary to explicitly begin, commit or rollback transactions. At the end of the transactional
 method invocation, the transaction commits and the persistence context flushes any changes
