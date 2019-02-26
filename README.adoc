@@ -334,4 +334,4 @@ instances are represented as rows in the table. You have injected a container-ma
 entity manager into a DAO and learned how to perform CRUD operations in your microservice in Open Liberty.
 
 
-include::https://raw.githubusercontent.com/OpenLiberty/guides-common/multipane/attribution.adoc[subs="attributes"]
+include::{common-includes}/attribution.adoc[subs="attributes"]
