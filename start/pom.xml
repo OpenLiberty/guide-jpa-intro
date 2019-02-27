@@ -3,6 +3,11 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>net.wasdev.wlp.maven.parent</groupId>
+        <artifactId>liberty-maven-app-parent</artifactId>
+        <version>RELEASE</version>
+    </parent>
 
     <groupId>io.openliberty.guides</groupId>
     <artifactId>jpa-intro</artifactId>
@@ -41,13 +46,13 @@
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-rs-client</artifactId>
-                <version>3.1.11</version>
+                <version>3.2.6</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-rs-extension-providers</artifactId>
-                <version>3.1.11</version>
+                <version>3.2.6</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -56,21 +61,21 @@
                 <version>1.0.4</version>
                 <scope>test</scope>
             </dependency>
-            <!--For JDK 9 & 10 support -->   
+            <!-- Support for JDK 9 and above --> 
             <dependency>
                 <groupId>javax.xml.bind</groupId>
                 <artifactId>jaxb-api</artifactId>
-                <version>2.2.11</version>
+                <version>2.3.1</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-core</artifactId>
-                <version>2.2.11</version>
+                <version>2.3.0.1</version>
             </dependency>
             <dependency>
                 <groupId>com.sun.xml.bind</groupId>
                 <artifactId>jaxb-impl</artifactId>
-                <version>2.2.11</version>
+                <version>2.3.2</version>
             </dependency>
             <dependency>
                 <groupId>javax.activation</groupId>
@@ -88,7 +93,6 @@
                 <plugin>
                     <groupId>net.wasdev.wlp.maven.plugins</groupId>
                     <artifactId>liberty-maven-plugin</artifactId>
-                    <version>2.6.1</version>
                     <configuration>
                         <assemblyArtifact>
                             <groupId>io.openliberty</groupId>

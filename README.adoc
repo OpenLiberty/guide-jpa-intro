@@ -1,4 +1,4 @@
-// Copyright (c) 2018 IBM Corporation and others.
+// Copyright (c) 2018, 2019 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -6,15 +6,16 @@
 // Contributors:
 //     IBM Corporation
 //
-:page-layout: guide
+:page-layout: guide-multipane
 :projectid: jpa-intro
 :page-duration: 20 minutes
 :page-releasedate: 2018-11-30
 :page-description: Learn how to use Java Persistence API to access and persist data to a database for your microservices.
-:page-tags: ['JPA', 'Java EE']
+:page-tags: ['Java EE']
 :page-related-guides: ['cdi-intro']
 :page-permalink: /guides/{projectid}
 :page-guide-category: none 
+:guide-author: Open Liberty
 :common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
 :source-highlighter: prettify
 :page-seo-title: Accessing and persisting data in microservices
@@ -27,8 +28,8 @@ view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty websi
 
 Learn how to use Java Persistence API to access and persist data to a database for your microservices.
 
-:eventapp-url: http://localhost:9090/eventmanager.jsf
-:get-events-url: http://localhost:9090/events
+:eventapp-url: http://localhost:9090/eventmanager.jsf[http://localhost:9090/eventmanager.jsf^]
+:get-events-url: http://localhost:9090/events[http://localhost:9090/events^]
 
 == What you'll learn
 
@@ -62,12 +63,14 @@ server manages the opening and closing of the entity manager for you.
 // Getting Started
 // =================================================================================================
 
+[role=command]
 include::{common-includes}/gitclone.adoc[]
 
 // =================================================================================================
 // Try what you'll build
 // =================================================================================================
 
+[role=command]
 include::{common-includes}/trywhatyoubuild-intro.adoc[]
 
 Point your browser to the {eventapp-url} URL. The event application does not display any events
@@ -79,6 +82,7 @@ current events.
 Notice that if you stop the Open Liberty server and then restart it, the events created
 are still displayed in the list of current events. Run the following Maven goals to stop
 and then restart the server:
+[role=command]
 ```
 mvn liberty:stop-server
 mvn liberty:start-server
@@ -88,6 +92,7 @@ The events created are still displayed in the list of current events. The `Updat
 located beside each event allows you to make modifications to the persisted entity and the 
 `Delete` action link allows you to remove entities from the database.
 
+[role=command]
 include::{common-includes}/trywhatyoubuild-end.adoc[]
 
 // =================================================================================================
@@ -106,10 +111,17 @@ constructor. JPA maps an entity type to a database table and persisted instances
 as rows in the table.
 
 The `Event` class is a data model that represents events in the event microservice and is annotated with JPA
-annotations. Create the `Event` class in the `backendServices/src/main/java/io/openliberty/guides/event/models/Event.java` file:
-[source, Java]
+annotations.
+
+[role="code_command hotspot", subs="quotes"]
 ----
-include::finish/backendServices/src/main/java/io/openliberty/guides/event/models/Event.java[tags=!copyright;]
+#Create the `Event` class.#
+`backendServices/src/main/java/io/openliberty/guides/event/models/Event.java`
+----
+Event.java
+[source, Java, linenums, role='code_column']
+----
+include::finish/backendServices/src/main/java/io/openliberty/guides/event/models/Event.java[tags=**;!copyright;]
 ----
 
 The following table breaks down the new annotations:
@@ -117,15 +129,15 @@ The following table breaks down the new annotations:
 [cols="35, 200", options="header"]
 |===
 | *Annotation*    | *Description*
-| `@Entity` | Declares the class as an entity
-| `@Table`  | Specifies details of the table such as name 
-| `@NamedQuery` | Specifies a predefined database query that is run by an EntityManager instance.
-| `@Id`       |  Declares the primary key of the entity
-| `@GeneratedValue`    | Specifies the strategy used for generating the value of the primary key. 
+| [hotspot=12]`@Entity` | Declares the class as an entity
+| [hotspot=13]`@Table`  | Specifies details of the table such as name 
+| [hotspot=14-16]`@NamedQuery` | Specifies a predefined database query that is run by an `EntityManager` instance.
+| [hotspot=21]`@Id`       |  Declares the primary key of the entity
+| [hotspot=20]`@GeneratedValue`    | Specifies the strategy used for generating the value of the primary key. 
                         The `strategy = GenerationType.AUTO` code indicates that the generation strategy 
                         is automatically selected
                         
-| `@Column`    | Specifies that the field is mapped to a column in the database table. The `name`
+| [hotspot=22]`@Column`    | Specifies that the field is mapped to a column in the database table. The `name`
                  attribute is optional and indicates the name of the column in the table
 |===
 
@@ -138,30 +150,40 @@ The following table breaks down the new annotations:
 The `persistence.xml` file is a configuration file that defines a persistence unit. The
 persistence unit specifies configuration information for the entity manager.
 
-Create the `backendServices/src/main/resources/META-INF/persistence.xml` file:
-
-[source, Xml]
+[role="code_command hotspot", subs="quotes"]
+----
+#Create the configuration file.#
+`backendServices/src/main/resources/META-INF/persistence.xml`
+----
+persistence.xml
+[source, Xml, linenums, role='code_column']
 ----
 include::finish/backendServices/src/main/resources/META-INF/persistence.xml[tags=**;]
 ----
 
-The persistence unit is defined by the `<persistence-unit />` XML element. The `name` attribute is 
+The persistence unit is defined by the [hotspot=7-13 file=0]`<persistence-unit/>` XML element. The [hotspot=7 file=0]`name` attribute is 
 required and is used to identify the persistent unit when using the `@PersistenceContext`
-annotation to inject the entity manager later in this guide. The `transaction-type="JTA"` 
+annotation to inject the entity manager later in this guide. The [hotspot=7 file=0]`transaction-type="JTA"` 
 attribute specifies to use Java Transaction API (JTA) transaction management.
 Since we are using a container-managed entity manager, JTA transactions must be used. 
 
-A JTA transaction type requires a JTA data source to be provided. The `<jta-data-source />` 
+A JTA transaction type requires a JTA data source to be provided. The [hotspot=8 file=0]`<jta-data-source/>` 
 element specifies the Java Naming and Directory Interface (JNDI) name of 
-the data source that is used. The data source has already been configured for you
-in the `backendServices/src/main/liberty/config/server.xml` file. This data source configuration is where 
+the data source that is used. The [hotspot=22-26 file=1]`data source` has already been configured for you
+in the [hotspot file=1]`backendServices/src/main/liberty/config/server.xml` file. This data source configuration is where 
 the Java Database Connectivity (JDBC) connection is defined along with some database
 vendor-specific properties.
 
-The `eclipselink.ddl-generation` properties are used here so that you aren't required to 
+server.xml
+[source, Xml, linenums, role='code_column']
+----
+include::finish/backendServices/src/main/liberty/config/server.xml[tags=**]
+----
+
+The [hotspot=10-11 file=0]`eclipselink.ddl-generation` properties are used here so that you aren't required to 
 manually create a database table to run this sample application. To learn more about the 
 `ddl-generation` properties, see the 
-http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.]
+http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_generation.htm[JPA Extensions Reference for EclipseLink.^]
 
 // =================================================================================================
 // Performing CRUD operations using JPA
@@ -169,59 +191,76 @@ http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_genera
 
 == Performing CRUD operations using JPA
 
-The CRUD operations are defined in the DAO. To perform these operations by using 
-JPA, create the `backendServices/src/main/java/io/openliberty/guides/event/dao/EventDao.java` 
-file:
+The CRUD operations are defined in the DAO. To perform these operations by using JPA, we need an `EventDao` class. 
 
-[source, Java]
+[role="code_command hotspot", subs="quotes"]
+----
+#Create the `EventDao` class.#
+`backendServices/src/main/java/io/openliberty/guides/event/dao/EventDao.java`
+----
+EventDao.java
+[source, Java, linenums, role='code_column']
 ----
 include::finish/backendServices/src/main/java/io/openliberty/guides/event/dao/EventDao.java[tags=!copyright;]
 ----
 
 To use the entity manager at runtime, inject it into our CDI bean through the
-`@PersistenceContext` annotation. The entity manager interacts with the persistence context. 
-Every EntityManager instance is associated with a persistence context. The persistence context 
+[hotspot=15 file=0]`@PersistenceContext` annotation. The entity manager interacts with the persistence context. 
+Every `EntityManager` instance is associated with a persistence context. The persistence context 
 manages a set of entities and is aware of the different states that an entity can have.
 The persistence context synchronizes with the database when a transaction commits.
 
-The `EventDao.java` class has a method for each CRUD operation, so let's break them down:
+The [hotspot=13-44 file=0]`EventDao` class has a method for each CRUD operation, so let's break them down:
 
-* The `createEvent()` method persists an instance of the `Event` entity class to the data store by
-calling the `persist()` method on an EntityManager instance. The entity instance becomes managed
+* The [hotspot=18-20 file=0]`createEvent()` method persists an instance of the [hotspot=17-70 file=1]`Event` entity class to the data store by
+calling the [hotspot=19 file=0]`persist()` method on an `EntityManager` instance. The entity instance becomes managed
 and changes to it will be tracked by the entity manager.
 
-* The `readEvent()` method returns an instance of the `Event` entity class with the specified primary 
-key by calling the `find()` method on an `EntityManager` instance. If the event instance is found, it
+* The [hotspot=22-24 file=0]`readEvent()` method returns an instance of the [hotspot=17-70 file=1]`Event` entity class with the specified primary 
+key by calling the [hotspot=23 file=0]`find()` method on an `EntityManager` instance. If the event instance is found, it
 is returned in a managed state, but, if the event instance is not found, `null` is returned.
 
-* The `readAllEvents()` method demonstrates an alternative way to retrieve event objects 
+* The [hotspot=34-36 file=0]`readAllEvents()` method demonstrates an alternative way to retrieve event objects 
 from the database. This method returns a list of instances of the `Event` entity class by 
-using the `Event.findAll` query specified in the `@NamedQuery` annotation on the `Event` class. 
-Similarly, the `findEvent()` method uses the `Event.findEvent` named query to find an event 
+using the `Event.findAll` query specified in the [hotspot=14-15 file=1]`@NamedQuery` annotation on the [hotspot=17-70 file=1]`Event` class. 
+Similarly, the [hotspot=38-43 file=0]`findEvent()` method uses the `Event.findEvent` named query to find an event 
 with the given name, location and time. 
 
-* The `updateEvent()` method creates a managed instance of a detached entity instance. 
+Event.java
+[source, Java, linenums, role='code_column']
+----
+include::finish/backendServices/src/main/java/io/openliberty/guides/event/models/Event.java[tags=**;!copyright]
+----
+
+* The [hotspot=26-28 file=0]`updateEvent()` method creates a managed instance of a detached entity instance. 
 The entity manager automatically tracks all managed entity objects in its persistence context 
 for changes and synchronizes them with the database. However, if an entity becomes detached, 
-you must merge that entity into the persistence context by calling the `merge()` method 
+you must merge that entity into the persistence context by calling the [hotspot=27 file=0]`merge()` method 
 so that changes to loaded fields of the detached entity are tracked.
 
-* The `deleteEvent()` method removes an instance of the `Event` entity class from the database by 
-calling the `remove()` method on an `EntityManager` instance. The state of the entity is
+* The [hotspot=30-32 file=0]`deleteEvent()` method removes an instance of the [hotspot=17-70 file=1]`Event` entity class from the database by 
+calling the [hotspot=31 file=0]`remove()` method on an `EntityManager` instance. The state of the entity is
 changed to removed and is removed from the database upon transaction commit. 
 
-The DAO is injected into the `finish/backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
-class and used to access and persist data. The `@Transactional` annotation is used in the
-`EventResource` class to declaratively control the transaction boundaries on the `@RequestScoped` CDI bean.
+The DAO is injected into the [hotspot=28-128 file=2]`backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
+class and used to access and persist data. The [hotspot=39 file=2]`@Transactional` annotation is used in the
+[hotspot=28-128]`EventResource` class to declaratively control the transaction boundaries on the [hotspot=26 file=2]`@RequestScoped` CDI bean.
 This ensures that the methods run within the boundaries of an active global transaction, which is why it is not
 necessary to explicitly begin, commit or rollback transactions. At the end of the transactional
 method invocation, the transaction commits and the persistence context flushes any changes
 to Event entity instances it is managing to the database.
 
+EventResource.java
+[source, Java, linenums, role='code_column']
+----
+include::finish/backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java[tags=**;!copyright]
+----
+
 // =================================================================================================
 // Building and running the application
 // =================================================================================================
 
+[role=command]
 include::{common-includes}/mvnbuild.adoc[]
 
 When the server is running, go to the {eventapp-url} URL to view the Event Manager application. 
@@ -230,6 +269,12 @@ Click `Create Event` in the left navigation bar to create events that are persis
 the database. After you create an event, it is available to view, update, and delete in
 the `Current Events` section.
 
+When you are done checking out the services, stop the Open Liberty server by running the following command:
+[role="command"]
+```
+mvn liberty:stop-server
+```
+
 
 // =================================================================================================
 // Testing the application
@@ -237,22 +282,24 @@ the `Current Events` section.
 
 == Testing the application
 
-Create the `EventEntityTest` test class in the `backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
-file:
-
-[source, Java]
+[role="code_command hotspot", subs="quotes"]
+----
+#Create the `EventEntityTest` class.#
+`backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
+----
+EventEntityTest.java
+[source, Java, linenums, role='code_column']
 ----
 include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
 ----
 
-The `testInvalidRead()`, `testInvalidUpdate()` and `testInvalidDelete()` methods use a primary
-key that is not in the database to test reading, updating and deleting an event that does not
+The [hotspot=54-57]`testInvalidRead()`, [hotspot=60-64]`testInvalidDelete()` and [hotspot=67-71]`testInvalidUpdate()` methods use a primary key that is not in the database to test reading, updating and deleting an event that does not
 exist, respectively.
 
-The `testIndividualRead()` method persists a test event to the database and retrieves the 
+The [hotspot=74-87]`testIndividualRead()` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
 
-The `testCRUD()` method creates a test event and persists it to the database. The event object is then 
+The [hotspot=90-116]`testCRUD()` method creates a test event and persists it to the database. The event object is then 
 retrieved from the database to verify that the test event was actually persisted. Next, the  
 name, location, and time of the test event are updated. The event object is retrieved 
 from the database to verify that the updated event is stored. Finally, the updated test 
@@ -260,6 +307,7 @@ event is deleted and one final check is done to ensure that the updated test eve
 stored in the database.
 
 // Include this for info on how to run the tests
+[role=command]
 include::{common-includes}/mvnverify.adoc[]
 
 [source, role="no_copy"]
@@ -283,7 +331,7 @@ Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
 
 You learned how to map Java objects to database tables by defining a JPA entity class whose 
 instances are represented as rows in the table. You have injected a container-managed 
-entity manager into a DAO and learned how to perform CRUD operations in your microservice.
+entity manager into a DAO and learned how to perform CRUD operations in your microservice in Open Liberty.
 
 
-include::{common-includes}/finish.adoc[]
+include::{common-includes}/attribution.adoc[subs="attributes"]
