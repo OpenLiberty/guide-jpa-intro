@@ -10,7 +10,7 @@
 :projectid: jpa-intro
 :page-duration: 20 minutes
 :page-releasedate: 2018-11-30
-:page-description: Learn how to use Java Persistence API to access and persist data to a database for your microservices.
+:page-description: Learn how to use Java Persistence API (JPA) to access and persist data to a database for your microservices.
 :page-tags: ['Java EE']
 :page-related-guides: ['cdi-intro']
 :page-permalink: /guides/{projectid}
@@ -26,7 +26,7 @@
 NOTE: This repository contains the guide documentation source. To view the guide in published form, 
 view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty website].
 
-Learn how to use Java Persistence API to access and persist data to a database for your microservices.
+Learn how to use Java Persistence API (JPA) to access and persist data to a database for your microservices.
 
 :eventapp-url: http://localhost:9090/eventmanager.jsf[http://localhost:9090/eventmanager.jsf^]
 :get-events-url: http://localhost:9090/events[http://localhost:9090/events^]
