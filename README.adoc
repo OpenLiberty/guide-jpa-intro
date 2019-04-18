@@ -222,7 +222,7 @@ is returned in a managed state, but, if the event instance is not found, `null` 
 
 * The [hotspot=33-35 file=0]`readAllEvents()` method demonstrates an alternative way to retrieve event objects 
 from the database. This method returns a list of instances of the `Event` entity class by 
-using the `Event.findAll` query specified in the [hotspot=14-15 file=1]`@NamedQuery` annotation on the [hotspot=17-70 file=1]`Event` class. 
+using the `Event.findAll` query specified in the [hotspot=14-16 file=1]`@NamedQuery` annotation on the [hotspot=17-70 file=1]`Event` class. 
 Similarly, the [hotspot=37-42 file=0]`findEvent()` method uses the `Event.findEvent` named query to find an event 
 with the given name, location and time. 
 
