@@ -205,25 +205,25 @@ include::finish/backendServices/src/main/java/io/openliberty/guides/event/dao/Ev
 ----
 
 To use the entity manager at runtime, inject it into our CDI bean through the
-[hotspot=15 file=0]`@PersistenceContext` annotation. The entity manager interacts with the persistence context. 
+[hotspot=14 file=0]`@PersistenceContext` annotation. The entity manager interacts with the persistence context. 
 Every `EntityManager` instance is associated with a persistence context. The persistence context 
 manages a set of entities and is aware of the different states that an entity can have.
 The persistence context synchronizes with the database when a transaction commits.
 
-The [hotspot=13-44 file=0]`EventDao` class has a method for each CRUD operation, so let's break them down:
+The [hotspot=12-43 file=0]`EventDao` class has a method for each CRUD operation, so let's break them down:
 
-* The [hotspot=18-20 file=0]`createEvent()` method persists an instance of the [hotspot=17-70 file=1]`Event` entity class to the data store by
-calling the [hotspot=19 file=0]`persist()` method on an `EntityManager` instance. The entity instance becomes managed
+* The [hotspot=17-19 file=0]`createEvent()` method persists an instance of the [hotspot=17-70 file=1]`Event` entity class to the data store by
+calling the [hotspot=18 file=0]`persist()` method on an `EntityManager` instance. The entity instance becomes managed
 and changes to it will be tracked by the entity manager.
 
-* The [hotspot=22-24 file=0]`readEvent()` method returns an instance of the [hotspot=17-70 file=1]`Event` entity class with the specified primary 
-key by calling the [hotspot=23 file=0]`find()` method on an `EntityManager` instance. If the event instance is found, it
+* The [hotspot=21-23 file=0]`readEvent()` method returns an instance of the [hotspot=17-70 file=1]`Event` entity class with the specified primary 
+key by calling the [hotspot=22 file=0]`find()` method on an `EntityManager` instance. If the event instance is found, it
 is returned in a managed state, but, if the event instance is not found, `null` is returned.
 
-* The [hotspot=34-36 file=0]`readAllEvents()` method demonstrates an alternative way to retrieve event objects 
+* The [hotspot=33-35 file=0]`readAllEvents()` method demonstrates an alternative way to retrieve event objects 
 from the database. This method returns a list of instances of the `Event` entity class by 
 using the `Event.findAll` query specified in the [hotspot=14-15 file=1]`@NamedQuery` annotation on the [hotspot=17-70 file=1]`Event` class. 
-Similarly, the [hotspot=38-43 file=0]`findEvent()` method uses the `Event.findEvent` named query to find an event 
+Similarly, the [hotspot=37-42 file=0]`findEvent()` method uses the `Event.findEvent` named query to find an event 
 with the given name, location and time. 
 
 Event.java
@@ -232,14 +232,14 @@ Event.java
 include::finish/backendServices/src/main/java/io/openliberty/guides/event/models/Event.java[tags=**;!copyright]
 ----
 
-* The [hotspot=26-28 file=0]`updateEvent()` method creates a managed instance of a detached entity instance. 
+* The [hotspot=25-27 file=0]`updateEvent()` method creates a managed instance of a detached entity instance. 
 The entity manager automatically tracks all managed entity objects in its persistence context 
 for changes and synchronizes them with the database. However, if an entity becomes detached, 
-you must merge that entity into the persistence context by calling the [hotspot=27 file=0]`merge()` method 
+you must merge that entity into the persistence context by calling the [hotspot=26 file=0]`merge()` method 
 so that changes to loaded fields of the detached entity are tracked.
 
-* The [hotspot=30-32 file=0]`deleteEvent()` method removes an instance of the [hotspot=17-70 file=1]`Event` entity class from the database by 
-calling the [hotspot=31 file=0]`remove()` method on an `EntityManager` instance. The state of the entity is
+* The [hotspot=29-31 file=0]`deleteEvent()` method removes an instance of the [hotspot=17-70 file=1]`Event` entity class from the database by 
+calling the [hotspot=30 file=0]`remove()` method on an `EntityManager` instance. The state of the entity is
 changed to removed and is removed from the database upon transaction commit. 
 
 The DAO is injected into the [hotspot=28-128 file=2]`backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
