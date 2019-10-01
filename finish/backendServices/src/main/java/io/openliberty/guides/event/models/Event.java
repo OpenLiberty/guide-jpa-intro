@@ -21,17 +21,28 @@ import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.GenerationType;
 
+// tag::Entity
 @Entity
+// end::Entity
+// tag::Table
 @Table(name = "Event")
+// end::Table
+// tag::NamedQuery
 @NamedQuery(name = "Event.findAll", query = "SELECT e FROM Event e")
 @NamedQuery(name = "Event.findEvent", query = "SELECT e FROM Event e WHERE "
     + "e.name = :name AND e.location = :location AND e.time = :time")
+// end::NamedQuery
 public class Event implements Serializable {
     private static final long serialVersionUID = 1L;
-
+    // tag::GeneratedValue
     @GeneratedValue(strategy = GenerationType.AUTO)
+    // end::GeneratedValue
+    // tag::Id
     @Id
+    // end::Id
+    // tag::Column
     @Column(name = "eventId")
+    // end::Column
     private int id;
 
     @Column(name = "eventLocation")
@@ -41,6 +52,7 @@ public class Event implements Serializable {
     @Column(name = "eventName")
     private String name;
 
+    // tag::Event
     public Event() {
     }
 
@@ -81,7 +93,8 @@ public class Event implements Serializable {
     public String getName() {
         return name;
     }
-
+    // end::Event
+    
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {

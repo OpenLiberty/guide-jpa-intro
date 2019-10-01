@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>io.openliberty.guides</groupId>
-    <artifactId>jpa-intro</artifactId>
+    <artifactId>guide-jpa-intro</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 

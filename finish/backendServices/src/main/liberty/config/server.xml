@@ -19,10 +19,11 @@
   </library>
 
   <!-- Datasource Configuration -->
+  <!-- tag::data-source -->
   <dataSource id="eventjpadatasource"
               jndiName="jdbc/eventjpadatasource">
       <jdbcDriver libraryRef="derbyJDBCLib" />
       <properties.derby.embedded databaseName="EventDB" createDatabase="create"/>
   </dataSource>
-
+  <!-- end::data-source -->
 </server>
