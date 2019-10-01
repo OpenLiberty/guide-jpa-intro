@@ -21,55 +21,55 @@ import io.openliberty.guides.event.models.Event;
 import javax.enterprise.context.RequestScoped;
 
 @RequestScoped
-// tag::EventDao
+// tag::EventDao[]
 public class EventDao {
     
-    // tag::PersistenceContext
+    // tag::PersistenceContext[]
     @PersistenceContext(name = "jpa-unit")
-    // end::PersistenceContext
+    // end::PersistenceContext[]
     private EntityManager em;
-    // tag::createEvent
+    // tag::createEvent[]
     public void createEvent(Event event) {
-        // tag::Persist
+        // tag::Persist[]
         em.persist(event);
-        // end::Persist
+        // end::Persist[]
     }
-    // end::createEvent
-    // tag::readEvent
+    // end::createEvent[]
+    // tag::readEvent[]
     public Event readEvent(int eventId) {
-        // tag::Find
+        // tag::Find[]
         return em.find(Event.class, eventId);
-        // end::Find
+        // end::Find[]
     }
-    // end::readEvent
-    // tag::updateEvent
+    // end::readEvent[]
+    // tag::updateEvent[]
     public void updateEvent(Event event) {
-        // tag::Merge
+        // tag::Merge[]
         em.merge(event);
-        // end::Merge
+        // end::Merge[]
     }
-    // end::updateEvent 
-    // tag::EventResource
-    // tag::deleteEvent
+    // end::updateEvent[] 
+    // tag::EventResource[]
+    // tag::deleteEvent[]
     public void deleteEvent(Event event) {
-        // tag::Remove
+        // tag::Remove[]
         em.remove(event);
-        // end::Remove
+        // end::Remove[]
     }
-    // end::deleteEvent
-    // tag::readAllEvents
+    // end::deleteEvent[]
+    // tag::readAllEvents[]
     public List<Event> readAllEvents() {
         return em.createNamedQuery("Event.findAll", Event.class).getResultList();
     }
-    // end::realAllEvents
-    // tag::findEvent
+    // end::realAllEvents[]
+    // tag::findEvent[]
     public List<Event> findEvent(String name, String location, String time) {
         return em.createNamedQuery("Event.findEvent", Event.class)
             .setParameter("name", name)
             .setParameter("location", location)
             .setParameter("time", time).getResultList();
     }
-    // end::findEvent
-    // end::EventResource
+    // end::findEvent[]
+    // end::EventResource[]
 }
-// end::EventDao
+// end::EventDao[]
