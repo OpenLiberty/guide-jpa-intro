@@ -34,11 +34,11 @@ import javax.inject.Inject;
 
 import io.openliberty.guides.event.dao.EventDao;
 import io.openliberty.guides.event.models.Event;
-// tag::RequestedScoped
+// tag::RequestedScoped[]
 @RequestScoped
-// end::RequestedScoped
+// end::RequestedScoped[]
 @Path("events")
-// tag::DAO
+// tag::DAO[]
 public class EventResource {
 
     @Inject
@@ -50,9 +50,9 @@ public class EventResource {
      */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    // tag::Transactional
+    // tag::Transactional[]
     @Transactional
-    // end::Transactional
+    // end::Transactional[]
     public Response addNewEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
@@ -142,4 +142,4 @@ public class EventResource {
         return finalArray.build();
     }
 }
-// end::DAO
+// end::DAO[]
