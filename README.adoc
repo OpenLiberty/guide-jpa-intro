@@ -119,9 +119,9 @@ annotations.
 `backendServices/src/main/java/io/openliberty/guides/event/models/Event.java`
 ----
 Event.java
-[source, Java, linenums, role='code_column']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/backendServices/src/main/java/io/openliberty/guides/event/models/Event.java[tags=**;!copyright;]
+include::finish/backendServices/src/main/java/io/openliberty/guides/event/models/Event.java[]
 ----
 
 The following table breaks down the new annotations:
@@ -158,7 +158,7 @@ persistence unit specifies configuration information for the entity manager.
 persistence.xml
 [source, Xml, linenums, role='code_column']
 ----
-include::finish/backendServices/src/main/resources/META-INF/persistence.xml[tags=**;]
+include::finish/backendServices/src/main/resources/META-INF/persistence.xml[]
 ----
 
 The persistence unit is defined by the [persistence-unit file=0]`<persistence-unit/>` XML element. The [hotspot=transaction-type file=0]`name` attribute is 
@@ -177,7 +177,7 @@ vendor-specific properties.
 server.xml
 [source, Xml, linenums, role='code_column']
 ----
-include::finish/backendServices/src/main/liberty/config/server.xml[tags=**]
+include::finish/backendServices/src/main/liberty/config/server.xml[]
 ----
 
 The [hotspot=eclipse-link file=0]`eclipselink.ddl-generation` properties are used here so that you aren't required to 
@@ -199,9 +199,9 @@ The CRUD operations are defined in the DAO. To perform these operations by using
 `backendServices/src/main/java/io/openliberty/guides/event/dao/EventDao.java`
 ----
 EventDao.java
-[source, Java, linenums, role='code_column']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/backendServices/src/main/java/io/openliberty/guides/event/dao/EventDao.java[tags=!copyright;]
+include::finish/backendServices/src/main/java/io/openliberty/guides/event/dao/EventDao.java[]
 ----
 
 To use the entity manager at runtime, inject it into our CDI bean through the
@@ -227,9 +227,9 @@ Similarly, the [hotspot=findEvent file=0]`findEvent()` method uses the `Event.fi
 with the given name, location and time. 
 
 Event.java
-[source, Java, linenums, role='code_column']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/backendServices/src/main/java/io/openliberty/guides/event/models/Event.java[tags=**;!copyright]
+include::finish/backendServices/src/main/java/io/openliberty/guides/event/models/Event.java[]
 ----
 
 * The [hotspot=updateEvent file=0]`updateEvent()` method creates a managed instance of a detached entity instance. 
@@ -251,9 +251,9 @@ method invocation, the transaction commits and the persistence context flushes a
 to Event entity instances it is managing to the database.
 
 EventResource.java
-[source, Java, linenums, role='code_column']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java[tags=**;!copyright]
+include::finish/backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java[]
 ----
 
 // =================================================================================================
@@ -288,9 +288,9 @@ mvn liberty:stop-server
 `backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
 ----
 EventEntityTest.java
-[source, Java, linenums, role='code_column']
+[source, Java, linenums, role='code_column hide_tags=copyright']
 ----
-include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
+include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[]
 ----
 
 The [hotspot=testInvalidRead]`testInvalidRead()`, [hotspot=testInvalidDelete]`testInvalidDelete()` and [hotspot=testInvalidUpdate]`testInvalidUpdate()` methods use a primary key that is not in the database to test reading, updating and deleting an event that does not
