@@ -87,6 +87,7 @@ public class EventEntityTest extends EventTest {
             + "HTTP response code " + NOT_FOUND_CODE, NOT_FOUND_CODE, updateResponse);
     }
     // end::testInvalidUpdate[]
+    
     @Test
     // tag::testReadIndividualEvent[]
     public void testReadIndividualEvent() {
@@ -104,6 +105,7 @@ public class EventEntityTest extends EventTest {
             NO_CONTENT_CODE, NO_CONTENT_CODE, deleteResponse);
     }
     // end::testReadIndividualEvent[]
+    
     @Test
     // tag::testCURD[]
     public void testCRUD() {
@@ -134,6 +136,7 @@ public class EventEntityTest extends EventTest {
             + "CRUD operations.", eventCount, getRequest().size());
     }
     // end::testCURD[]
+    
     @After
     public void teardown() {
         response.close();
