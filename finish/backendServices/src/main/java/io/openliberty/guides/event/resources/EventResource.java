@@ -38,6 +38,7 @@ import io.openliberty.guides.event.models.Event;
 @RequestScoped
 // end::RequestedScoped[]
 @Path("events")
+
 // tag::DAO[]
 public class EventResource {
 
