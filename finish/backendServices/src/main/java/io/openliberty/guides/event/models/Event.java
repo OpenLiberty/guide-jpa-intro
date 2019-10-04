@@ -93,7 +93,6 @@ public class Event implements Serializable {
     public String getName() {
         return name;
     }
-    // end::Event[]
     
     @Override
     public boolean equals(Object obj) {
@@ -138,3 +137,5 @@ public class Event implements Serializable {
                 + "]";
     }
 }
+// end::Event[]
+
