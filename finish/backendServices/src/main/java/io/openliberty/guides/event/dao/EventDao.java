@@ -74,4 +74,5 @@ public class EventDao {
             .setParameter("time", time).getResultList();
     }
     // end::findEvent[]
+}
 // end::EventDao[]
