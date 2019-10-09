@@ -40,6 +40,7 @@ import io.openliberty.guides.event.models.Event;
 @Path("events")
 
 // tag::DAO[]
+// tag::EventResource[]
 public class EventResource {
 
     @Inject
@@ -144,3 +145,5 @@ public class EventResource {
     }
 }
 // end::DAO[]
+// end::EventResource[]
+

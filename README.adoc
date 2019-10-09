@@ -161,7 +161,7 @@ persistence.xml
 include::finish/backendServices/src/main/resources/META-INF/persistence.xml[]
 ----
 
-The persistence unit is defined by the [persistence-unit file=0]`<persistence-unit/>` XML element. The [hotspot=transaction-type file=0]`name` attribute is 
+The persistence unit is defined by the [hotspot=persistence-unit file=0]`<persistence-unit/>` XML element. The [hotspot=transaction-type file=0]`name` attribute is 
 required and is used to identify the persistent unit when using the `@PersistenceContext`
 annotation to inject the entity manager later in this guide. The [hotspot=transaction-type file=0]`transaction-type="JTA"` 
 attribute specifies to use Java Transaction API (JTA) transaction management.
@@ -244,7 +244,7 @@ changed to removed and is removed from the database upon transaction commit.
 
 The DAO is injected into the [hotspot=DAO file=2]`backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
 class and used to access and persist data. The [hotspot=Transactional file=2]`@Transactional` annotation is used in the
-[hotspot=EventResource]`EventResource` class to declaratively control the transaction boundaries on the [hotspot=RequestedScoped file=2]`@RequestScoped` CDI bean.
+[hotspot=EventResource file=2]`EventResource` class to declaratively control the transaction boundaries on the [hotspot=RequestedScoped file=2]`@RequestScoped` CDI bean.
 This ensures that the methods run within the boundaries of an active global transaction, which is why it is not
 necessary to explicitly begin, commit or rollback transactions. At the end of the transactional
 method invocation, the transaction commits and the persistence context flushes any changes
@@ -296,7 +296,7 @@ include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/Eve
 The [hotspot=testInvalidRead]`testInvalidRead()`, [hotspot=testInvalidDelete]`testInvalidDelete()` and [hotspot=testInvalidUpdate]`testInvalidUpdate()` methods use a primary key that is not in the database to test reading, updating and deleting an event that does not
 exist, respectively.
 
-The [hotspot=testIndividualRead]`testIndividualRead()` method persists a test event to the database and retrieves the 
+The [hotspot=testReadIndividualEvent]`testIndividualRead()` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
 
 The [hotspot=testCURD]`testCRUD()` method creates a test event and persists it to the database. The event object is then 
