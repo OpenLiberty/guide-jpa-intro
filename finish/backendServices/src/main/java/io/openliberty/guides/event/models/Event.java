@@ -32,10 +32,11 @@ import javax.persistence.GenerationType;
 @NamedQuery(name = "Event.findEvent", query = "SELECT e FROM Event e WHERE "
     + "e.name = :name AND e.location = :location AND e.time = :time")
 // end::NamedQuery[]
+// tag::Event[]
 public class Event implements Serializable {
     private static final long serialVersionUID = 1L;
-    // tag::GeneratedValue[]
 
+    // tag::GeneratedValue[]
     @GeneratedValue(strategy = GenerationType.AUTO)
     // end::GeneratedValue[]
     // tag::Id[]
@@ -53,7 +54,6 @@ public class Event implements Serializable {
     @Column(name = "eventName")
     private String name;
 
-    // tag::Event[]
     public Event() {
     }
 

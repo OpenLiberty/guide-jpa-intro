@@ -296,7 +296,7 @@ include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/Eve
 The [hotspot=testInvalidRead]`testInvalidRead()`, [hotspot=testInvalidDelete]`testInvalidDelete()` and [hotspot=testInvalidUpdate]`testInvalidUpdate()` methods use a primary key that is not in the database to test reading, updating and deleting an event that does not
 exist, respectively.
 
-The [hotspot=testReadIndividualEvent]`testIndividualRead()` method persists a test event to the database and retrieves the 
+The [hotspot=testReadIndividualEvent]`testReadIndividualEvent()` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
 
 The [hotspot=testCURD]`testCRUD()` method creates a test event and persists it to the database. The event object is then 

@@ -28,6 +28,7 @@ public class EventDao {
     @PersistenceContext(name = "jpa-unit")
     // end::PersistenceContext[]
     private EntityManager em;
+    
     // tag::createEvent[]
     public void createEvent(Event event) {
         // tag::Persist[]
