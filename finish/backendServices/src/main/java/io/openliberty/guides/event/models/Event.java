@@ -82,8 +82,8 @@ public class Event implements Serializable {
         return name;
     }
     
-@Override
-public int hashCode() {
+    @Override
+    public int hashCode() {
 	final int prime = 31;
 	int result = 1;
 	result = prime * result + id;
@@ -93,7 +93,7 @@ public int hashCode() {
 		+ (int) (serialVersionUID ^ (serialVersionUID >>> 32));
 	result = prime * result + ((time == null) ? 0 : time.hashCode());
 	return result;
-}
+    }
     
     @Override
     public boolean equals(Object obj) {
