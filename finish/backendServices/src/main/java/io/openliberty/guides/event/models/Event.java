@@ -96,6 +96,19 @@ public class Event implements Serializable {
     }
     
     @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        result = prime * result + ((location == null) ? 0 : location.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result +
+                 (int) (serialVersionUID ^ (serialVersionUID >>> 32));
+        result = prime * result + ((time == null) ? 0 : time.hashCode());
+        return result;
+    }
+    
+    @Override
     public boolean equals(Object obj) {
         if (this == obj) {
             return true;
