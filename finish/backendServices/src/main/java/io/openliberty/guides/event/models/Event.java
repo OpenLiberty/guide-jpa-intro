@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018 IBM Corporation and others.
+ * Copyright (c) 2018, 2019 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -93,6 +93,19 @@ public class Event implements Serializable {
 
     public String getName() {
         return name;
+    }
+    
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        result = prime * result + ((location == null) ? 0 : location.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result +
+                 (int) (serialVersionUID ^ (serialVersionUID >>> 32));
+        result = prime * result + ((time == null) ? 0 : time.hashCode());
+        return result;
     }
     
     @Override
