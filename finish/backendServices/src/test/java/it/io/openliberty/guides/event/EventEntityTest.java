@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018 IBM Corporation and others.
+ * Copyright (c) 2018, 2020 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -63,26 +63,33 @@ public class EventEntityTest extends EventTest {
     }
 
     @Test
+    // tag::testInvalidRead[]
     public void testInvalidRead() {
         assertEquals("Reading an event that does not exist should return an empty list",
             true, getIndividualEvent(-1).isEmpty());
     }
+    // end::testInvalidRead[]
 
     @Test
+    // tag::testInvalidDelete[]
     public void testInvalidDelete() {
         int deleteResponse = deleteRequest(-1);
         assertEquals("Trying to delete an event that does not exist should return the "
             + "HTTP response code " + NOT_FOUND_CODE, NOT_FOUND_CODE, deleteResponse);
     }
+    // end::testInvalidDelete[]
 
     @Test
+    // tag::testInvalidUpdate[]
     public void testInvalidUpdate() {
         int updateResponse = updateRequest(eventForm, -1);
         assertEquals("Trying to update an event that does not exist should return the "
             + "HTTP response code " + NOT_FOUND_CODE, NOT_FOUND_CODE, updateResponse);
     }
-
+    // end::testInvalidUpdate[]
+    
     @Test
+    // tag::testReadIndividualEvent[]
     public void testReadIndividualEvent() {
         int postResponse = postRequest(eventForm);
         assertEquals("Creating an event should return the HTTP reponse code " +  
@@ -97,8 +104,10 @@ public class EventEntityTest extends EventTest {
         assertEquals("Deleting an event should return the HTTP response code " + 
             NO_CONTENT_CODE, NO_CONTENT_CODE, deleteResponse);
     }
-
+    // end::testReadIndividualEvent[]
+    
     @Test
+    // tag::testCURD[]
     public void testCRUD() {
         int eventCount = getRequest().size();
         int postResponse = postRequest(eventForm);
@@ -126,7 +135,8 @@ public class EventEntityTest extends EventTest {
         assertEquals("Total number of events stored should be the same after testing "
             + "CRUD operations.", eventCount, getRequest().size());
     }
-
+    // end::testCURD[]
+    
     @After
     public void teardown() {
         response.close();
