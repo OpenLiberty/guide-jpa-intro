@@ -34,11 +34,11 @@ import javax.inject.Inject;
 
 import io.openliberty.guides.event.dao.EventDao;
 import io.openliberty.guides.event.models.Event;
+
 // tag::RequestedScoped[]
 @RequestScoped
 // end::RequestedScoped[]
 @Path("events")
-
 // tag::DAO[]
 // tag::EventResource[]
 public class EventResource {
