@@ -147,7 +147,7 @@ The following table breaks down the new annotations:
 
 == Configuring JPA
 
-The [hotspot=persistence-file file=0]`persistence.xml` file is a configuration file that defines a persistence unit. The
+The [hotspot file=0]`persistence.xml` file is a configuration file that defines a persistence unit. The
 persistence unit specifies configuration information for the entity manager.
 
 [role="code_command hotspot", subs="quotes"]
