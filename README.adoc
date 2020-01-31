@@ -110,7 +110,7 @@ with the `@Entity` annotation, must not be declared final and must have a public
 constructor. JPA maps an entity type to a database table and persisted instances will be represented 
 as rows in the table.
 
-The `Event` class is a data model that represents events in the event microservice and is annotated with JPA
+The [hotspot=Event]`Event` class is a data model that represents events in the event microservice and is annotated with JPA
 annotations.
 
 [role="code_command hotspot", subs="quotes"]
@@ -147,7 +147,7 @@ The following table breaks down the new annotations:
 
 == Configuring JPA
 
-The `persistence.xml` file is a configuration file that defines a persistence unit. The
+The [hotspot=persistence-file file=0]`persistence.xml` file is a configuration file that defines a persistence unit. The
 persistence unit specifies configuration information for the entity manager.
 
 [role="code_command hotspot", subs="quotes"]
@@ -191,7 +191,7 @@ http://www.eclipse.org/eclipselink/documentation/2.5/jpa/extensions/p_ddl_genera
 
 == Performing CRUD operations using JPA
 
-The CRUD operations are defined in the DAO. To perform these operations by using JPA, we need an `EventDao` class. 
+The CRUD operations are defined in the DAO. To perform these operations by using JPA, we need an [hotspot=EventDao file=0]`EventDao` class. 
 
 [role="code_command hotspot", subs="quotes"]
 ----

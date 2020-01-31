@@ -1,3 +1,4 @@
+<!-- tag::persistence-file[] -->
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2"
     xmlns="http://xmlns.jcp.org/xml/ns/persistence" 
@@ -20,3 +21,4 @@
     </persistence-unit>
     <!-- end::persistence-unit[] -->
 </persistence>
+<!-- end::persistence-file[] -->
