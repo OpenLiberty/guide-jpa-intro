@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018 IBM Corporation and others.
+ * Copyright (c) 2018, 2020 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -35,8 +35,12 @@ import javax.inject.Inject;
 import io.openliberty.guides.event.dao.EventDao;
 import io.openliberty.guides.event.models.Event;
 
+// tag::RequestedScoped[]
 @RequestScoped
+// end::RequestedScoped[]
 @Path("events")
+// tag::DAO[]
+// tag::EventResource[]
 public class EventResource {
 
     @Inject
@@ -48,7 +52,9 @@ public class EventResource {
      */
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+    // tag::Transactional[]
     @Transactional
+    // end::Transactional[]
     public Response addNewEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
@@ -138,3 +144,5 @@ public class EventResource {
         return finalArray.build();
     }
 }
+// end::DAO[]
+// end::EventResource[]
