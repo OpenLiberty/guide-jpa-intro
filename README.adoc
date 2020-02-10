@@ -66,12 +66,8 @@ server manages the opening and closing of the entity manager for you.
 [role=command]
 include::{common-includes}/gitclone.adoc[]
 
-// =================================================================================================
-// Try what you'll build
-// =================================================================================================
-
 [role=command]
-include::{common-includes}/trywhatyoubuild-intro.adoc[]
+include::{common-includes}/twyb-intro.adoc[]
 
 Point your browser to the {eventapp-url} URL. The event application does not display any events
 because no events are stored in the database. Go ahead and click `Create Event`, located in the 
@@ -84,8 +80,8 @@ are still displayed in the list of current events. Run the following Maven goals
 and then restart the server:
 [role=command]
 ```
-mvn liberty:stop-server
-mvn liberty:start-server
+mvn liberty:stop
+mvn liberty:run
 ```
 
 The events created are still displayed in the list of current events. The `Update` action link
@@ -93,7 +89,7 @@ located beside each event allows you to make modifications to the persisted enti
 `Delete` action link allows you to remove entities from the database.
 
 [role=command]
-include::{common-includes}/trywhatyoubuild-end.adoc[]
+include::{common-includes}/twyb-end.adoc[]
 
 // =================================================================================================
 // Defining a JPA entity class
@@ -284,22 +280,22 @@ mvn liberty:stop-server
 
 [role="code_command hotspot", subs="quotes"]
 ----
-#Create the `EventEntityTest` class.#
-`backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java` 
+#Create the `EventEntityIT` class.#
+`backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityIT.java` 
 ----
-EventEntityTest.java
+EventEntityIT.java
 [source, Java, linenums, role='code_column']
 ----
-include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityTest.java[tags=!copyright;]
+include::finish/backendServices/src/test/java/it/io/openliberty/guides/event/EventEntityIT.java[tags=!copyright;]
 ----
 
-The [hotspot=54-57]`testInvalidRead()`, [hotspot=60-64]`testInvalidDelete()` and [hotspot=67-71]`testInvalidUpdate()` methods use a primary key that is not in the database to test reading, updating and deleting an event that does not
+The [hotspot=54-57]`testInvalidRead`, [hotspot=60-64]`testInvalidDelete` and [hotspot=67-71]`testInvalidUpdate` methods use a primary key that is not in the database to test reading, updating and deleting an event that does not
 exist, respectively.
 
-The [hotspot=74-87]`testIndividualRead()` method persists a test event to the database and retrieves the 
+The [hotspot=74-87]`testIndividualRead` method persists a test event to the database and retrieves the 
 event object from the database using the primary key of the entity.
 
-The [hotspot=90-116]`testCRUD()` method creates a test event and persists it to the database. The event object is then 
+The [hotspot=90-116]`testCRUD` method creates a test event and persists it to the database. The event object is then 
 retrieved from the database to verify that the test event was actually persisted. Next, the  
 name, location, and time of the test event are updated. The event object is retrieved 
 from the database to verify that the updated event is stored. Finally, the updated test 
@@ -315,8 +311,8 @@ include::{common-includes}/mvnverify.adoc[]
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
-Running it.io.openliberty.guides.event.EventEntityTest
-Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.703 sec - in it.io.openliberty.guides.event.EventEntityTest
+Running it.io.openliberty.guides.event.EventEntityIT
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.703 sec - in it.io.openliberty.guides.event.EventEntityIT
 
 Results :
 

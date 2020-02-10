@@ -4,65 +4,65 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>io.openliberty.guides</groupId>
-        <artifactId>jpa-intro</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
+    <groupId>io.openliberty.guides</groupId>
+    <version>1.0-SNAPSHOT</version>
     <artifactId>frontendUI</artifactId>
     <packaging>war</packaging>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- Plugin versions -->
+        <failOnMissingWebXml>false</failOnMissingWebXml>
+        <version.liberty-maven-plugin>3.1</version.liberty-maven-plugin>
+        <version.maven-failsafe-plugin>2.22.2</version.maven-failsafe-plugin>
+        <version.maven-war-plugin>3.2.3</version.maven-war-plugin>
+        <version.maven-surefire-plugin>2.22.2</version.maven-surefire-plugin>
+        <!-- Liberty configuration -->
+        <frontend.service.http.port>9090</frontend.service.http.port>
+        <frontend.service.https.port>9091</frontend.service.https.port>
+    </properties>
+
     <dependencies>
-        <!--Open Liberty features -->
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>jaxrs-2.1</artifactId>
-            <type>esa</type>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>jsonp-1.1</artifactId>
-            <type>esa</type>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>cdi-2.0</artifactId>
-            <type>esa</type>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>jsf-2.3</artifactId>
-            <type>esa</type>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>mpConfig-1.3</artifactId>
-            <type>esa</type>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>mpRestClient-1.3</artifactId>
-            <type>esa</type>
-            <scope>provided</scope>
-        </dependency>
         <!-- Support for JDK 9 and above -->   
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-core</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.xml.bind</groupId>
-            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
+            <version>1.1.1</version>
+            <scope>test</scope>
+        </dependency>
+        <!-- For tests -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <version>5.5.2</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-client</artifactId>
+            <version>3.3.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.cxf</groupId>
+            <artifactId>cxf-rt-rs-extension-providers</artifactId>
+            <version>3.3.4</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+            <version>1.1.4</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
@@ -70,69 +70,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.6</version>
-                <configuration>
-                    <warName>${project.artifactId}</warName>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <packagingExcludes>pom.xml</packagingExcludes>
-                </configuration>
+                <version>${version.maven-war-plugin}</version>
             </plugin>
             <!-- Enable liberty-maven plugin -->
             <plugin>
-              <groupId>net.wasdev.wlp.maven.plugins</groupId>
-              <artifactId>liberty-maven-plugin</artifactId>
-              <configuration>
-                <configFile>src/main/liberty/config/server.xml</configFile>
-                <packageFile>${package.file}</packageFile>
-                <include>${packaging.type}</include>
-                <bootstrapProperties>
-                  <default.http.port>${frontend.service.http.port}</default.http.port>
-                  <default.https.port>${frontend.service.https.port}</default.https.port>
-                  <backend.port>${backend.service.http.port}</backend.port>
-                </bootstrapProperties>
-              </configuration>
-              <executions>
-                <execution>
-                  <id>install-liberty</id>
-                  <phase>prepare-package</phase>
-                  <goals>
-                    <goal>install-server</goal>
-                  </goals>
-                </execution>
-                <execution>
-                  <id>install-app</id>
-                  <phase>pre-integration-test</phase>
-                  <goals>
-                    <goal>install-apps</goal>
-                  </goals>
-                  <configuration>
-                    <looseApplication>true</looseApplication>
-                    <stripVersion>true</stripVersion>
-                    <installAppPackages>project</installAppPackages>
-                  </configuration>
-                </execution>
-                <execution>
-                  <id>start-server</id>
-                  <phase>pre-integration-test</phase>
-                  <goals>
-                    <goal>start-server</goal>
-                  </goals>
-                </execution>
-                <execution>
-                  <id>stop-server</id>
-                  <phase>post-integration-test</phase>
-                  <goals>
-                    <goal>stop-server</goal>
-                  </goals>
-                </execution>
-                <execution>
-                  <id>package-app</id>
-                  <phase>package</phase>
-                  <goals>
-                    <goal>package-server</goal>
-                  </goals>
-                </execution>
-              </executions>
+                <groupId>io.openliberty.tools</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>${version.liberty-maven-plugin}</version>
             </plugin>
         </plugins>
     </build>
