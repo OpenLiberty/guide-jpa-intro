@@ -26,11 +26,18 @@
     </properties>
 
     <dependencies>
+        <!--Open Liberty features -->
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
             <artifactId>microprofile</artifactId>
             <version>3.2</version>
             <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+            <version>8.0.0</version>
             <scope>provided</scope>
         </dependency>
         <!-- For tests -->
