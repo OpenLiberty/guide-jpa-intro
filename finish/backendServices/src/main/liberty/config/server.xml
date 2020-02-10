@@ -7,6 +7,9 @@
     <feature>jpa-2.2</feature>
   </featureManager>
 
+  <variable name="default.http.port" defaultValue="5050"/>
+  <variable name="default.https.port" defaultValue="5051"/>
+
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
     id="defaultHttpEndpoint" host="*" />
 
@@ -19,12 +22,10 @@
   </library>
 
   <!-- Datasource Configuration -->
-  <!-- tag::data-source[] -->
   <dataSource id="eventjpadatasource"
               jndiName="jdbc/eventjpadatasource">
       <jdbcDriver libraryRef="derbyJDBCLib" />
       <properties.derby.embedded databaseName="EventDB" createDatabase="create"/>
   </dataSource>
-  <!-- end::data-source[] -->
-  
+
 </server>
