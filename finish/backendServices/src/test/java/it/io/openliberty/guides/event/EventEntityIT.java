@@ -12,7 +12,7 @@
 // end::copyright[]
 package it.io.openliberty.guides.event;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import javax.json.JsonObject;
@@ -65,25 +65,32 @@ public class EventEntityIT extends EventTest {
     }
 
     @Test
+    // tag::testInvalidRead[]
     public void testInvalidRead() {
         assertEquals(true, getIndividualEvent(-1).isEmpty(), "Reading an event that does not exist should return an empty list");
     }
+    // end::testInvalidRead[]
 
     @Test
+    // tag::testInvalidDelete[]
     public void testInvalidDelete() {
         int deleteResponse = deleteRequest(-1);
-        assertEquals( NOT_FOUND_CODE, deleteResponse, "Trying to delete an event that does not exist should return the "
+        assertEquals(NOT_FOUND_CODE, deleteResponse, "Trying to delete an event that does not exist should return the "
             + "HTTP response code " + NOT_FOUND_CODE);
     }
+    // end::testInvalidDelete[]
 
     @Test
+    // tag::testInvalidUpdate[]
     public void testInvalidUpdate() {
         int updateResponse = updateRequest(eventForm, -1);
         assertEquals(NOT_FOUND_CODE, updateResponse, "Trying to update an event that does not exist should return the "
             + "HTTP response code " + NOT_FOUND_CODE);
     }
-
+    // end::testInvalidUpdate[]
+    
     @Test
+    // tag::testReadIndividualEvent[]
     public void testReadIndividualEvent() {
         int postResponse = postRequest(eventForm);
         assertEquals(NO_CONTENT_CODE, postResponse, "Creating an event should return the HTTP reponse code " +  
@@ -98,8 +105,10 @@ public class EventEntityIT extends EventTest {
         assertEquals(NO_CONTENT_CODE, deleteResponse, "Deleting an event should return the HTTP response code " + 
             NO_CONTENT_CODE);
     }
-
+    // end::testReadIndividualEvent[]
+    
     @Test
+    // tag::testCURD[]
     public void testCRUD() {
         int eventCount = getRequest().size();
         int postResponse = postRequest(eventForm);
@@ -127,7 +136,8 @@ public class EventEntityIT extends EventTest {
         assertEquals(eventCount, getRequest().size(), "Total number of events stored should be the same after testing "
             + "CRUD operations.");
     }
-
+    // end::testCURD[]
+    
     @AfterAll
     public void teardown() {
         response.close();
