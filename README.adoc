@@ -99,6 +99,9 @@ include::{common-includes}/twyb-end.adoc[]
 
 Navigate to the `start` directory to begin.
 
+[role='command']
+include::{common-includes}/devmode-start.adoc[]
+
 To store Java objects in a database, you must define a JPA entity class. A JPA entity is a Java 
 object whose non-transient and non-static fields will be persisted to the database. Any Plain Old 
 Java Object (POJO) class can be designated as a JPA entity. However, the class must be annotated
@@ -257,7 +260,7 @@ include::finish/backendServices/src/main/java/io/openliberty/guides/event/resour
 // =================================================================================================
 
 [role=command]
-include::{common-includes}/mvnbuild.adoc[]
+include::{common-includes}/devmode-build.adoc[]
 
 When the server is running, go to the {eventapp-url} URL to view the Event Manager application. 
 
@@ -304,7 +307,7 @@ stored in the database.
 
 // Include this for info on how to run the tests
 [role=command]
-include::{common-includes}/mvnverify.adoc[]
+include::{common-includes}/devmode-test.adoc[]
 
 [source, role="no_copy"]
 ----
@@ -318,6 +321,9 @@ Results :
 
 Tests run: 5, Failures: 0, Errors: 0, Skipped: 0 
 ----
+
+[role='command']
+include::{common-includes}/devmode-quit.adoc[]
 
 // =================================================================================================
 // Great work! You're done!
