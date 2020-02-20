@@ -13,7 +13,7 @@
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
     id="defaultHttpEndpoint" host="*" />
 
-  <application location="backendServices.war" type="war" context-root="/">
+  <application location="backendServices-1.0-SNAPSHOT.war" type="war" context-root="/">
   </application>
 
   <!-- Derby Library Configuration -->    
