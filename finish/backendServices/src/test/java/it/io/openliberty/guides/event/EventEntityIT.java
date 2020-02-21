@@ -21,7 +21,7 @@ import javax.ws.rs.core.Form;
 import javax.ws.rs.core.Response.Status;
 
 import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
-import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.MethodOrderer.OrderAnnotation;
@@ -138,7 +138,7 @@ public class EventEntityIT extends EventTest {
     }
     // end::testCURD[]
     
-    @AfterAll
+    @AfterEach
     public void teardown() {
         response.close();
         client.close();
