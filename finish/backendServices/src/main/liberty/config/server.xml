@@ -9,16 +9,17 @@
 
   <variable name="default.http.port" defaultValue="5050"/>
   <variable name="default.https.port" defaultValue="5051"/>
+  <variable name="derby.lib" defaultValue="${shared.resource.dir}/derby.jar"/>
 
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
     id="defaultHttpEndpoint" host="*" />
 
-  <application location="backendServices-1.0-SNAPSHOT.war" type="war" context-root="/">
+  <application location="backendServices.war" type="war" context-root="/">
   </application>
 
   <!-- Derby Library Configuration -->    
   <library id="derbyJDBCLib">
-      <fileset dir="${shared.resource.dir}" includes="derby*.jar"/>
+      <file name="${derby.lib}" />
   </library>
 
   <!-- Datasource Configuration -->

@@ -20,17 +20,27 @@
         <version.maven-failsafe-plugin>2.22.2</version.maven-failsafe-plugin>
         <version.maven-war-plugin>3.2.3</version.maven-war-plugin>
         <version.maven-surefire-plugin>2.22.2</version.maven-surefire-plugin>
+        <version.derby>10.14.2.0</version.derby>
         <!-- Liberty configuration -->
+        <derby.path>${user.home}/.m2/repository/org/apache/derby/derby/</derby.path>
         <backend.service.http.port>5050</backend.service.http.port>
         <backend.service.https.port>5051</backend.service.https.port>
+        <liberty.var.derby.lib>${derby.path}/${version.derby}/derby-${version.derby}.jar</liberty.var.derby.lib>
     </properties>
 
     <dependencies>
+        <!--Open Liberty features -->
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
             <artifactId>microprofile</artifactId>
             <version>3.2</version>
             <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-web-api</artifactId>
+            <version>8.0.0</version>
             <scope>provided</scope>
         </dependency>
         <!-- For tests -->
@@ -75,12 +85,13 @@
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
-            <version>10.14.2.0</version>
+            <version>${version.derby}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
-        <plugins>        
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
