@@ -14,12 +14,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!-- Plugin versions -->
-        <failOnMissingWebXml>false</failOnMissingWebXml>
-        <version.liberty-maven-plugin>3.2</version.liberty-maven-plugin>
-        <version.maven-failsafe-plugin>2.22.2</version.maven-failsafe-plugin>
-        <version.maven-war-plugin>3.2.3</version.maven-war-plugin>
-        <version.maven-surefire-plugin>2.22.2</version.maven-surefire-plugin>
         <!-- Liberty configuration -->
         <frontend.service.http.port>9090</frontend.service.http.port>
         <frontend.service.https.port>9091</frontend.service.https.port>
@@ -28,17 +22,16 @@
     <dependencies>
         <!--Open Liberty features -->
         <dependency>
-            <groupId>org.eclipse.microprofile</groupId>
-            <artifactId>microprofile</artifactId>
-            <version>3.2</version>
-            <type>pom</type>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>8.0.0</version>
             <scope>provided</scope>
         </dependency>
-
         <dependency>
-            <groupId>jakarta.platform</groupId>
-            <artifactId>jakarta.jakartaee-web-api</artifactId>
-            <version>8.0.0</version>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>3.3</version>
+            <type>pom</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -47,6 +40,7 @@
             <version>2.3.1</version>
             <scope>provided</scope>
         </dependency>
+        <!-- For tests -->
         <dependency>
             <groupId>javax.activation</groupId>
             <artifactId>activation</artifactId>
@@ -55,8 +49,8 @@
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.5.2</version>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.6.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -84,13 +78,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>${version.maven-war-plugin}</version>
+                <version>3.2.3</version>
             </plugin>
             <!-- Enable liberty-maven plugin -->
             <plugin>
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
-                <version>${version.liberty-maven-plugin}</version>
+                <version>3.2.1</version>
             </plugin>
         </plugins>
     </build>
