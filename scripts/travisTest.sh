@@ -9,6 +9,9 @@ set -euxo pipefail
 
 # LMP 3.0+ goals are listed here: https://github.com/OpenLiberty/ci.maven#goals
 
+# Test the backendServices
+cd backendServices
+
 ## Rebuild the application
 #       package                   - Take the compiled code and package it in its distributable format.
 #       liberty:create            - Create a Liberty server.
@@ -24,6 +27,13 @@ mvn -q clean package liberty:create liberty:install-feature liberty:deploy
 #       failsafe:integration-test - Runs the integration tests of an application.
 #       liberty:stop              - Stop a Liberty server.
 #       failsafe:verify           - Verifies that the integration tests of an application passed.
+mvn liberty:start
+mvn failsafe:integration-test liberty:stop
+mvn failsafe:verify
+
+# Test the frontendUI
+cd ../frontendUI
+mvn -q clean package liberty:create liberty:install-feature liberty:deploy
 mvn liberty:start
 mvn failsafe:integration-test liberty:stop
 mvn failsafe:verify
