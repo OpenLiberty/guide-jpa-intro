@@ -9,7 +9,7 @@
 
   <variable name="default.http.port" defaultValue="5050"/>
   <variable name="default.https.port" defaultValue="5051"/>
-  <variable name="derby.lib" defaultValue="${shared.resource.dir}/derby.jar"/>
+  <variable name="derby.lib" defaultValue="${shared.resource.dir}/derby-10.14.2.0.jar"/>
 
   <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
     id="defaultHttpEndpoint" host="*" />

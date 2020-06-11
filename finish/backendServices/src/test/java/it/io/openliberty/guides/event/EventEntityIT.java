@@ -30,7 +30,7 @@ import org.junit.jupiter.api.TestMethodOrder;
 import io.openliberty.guides.event.models.Event;
 
 @TestMethodOrder(OrderAnnotation.class)
-public class EventEntityIT extends EventTest {
+public class EventEntityIT extends EventIT {
 
     private static final String JSONFIELD_LOCATION = "location";
     private static final String JSONFIELD_NAME = "name";
