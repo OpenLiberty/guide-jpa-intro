@@ -66,8 +66,31 @@ server manages the opening and closing of the entity manager for you.
 [role=command]
 include::{common-includes}/gitclone.adoc[]
 
-[role=command]
-include::{common-includes}/twyb-intro.adoc[]
+=== Try what you'll build
+
+The `finish` directory in the root of this guide contains the finished application. Give it a try before you proceed.
+
+
+Open a command-line session and navigate to the `finish/frontendUI` directory.
+Run the following Maven goal to build the `frontendUI` service and deploy it to Open Liberty:
+[role="command"]
+----
+mvn liberty:run
+----
+
+Open another command-line session and navigate to the `finish/backendServices` directory.
+Run the following Maven goal to build the `backendServices` service and deploy it to Open Liberty:
+[role="command"]
+----
+mvn liberty:run
+----
+
+After you see the following message in both command-line sessions, both your services are ready.
+
+[role="no_copy"]
+----
+The defaultServer server is ready to run a smarter planet.
+----
 
 Point your browser to the {eventapp-url} URL. The event application does not display any events
 because no events are stored in the database. Go ahead and click `Create Event`, located in the 
@@ -88,8 +111,14 @@ The events created are still displayed in the list of current events. The `Updat
 located beside each event allows you to make modifications to the persisted entity and the 
 `Delete` action link allows you to remove entities from the database.
 
-[role=command]
-include::{common-includes}/twyb-end.adoc[]
+After you are finished checking out the application, stop the Open Liberty servers by pressing CTRL+C in the
+shell sessions where you ran the `backendServices` and `frontendUI` services.
+Alternatively, you can run the `liberty:stop` goal from the finish directory in another shell session for the `frontendUI`
+and `backendServices` modules:
+[role="command"]
+----
+mvn liberty:stop
+----
 
 // =================================================================================================
 // Defining a JPA entity class
@@ -97,10 +126,33 @@ include::{common-includes}/twyb-end.adoc[]
 
 == Defining a JPA entity class
 
-Navigate to the `start` directory to begin.
+You will need two command-line instances to start the two services in development mode.
 
-[role='command']
-include::{common-includes}/devmode-start.adoc[]
+When you run Open Liberty in dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
+
+Open a command-line session and navigate to the `start/frontendUI` directory. Run the following Maven goal to start the `frontendUI` service in dev mode:
+
+[role="command"]
+----
+mvn liberty:dev
+----
+
+Open a command-line session and navigate to the `start/backendServices` directory. Run the following Maven goal to start the `backendServices` service in dev mode:
+
+[role="command"]
+----
+mvn liberty:dev
+----
+
+After you see the following message, your application server in dev mode is ready:
+
+[role="no_copy"]
+----
+Press the Enter key to run tests on demand.
+----
+
+Dev mode holds your command line to listen for file changes. Open another command line to continue, 
+or open the project in your editor.
 
 To store Java objects in a database, you must define a JPA entity class. A JPA entity is a Java 
 object whose non-transient and non-static fields will be persisted to the database. Any Plain Old 
@@ -306,8 +358,10 @@ event is deleted and one final check is done to ensure that the updated test eve
 stored in the database.
 
 // Include this for info on how to run the tests
-[role=command]
-include::{common-includes}/devmode-test.adoc[]
+=== Running the tests
+
+Since you started Open Liberty in dev mode, press the `enter/return` key in the shell sessions where you started the
+`backendServices` and `frontendUI` services to run the tests for the `backendServices` service and the `frontendUI` service, respectively.
 
 [source, role="no_copy"]
 ----
@@ -322,8 +376,8 @@ Results :
 Tests run: 5, Failures: 0, Errors: 0, Skipped: 0 
 ----
 
-[role='command']
-include::{common-includes}/devmode-quit.adoc[]
+When you are done checking out the services, exit development mode by pressing CTRL+C in the shell sessions where you
+ran the `frontendUI` and `backendServices` services,  or by typing `q` and then pressing the `enter/return key`.
 
 // =================================================================================================
 // Great work! You're done!
