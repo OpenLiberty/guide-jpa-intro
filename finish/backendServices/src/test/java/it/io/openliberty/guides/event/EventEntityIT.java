@@ -75,7 +75,8 @@ public class EventEntityIT extends EventIT {
     public void testInvalidDelete() {
         int deleteResponse = deleteRequest(-1);
         assertEquals(NOT_FOUND_CODE, deleteResponse,
-          "Trying to delete an event that does not exist should return the " + "HTTP response code " + NOT_FOUND_CODE);
+          "Trying to delete an event that does not exist should return the " 
+          + "HTTP response code " + NOT_FOUND_CODE);
     }
     // end::testInvalidDelete[]
 
@@ -84,7 +85,8 @@ public class EventEntityIT extends EventIT {
     public void testInvalidUpdate() {
         int updateResponse = updateRequest(eventForm, -1);
         assertEquals(NOT_FOUND_CODE, updateResponse,
-          "Trying to update an event that does not exist should return the " + "HTTP response code " + NOT_FOUND_CODE);
+          "Trying to update an event that does not exist should return the " 
+          + "HTTP response code " + NOT_FOUND_CODE);
     }
     // end::testInvalidUpdate[]
     
@@ -133,7 +135,8 @@ public class EventEntityIT extends EventIT {
         assertEquals(NO_CONTENT_CODE, deleteResponse, 
           "Deleting an event should return the HTTP response code " + NO_CONTENT_CODE);
         assertEquals(eventCount, getRequest().size(), 
-          "Total number of events stored should be the same after testing " + "CRUD operations.");
+          "Total number of events stored should be the same after testing " 
+          + "CRUD operations.");
     }
     // end::testCURD[]
     
