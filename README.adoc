@@ -99,7 +99,7 @@ event entity to the database. The event is now stored in the database and is vis
 current events.
 
 Notice that if you stop the Open Liberty server and then restart it, the events created
-are still displayed in the list of current events. Run the following Maven goals to stop
+are still displayed in the list of current events. Navigate to the `finish/backendServices` and run the following Maven goals to stop
 and then restart the server:
 [role=command]
 ```
@@ -112,8 +112,8 @@ located beside each event allows you to make modifications to the persisted enti
 `Delete` action link allows you to remove entities from the database.
 
 After you are finished checking out the application, stop the Open Liberty servers by pressing CTRL+C in the
-shell sessions where you ran the `backendServices` and `frontendUI` services.
-Alternatively, you can run the `liberty:stop` goal from the finish directory in another shell session for the `frontendUI`
+command-line sessions where you ran the `backendServices` and `frontendUI` services.
+Alternatively, you can run the `liberty:stop` goal from the finish directory in another command-line session for the `frontendUI`
 and `backendServices` modules:
 [role="command"]
 ----
@@ -126,7 +126,7 @@ mvn liberty:stop
 
 == Defining a JPA entity class
 
-You will need two command-line instances to start the two services in development mode.
+You will need two command-line sessions to start the two services in development mode.
 
 When you run Open Liberty in dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
@@ -151,7 +151,7 @@ After you see the following message, your application server in dev mode is read
 Press the Enter key to run tests on demand.
 ----
 
-Dev mode holds your command line to listen for file changes. Open another command line to continue, 
+Dev mode holds your command line to listen for file changes. Open another command-line session to continue, 
 or open the project in your editor.
 
 To store Java objects in a database, you must define a JPA entity class. A JPA entity is a Java 
@@ -320,13 +320,6 @@ Click `Create Event` in the left navigation bar to create events that are persis
 the database. After you create an event, it is available to view, update, and delete in
 the `Current Events` section.
 
-When you are done checking out the services, stop the Open Liberty server by running the following command:
-[role="command"]
-```
-mvn liberty:stop
-```
-
-
 // =================================================================================================
 // Testing the application
 // =================================================================================================
@@ -360,7 +353,7 @@ stored in the database.
 // Include this for info on how to run the tests
 === Running the tests
 
-Since you started Open Liberty in dev mode, press the `enter/return` key in the shell sessions where you started the
+Since you started Open Liberty in dev mode, press the `enter/return` key in the command-line sessions where you started the
 `backendServices` and `frontendUI` services to run the tests for the `backendServices` service and the `frontendUI` service, respectively.
 
 [source, role="no_copy"]
@@ -376,10 +369,10 @@ Results :
 Tests run: 5, Failures: 0, Errors: 0, Skipped: 0 
 ----
 
-When you are done checking out the services, exit development mode by pressing CTRL+C in the shell sessions where you
+When you are done checking out the services, exit development mode by pressing CTRL+C in the command-line sessions where you
 ran the `frontendUI` and `backendServices` services,  or by typing `q` and then pressing the `enter/return key`.
-Alternatively, you can run the `liberty:stop` goal from the finish directory in another shell session for the `frontendUI`
-and `backendServices` modules:
+Alternatively, you can run the `liberty:stop` goal from the finish directory in another command-line sessions session for the `frontendUI`
+and `backendServices` projects:
 [role="command"]
 ----
 mvn liberty:stop
