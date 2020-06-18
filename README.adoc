@@ -114,7 +114,7 @@ located beside each event allows you to make modifications to the persisted enti
 After you are finished checking out the application, stop the Open Liberty servers by pressing CTRL+C in the
 command-line sessions where you ran the `backendServices` and `frontendUI` services.
 Alternatively, you can run the `liberty:stop` goal from the finish directory in another command-line session for the `frontendUI`
-and `backendServices` modules:
+and `backendServices` projects:
 [role="command"]
 ----
 mvn liberty:stop
