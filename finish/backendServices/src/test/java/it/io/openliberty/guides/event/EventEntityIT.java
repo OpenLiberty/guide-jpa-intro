@@ -65,7 +65,8 @@ public class EventEntityIT extends EventIT {
     @Test
     // tag::testInvalidRead[]
     public void testInvalidRead() {
-        assertEquals(true, getIndividualEvent(-1).isEmpty(), "Reading an event that does not exist should return an empty list");
+        assertEquals(true, getIndividualEvent(-1).isEmpty(),
+          "Reading an event that does not exist should return an empty list");
     }
     // end::testInvalidRead[]
 
@@ -73,7 +74,8 @@ public class EventEntityIT extends EventIT {
     // tag::testInvalidDelete[]
     public void testInvalidDelete() {
         int deleteResponse = deleteRequest(-1);
-        assertEquals(NOT_FOUND_CODE, deleteResponse, "Trying to delete an event that does not exist should return the " + "HTTP response code " + NOT_FOUND_CODE);
+        assertEquals(NOT_FOUND_CODE, deleteResponse,
+          "Trying to delete an event that does not exist should return the " + "HTTP response code " + NOT_FOUND_CODE);
     }
     // end::testInvalidDelete[]
 
@@ -81,7 +83,8 @@ public class EventEntityIT extends EventIT {
     // tag::testInvalidUpdate[]
     public void testInvalidUpdate() {
         int updateResponse = updateRequest(eventForm, -1);
-        assertEquals(NOT_FOUND_CODE, updateResponse, "Trying to update an event that does not exist should return the " + "HTTP response code " + NOT_FOUND_CODE);
+        assertEquals(NOT_FOUND_CODE, updateResponse,
+          "Trying to update an event that does not exist should return the " + "HTTP response code " + NOT_FOUND_CODE);
     }
     // end::testInvalidUpdate[]
     
@@ -89,7 +92,8 @@ public class EventEntityIT extends EventIT {
     // tag::testReadIndividualEvent[]
     public void testReadIndividualEvent() {
         int postResponse = postRequest(eventForm);
-        assertEquals(NO_CONTENT_CODE, postResponse, "Creating an event should return the HTTP reponse code " + NO_CONTENT_CODE);
+        assertEquals(NO_CONTENT_CODE, postResponse,
+          "Creating an event should return the HTTP reponse code " + NO_CONTENT_CODE);
 
         Event e = new Event(EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
         JsonObject event = findEvent(e);
@@ -97,7 +101,8 @@ public class EventEntityIT extends EventIT {
         assertData(event, EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
 
         int deleteResponse = deleteRequest(event.getInt("id"));
-        assertEquals(NO_CONTENT_CODE, deleteResponse, "Deleting an event should return the HTTP response code " + NO_CONTENT_CODE);
+        assertEquals(NO_CONTENT_CODE, deleteResponse, 
+          "Deleting an event should return the HTTP response code " + NO_CONTENT_CODE);
     }
     // end::testReadIndividualEvent[]
     
@@ -106,7 +111,8 @@ public class EventEntityIT extends EventIT {
     public void testCRUD() {
         int eventCount = getRequest().size();
         int postResponse = postRequest(eventForm);
-        assertEquals(NO_CONTENT_CODE, postResponse, "Creating an event should return the HTTP reponse code " + NO_CONTENT_CODE);
+        assertEquals(NO_CONTENT_CODE, postResponse, 
+          "Creating an event should return the HTTP reponse code " + NO_CONTENT_CODE);
      
         Event e = new Event(EVENT_NAME, EVENT_LOCATION, EVENT_TIME);
         JsonObject event = findEvent(e);
@@ -116,15 +122,18 @@ public class EventEntityIT extends EventIT {
         eventForm.put(JSONFIELD_LOCATION, UPDATE_EVENT_LOCATION);
         eventForm.put(JSONFIELD_TIME, UPDATE_EVENT_TIME);
         int updateResponse = updateRequest(eventForm, event.getInt("id"));
-        assertEquals(NO_CONTENT_CODE, updateResponse, "Updating an event should return the HTTP response code " + NO_CONTENT_CODE);
+        assertEquals(NO_CONTENT_CODE, updateResponse, 
+          "Updating an event should return the HTTP response code " + NO_CONTENT_CODE);
         
         e = new Event(UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
         event = findEvent(e);
         assertData(event, UPDATE_EVENT_NAME, UPDATE_EVENT_LOCATION, UPDATE_EVENT_TIME);
 
         int deleteResponse = deleteRequest(event.getInt("id"));
-        assertEquals(NO_CONTENT_CODE, deleteResponse, "Deleting an event should return the HTTP response code " + NO_CONTENT_CODE);
-        assertEquals(eventCount, getRequest().size(), "Total number of events stored should be the same after testing " + "CRUD operations.");
+        assertEquals(NO_CONTENT_CODE, deleteResponse, 
+          "Deleting an event should return the HTTP response code " + NO_CONTENT_CODE);
+        assertEquals(eventCount, getRequest().size(), 
+          "Total number of events stored should be the same after testing " + "CRUD operations.");
     }
     // end::testCURD[]
     
