@@ -353,8 +353,8 @@ stored in the database.
 // Include this for info on how to run the tests
 === Running the tests
 
-Since you started Open Liberty in dev mode, press the `enter/return` key in the command-line sessions where you started the
-`backendServices` and `frontendUI` services to run the tests for the `backendServices` service and the `frontendUI` service, respectively.
+Since you started Open Liberty in dev mode, press the `enter/return` key in the command-line session where you started the
+`backendServices` service to run the tests for the `backendServices`.
 
 [source, role="no_copy"]
 ----
@@ -371,7 +371,7 @@ Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
 
 When you are done checking out the services, exit development mode by pressing CTRL+C in the command-line sessions where you
 ran the `frontendUI` and `backendServices` services,  or by typing `q` and then pressing the `enter/return key`.
-Alternatively, you can run the `liberty:stop` goal from the finish directory in another command-line sessions session for the `frontendUI`
+Alternatively, you can run the `liberty:stop` goal from the finish directory in another command-line session for the `frontendUI`
 and `backendServices` projects:
 [role="command"]
 ----
