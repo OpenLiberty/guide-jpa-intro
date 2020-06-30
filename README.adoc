@@ -99,7 +99,7 @@ event entity to the database. The event is now stored in the database and is vis
 current events.
 
 Notice that if you stop the Open Liberty server and then restart it, the events created
-are still displayed in the list of current events. Navigate to the `finish/backendServices` and run the following Maven goals to stop
+are still displayed in the list of current events. Navigate to the `finish/backendServices` directory and run the following Maven goals to stop
 and then restart the server:
 [role=command]
 ```
@@ -113,8 +113,8 @@ located beside each event allows you to make modifications to the persisted enti
 
 After you are finished checking out the application, stop the Open Liberty servers by pressing CTRL+C in the
 command-line sessions where you ran the `backendServices` and `frontendUI` services.
-Alternatively, you can run the `liberty:stop` goal from the finish directory in another command-line session for the `frontendUI`
-and `backendServices` projects:
+Alternatively, you can run the `liberty:stop` goal from the `finish` directory in another command-line session for the `frontendUI`
+and `backendServices` services:
 [role="command"]
 ----
 mvn liberty:stop
@@ -126,7 +126,7 @@ mvn liberty:stop
 
 == Defining a JPA entity class
 
-You will need two command-line sessions to start the two services in development mode.
+You need two command-line sessions to start the two services in development mode.
 
 When you run Open Liberty in dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
@@ -369,10 +369,10 @@ Results :
 Tests run: 5, Failures: 0, Errors: 0, Skipped: 0 
 ----
 
-When you are done checking out the services, exit development mode by pressing CTRL+C in the command-line sessions where you
-ran the `frontendUI` and `backendServices` services,  or by typing `q` and then pressing the `enter/return key`.
+When you are done checking out the services, exit dev mode by pressing CTRL+C in the command-line sessions where you
+ran the `frontendUI` and `backendServices` services,  or by typing `q` and then pressing the `enter/return` key.
 Alternatively, you can run the `liberty:stop` goal from the finish directory in another command-line session for the `frontendUI`
-and `backendServices` projects:
+and `backendServices` services:
 [role="command"]
 ----
 mvn liberty:stop
