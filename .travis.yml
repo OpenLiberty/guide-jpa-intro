@@ -2,8 +2,9 @@ language: java
 before_script:
 - unset _JAVA_OPTIONS
 - cd finish
+- chmod +x ../scripts/travisTest.sh
 script:
-- mvn -q clean install
+- ../scripts/travisTest.sh
 after_script:
 - logsPath=$(find . -name "console.log" | sed "s/console.log//g");
 - build=$(grep "Open Liberty" $logsPath/console.log | cut -d" " -f5 | cut -d")" -f1 );

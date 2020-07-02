@@ -4,86 +4,74 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <parent>
-        <groupId>io.openliberty.guides</groupId>
-        <artifactId>guide-jpa-intro</artifactId>
-        <version>1.0-SNAPSHOT</version>
-    </parent>
-
+    <groupId>io.openliberty.guides</groupId>
+    <version>1.0-SNAPSHOT</version>
     <artifactId>frontendUI</artifactId>
     <packaging>war</packaging>
 
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+        <!-- Liberty configuration -->
+        <frontend.service.http.port>9090</frontend.service.http.port>
+        <frontend.service.https.port>9091</frontend.service.https.port>
+    </properties>
+
     <dependencies>
-        <!--Open Liberty features -->
+        <!-- Provided dependencies -->
         <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>jaxrs-2.1</artifactId>
-            <type>esa</type>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>jsonp-1.1</artifactId>
-            <type>esa</type>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>cdi-2.0</artifactId>
-            <type>esa</type>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>jsf-2.3</artifactId>
-            <type>esa</type>
-        </dependency>
-        <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>mpConfig-1.4</artifactId>
-            <type>esa</type>
+            <groupId>jakarta.platform</groupId>
+            <artifactId>jakarta.jakartaee-api</artifactId>
+            <version>8.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>io.openliberty.features</groupId>
-            <artifactId>mpRestClient-1.4</artifactId>
-            <type>esa</type>
+            <groupId>org.eclipse.microprofile</groupId>
+            <artifactId>microprofile</artifactId>
+            <version>3.3</version>
+            <type>pom</type>
             <scope>provided</scope>
+        </dependency>
+        <!-- For tests -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.5.2</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
     <build>
+        <finalName>${project.artifactId}</finalName>
         <plugins>        
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.2.3</version>
-                <configuration>
-                    <warName>${project.artifactId}</warName>
-                    <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <packagingExcludes>pom.xml</packagingExcludes>
-                </configuration>
             </plugin>
             <!-- Enable liberty-maven plugin -->
             <plugin>
-              <groupId>net.wasdev.wlp.maven.plugins</groupId>
-              <artifactId>liberty-maven-plugin</artifactId>
-              <configuration>
-                <configFile>src/main/liberty/config/server.xml</configFile>
-                <packageFile>${package.file}</packageFile>
-                <include>${packaging.type}</include>
-                <bootstrapProperties>
-                  <default.http.port>${frontend.service.http.port}</default.http.port>
-                  <default.https.port>${frontend.service.https.port}</default.https.port>
-                  <backend.port>${backend.service.http.port}</backend.port>
-                </bootstrapProperties>
-              </configuration>
-              <executions>
-                <execution>
-                  <id>install-apps</id>
-                  <configuration>
-                    <looseApplication>true</looseApplication>
-                    <stripVersion>true</stripVersion>
-                    <installAppPackages>project</installAppPackages>
-                  </configuration>
-                </execution>
-              </executions>
+                <groupId>io.openliberty.tools</groupId>
+                <artifactId>liberty-maven-plugin</artifactId>
+                <version>3.2.2</version>
+            </plugin>
+            <!-- Plugin to run unit tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+            <!-- Plugin to run integration tests -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <systemPropertyVariables>
+                        <frontend.service.http.port>${frontend.service.http.port}</frontend.service.http.port>
+                    </systemPropertyVariables>
+                </configuration>
             </plugin>
         </plugins>
     </build>

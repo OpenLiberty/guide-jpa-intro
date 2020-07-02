@@ -1,90 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
-    <parent>
-        <groupId>net.wasdev.wlp.maven.parent</groupId>
-        <artifactId>liberty-maven-app-parent</artifactId>
-        <version>RELEASE</version>
-    </parent>
 
     <groupId>io.openliberty.guides</groupId>
-    <artifactId>guide-jpa-intro</artifactId>
+    <artifactId>jpa-intro</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
-        <backend.service.http.port>5050</backend.service.http.port>
-        <backend.service.https.port>5051</backend.service.https.port>
-        <frontend.service.http.port>9090</frontend.service.http.port>
-        <frontend.service.https.port>9091</frontend.service.https.port>
-        <version.exec-maven-plugin>1.6.0</version.exec-maven-plugin>
-    </properties>
-
-    <!-- Shared dependencies -->
-    <dependencyManagement>
-        <dependencies>
-            <dependency>
-                <groupId>io.openliberty.features</groupId>
-                <artifactId>features-bom</artifactId>
-                <version>RELEASE</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
-            <!-- For tests -->
-            <dependency>
-                <groupId>junit</groupId>
-                <artifactId>junit</artifactId>
-                <version>4.13</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-client</artifactId>
-                <version>3.3.6</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-extension-providers</artifactId>
-                <version>3.3.6</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.glassfish</groupId>
-                <artifactId>javax.json</artifactId>
-                <version>1.1.4</version>
-                <scope>test</scope>
-            </dependency>
-        </dependencies>
-    </dependencyManagement>
-
-    <build>
-        <!-- Shared plugins -->
-        <pluginManagement>
-            <plugins>
-                <!-- Liberty server operations and management. -->
-                <plugin>
-                    <groupId>net.wasdev.wlp.maven.plugins</groupId>
-                    <artifactId>liberty-maven-plugin</artifactId>
-                    <configuration>
-                        <assemblyArtifact>
-                            <groupId>io.openliberty</groupId>
-                            <artifactId>openliberty-runtime</artifactId>
-                            <version>RELEASE</version>
-                            <type>zip</type>
-                        </assemblyArtifact>
-                    </configuration>
-                </plugin>
-            </plugins>
-        </pluginManagement>
-    </build>
-   
+  
     <modules>
         <module>backendServices</module>
         <module>frontendUI</module>
