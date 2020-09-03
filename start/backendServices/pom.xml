@@ -96,10 +96,6 @@
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
-                        <configuration>
-                            <includeArtifactIds>derby</includeArtifactIds>
-                            <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/</outputDirectory>
-                        </configuration>
                     </execution>
                 </executions>
             </plugin>
