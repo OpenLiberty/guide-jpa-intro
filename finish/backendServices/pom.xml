@@ -96,6 +96,9 @@
                         <goals>
                             <goal>copy-dependencies</goal>
                         </goals>
+                        <configuration>
+                            <includeArtifactIds>derby</includeArtifactIds>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
