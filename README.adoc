@@ -75,6 +75,7 @@ Open a command-line session and navigate to the `finish/frontendUI` directory.
 Run the following Maven goal to build the `frontendUI` service and deploy it to Open Liberty:
 [role="command"]
 ----
+cd finish/frontendUI
 mvn liberty:run
 ----
 
@@ -82,6 +83,7 @@ Open another command-line session and navigate to the `finish/backendServices` d
 Run the following Maven goal to build the `backendServices` service and deploy it to Open Liberty:
 [role="command"]
 ----
+cd finish/backendServices
 mvn liberty:run
 ----
 
