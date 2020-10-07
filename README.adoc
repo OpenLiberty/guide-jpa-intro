@@ -70,17 +70,17 @@ include::{common-includes}/gitclone.adoc[]
 
 The `finish` directory in the root of this guide contains the finished application. Give it a try before you proceed.
 
+To try out the application, run the following commands to navigate to the `finish/frontendUI` directory and
+deploy the `frontendUI` service to Open Liberty:
 
-Open a command-line session and navigate to the `finish/frontendUI` directory.
-Run the following Maven goal to build the `frontendUI` service and deploy it to Open Liberty:
 [role="command"]
 ----
 cd finish/frontendUI
 mvn liberty:run
 ----
 
-Open another command-line session and navigate to the `finish/backendServices` directory.
-Run the following Maven goal to build the `backendServices` service and deploy it to Open Liberty:
+Open another command-line session and run the following commands to navigate to the `finish/backendServices` directory and
+deploy the service to Open Liberty:
 [role="command"]
 ----
 cd finish/backendServices
@@ -101,9 +101,9 @@ event entity to the database. The event is now stored in the database and is vis
 current events.
 
 Notice that if you stop the Open Liberty server and then restart it, the events created
-are still displayed in the list of current events. Navigate to the `finish/backendServices` directory and run the following Maven goals to stop
+are still displayed in the list of current events. Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop
 and then restart the server:
-[role=command]
+[role=command] 
 ```
 mvn liberty:stop
 mvn liberty:run
@@ -128,21 +128,24 @@ mvn liberty:stop
 
 == Defining a JPA entity class
 
-You need two command-line sessions to start the two services in development mode.
+Navigate to the `start` directory to begin.
 
 When you run Open Liberty in dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
-Open a command-line session and navigate to the `start/frontendUI` directory. Run the following Maven goal to start the `frontendUI` service in dev mode:
+Run the following commands to navigate to the `frontendUI` directory and start the `frontendUI` service in dev mode:
 
 [role="command"]
 ----
+cd frontendUI
 mvn liberty:dev
 ----
 
-Open a command-line session and navigate to the `start/backendServices` directory. Run the following Maven goal to start the `backendServices` service in dev mode:
+Open another command-line session and run the following commands to navigate to
+the `backendServices` directory and start the service in dev mode:
 
 [role="command"]
 ----
+cd backendServices
 mvn liberty:dev
 ----
 
