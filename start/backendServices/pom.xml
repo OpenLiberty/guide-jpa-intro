@@ -16,11 +16,9 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <!-- Derby library -->
         <version.derby>10.14.2.0</version.derby>
-        <derby.path>${user.home}/.m2/repository/org/apache/derby/derby</derby.path>
         <!-- Liberty configuration -->
         <backend.service.http.port>5050</backend.service.http.port>
         <backend.service.https.port>5051</backend.service.https.port>
-        <liberty.var.derby.lib>${derby.path}/${version.derby}/derby-${version.derby}.jar</liberty.var.derby.lib>
     </properties>
 
     <dependencies>
@@ -68,7 +66,7 @@
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>${version.derby}</version>
-            <scope>test</scope>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
@@ -84,24 +82,15 @@
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.2.3</version>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <version>3.1.2</version>
-                <executions>
-                    <execution>
-                        <id>copy-derby-dependency</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <includeArtifactIds>derby</includeArtifactIds>
-                            <outputDirectory>${project.build.directory}/liberty/wlp/usr/shared/resources/</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
+                <configuration>
+                    <copyDependencies>
+                        <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
+                        <dependency>
+                             <groupId>org.apache.derby</groupId>
+                             <artifactId>derby</artifactId>
+                         </dependency>
+                    </copyDependencies>
+                </configuration>
             </plugin>
             <!-- Plugin to run unit tests -->
             <plugin>
