@@ -153,7 +153,8 @@ After you see the following message, your application server in dev mode is read
 
 [role="no_copy"]
 ----
-Press the Enter key to run tests on demand.
+************************************************************************
+*    Liberty is running in dev mode.
 ----
 
 Dev mode holds your command line to listen for file changes. Open another command-line session to continue, 
