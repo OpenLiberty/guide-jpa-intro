@@ -2,6 +2,8 @@ target/
 finish/target/
 start/target/
 
+bin/
+
 .classpath
 .factorypath
 .project
