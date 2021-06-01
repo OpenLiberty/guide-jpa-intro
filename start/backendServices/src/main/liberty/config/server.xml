@@ -10,7 +10,8 @@
   <variable name="default.http.port" defaultValue="5050" />
   <variable name="default.https.port" defaultValue="5051" />
 
-  <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}" id="defaultHttpEndpoint" host="*" />
+  <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
+                id="defaultHttpEndpoint" host="*" />
 
   <application location="backendServices.war" type="war" context-root="/"></application>
 
