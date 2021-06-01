@@ -5,6 +5,7 @@
     <feature>jsonp-1.1</feature>
     <feature>cdi-2.0</feature>
     <feature>jpa-2.2</feature>
+    <feature>jdbc-4.3</feature>
   </featureManager>
 
   <variable name="default.http.port" defaultValue="5050" />
@@ -16,7 +17,7 @@
 
   <!-- Derby Library Configuration -->
   <library id="derbyJDBCLib">
-    <file name="${shared.resource.dir}/derby-10.15.2.0.jar" />
+    <fileset dir="${shared.resource.dir}/" includes="*.jar" />
   </library>
 
   <!-- Datasource Configuration -->

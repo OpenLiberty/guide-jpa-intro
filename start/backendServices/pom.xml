@@ -13,8 +13,6 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
-        <!-- Derby library -->
-        <version.derby>10.15.2.0</version.derby>
         <!-- Liberty configuration -->
         <backend.service.http.port>5050</backend.service.http.port>
         <backend.service.https.port>5051</backend.service.https.port>
@@ -64,9 +62,22 @@
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
-            <version>${version.derby}</version>
+            <version>10.15.2.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.derby/derbytools -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbytools</artifactId>
+            <version>10.15.2.0</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyshared -->
+        <dependency>
+            <groupId>org.apache.derby</groupId>
+            <artifactId>derbyshared</artifactId>
+            <version>10.15.2.0</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -87,6 +98,14 @@
                         <dependency>
                             <groupId>org.apache.derby</groupId>
                             <artifactId>derby</artifactId>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.derby</groupId>
+                            <artifactId>derbytools</artifactId>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.apache.derby</groupId>
+                            <artifactId>derbyshared</artifactId>
                         </dependency>
                     </copyDependencies>
                 </configuration>
