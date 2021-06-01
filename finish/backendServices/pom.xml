@@ -70,12 +70,14 @@
             <groupId>org.apache.derby</groupId>
             <artifactId>derbytools</artifactId>
             <version>10.15.2.0</version>
+            <scope>provided</scope>
         </dependency>
         <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyshared -->
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derbyshared</artifactId>
             <version>10.15.2.0</version>
+            <scope>provided</scope>
         </dependency>
 
     </dependencies>
