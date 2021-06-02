@@ -17,7 +17,7 @@
 
   <!-- Derby Library Configuration -->
   <library id="derbyJDBCLib">
-    <fileset dir="${shared.resource.dir}/" includes="*.jar" />
+    <fileset dir="${shared.resource.dir}/" includes="derby*.jar" />
   </library>
 
   <!-- Datasource Configuration -->
