@@ -1,4 +1,4 @@
-// Copyright (c) 2018, 2020 IBM Corporation and others.
+// Copyright (c) 2018, 2021 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -107,19 +107,19 @@ endif::[]
 ifdef::cloud-hosted[]
 Select **Launch Application** from the menu of the IDE, 
 type in **9090** to specify the port number for the microservice, and click the **OK** button. 
-You can now check out the service by going to the **`https://accountname-9080.theiadocker-4.proxy.cognitiveclass.ai`** URL, 
+You're redirected to a URL similar to **`https://accountname-9080.theiadocker-4.proxy.cognitiveclass.ai`**, 
 where **accountname** is your account name.
 
-The event application does not display any events
-because no events are stored in the database. Go ahead and click `Create Event`, located in the 
-left navigation bar. After entering an event name, location and time, click `Submit` to persist your 
-event entity to the database. The event is now stored in the database and is visible in the list of 
-current events.
+The event application does not display any events because no events are stored in the database. 
+Go ahead and click `Create Event`, located in the left navigation bar. 
+After entering an event name, location and time, 
+click `Submit` to persist your event entity to the database. 
+The event is now stored in the database and is visible in the list of current events.
 endif::[]
 
-Notice that if you stop the Open Liberty server and then restart it, the events created
-are still displayed in the list of current events. Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop
-and then restart the server:
+Notice that if you stop the Open Liberty server and then restart it, 
+the events created are still displayed in the list of current events. 
+Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop and then restart the server:
 [role=command] 
 ```
 mvn liberty:stop
