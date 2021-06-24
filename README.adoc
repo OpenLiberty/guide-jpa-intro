@@ -1,4 +1,4 @@
-// Copyright (c) 2018, 2020 IBM Corporation and others.
+// Copyright (c) 2018, 2021 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -16,7 +16,7 @@
 :page-permalink: /guides/{projectid}
 :page-guide-category: none 
 :guide-author: Open Liberty
-:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/master
+:common-includes: https://raw.githubusercontent.com/OpenLiberty/guides-common/prod
 :source-highlighter: prettify
 :page-seo-title: Accessing and persisting data in Java microservices using Java Persistence API (JPA)
 :page-seo-description: A getting started tutorial with examples of how to implement a Data Access Object (DAO) to access and persist data to a database in a Java EE or Jakarta EE application using the Java Persistence API (JPA).
