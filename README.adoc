@@ -218,13 +218,13 @@ persistence.xml
 include::finish/backendServices/src/main/resources/META-INF/persistence.xml[]
 ----
 
-The persistence unit is defined by the [hotspot=persistence-unit file=0]`<persistence-unit/>` XML element. The [hotspot=transaction-type file=0]`name` attribute is 
+The persistence unit is defined by the [hotspot=persistence-unit file=0]`persistence-unit` XML element. The [hotspot=transaction-type file=0]`name` attribute is 
 required and is used to identify the persistent unit when using the `@PersistenceContext`
 annotation to inject the entity manager later in this guide. The [hotspot=transaction-type file=0]`transaction-type="JTA"` 
 attribute specifies to use Java Transaction API (JTA) transaction management.
 Since we are using a container-managed entity manager, JTA transactions must be used. 
 
-A JTA transaction type requires a JTA data source to be provided. The [hotspot=jta-data file=0]`<jta-data-source/>` 
+A JTA transaction type requires a JTA data source to be provided. The [hotspot=jta-data file=0]`jta-data-source` 
 element specifies the Java Naming and Directory Interface (JNDI) name of 
 the data source that is used. The [hotspot=data-source file=1]`data source` has already been configured for you
 in the [hotspot file=1]`backendServices/src/main/liberty/config/server.xml` file. This data source configuration is where 
