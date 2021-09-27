@@ -31,6 +31,10 @@ Learn how to use Java Persistence API (JPA) to access and persist data to a data
 :eventapp-url: http://localhost:9090/eventmanager.jsf[http://localhost:9090/eventmanager.jsf^]
 :get-events-url: http://localhost:9090/events[http://localhost:9090/events^]
 
+// =================================================================================================
+// Introduction
+// =================================================================================================
+
 == What you'll learn
 
 You will learn how to use the Java Persistence API (JPA) to map Java objects to relational database 
@@ -207,12 +211,8 @@ The following table breaks down the new annotations:
 | [hotspot=Table]`@Table`  | Specifies details of the table such as name 
 | [hotspot=NamedQuery]`@NamedQuery` | Specifies a predefined database query that is run by an `EntityManager` instance.
 | [hotspot=Id]`@Id`       |  Declares the primary key of the entity
-| [hotspot=GeneratedValue]`@GeneratedValue`    | Specifies the strategy used for generating the value of the primary key. 
-                        The `strategy = GenerationType.AUTO` code indicates that the generation strategy 
-                        is automatically selected
-                        
-| [hotspot=Column]`@Column`    | Specifies that the field is mapped to a column in the database table. The `name`
-                 attribute is optional and indicates the name of the column in the table
+| [hotspot=GeneratedValue]`@GeneratedValue`    | Specifies the strategy used for generating the value of the primary key. The `strategy = GenerationType.AUTO` code indicates that the generation strategy is automatically selected
+| [hotspot=Column]`@Column`    | Specifies that the field is mapped to a column in the database table. The `name` attribute is optional and indicates the name of the column in the table
 |===
 
 // =================================================================================================
