@@ -28,8 +28,8 @@ view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty websi
 
 Learn how to use Java Persistence API (JPA) to access and persist data to a database for your microservices.
 
-:eventapp-url: http://localhost:9090/eventmanager.jsf[http://localhost:9090/eventmanager.jsf^]
-:get-events-url: http://localhost:9090/events[http://localhost:9090/events^]
+:eventapp-url: http://localhost:9090/eventmanager.jsf
+:get-events-url: http://localhost:9090/events
 
 // =================================================================================================
 // Introduction
