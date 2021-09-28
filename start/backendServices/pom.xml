@@ -60,27 +60,15 @@
             <scope>test</scope>
         </dependency>
         <!-- Derby from https://mvnrepository.com/artifact/org.apache.derby/derby -->
+        <!-- Use 10.14.2 that support Java 8. If use 10.15+, -->
+        <!-- need to use Java 9+, and -->
+        <!-- add 2 more derby dependencies: derbytools and derbyshared -->
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
             <version>10.15.2.0</version>
             <scope>provided</scope>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.derby/derbytools -->
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbytools</artifactId>
-            <version>10.15.2.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.derby/derbyshared -->
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbyshared</artifactId>
-            <version>10.15.2.0</version>
-            <scope>provided</scope>
-        </dependency>
-
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
