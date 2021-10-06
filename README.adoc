@@ -140,7 +140,8 @@ Alternatively, you can run the `liberty:stop` goal from the `finish` directory i
 and `backendServices` services:
 [role="command"]
 ----
-mvn liberty:stop
+mvn -pl frontendUI liberty:stop
+mvn -pl backendServices liberty:stop
 ----
 
 // =================================================================================================
