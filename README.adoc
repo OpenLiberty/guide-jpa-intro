@@ -100,13 +100,8 @@ The defaultServer server is ready to run a smarter planet.
 
 // Static guide instruction
 ifndef::cloud-hosted[]
-Point your browser to the {eventapp-url} URL. The event application does not display any events
-because no events are stored in the database. Go ahead and click `Create Event`, located in the 
-left navigation bar. After entering an event name, location and time, click `Submit` to persist your 
-event entity to the database. The event is now stored in the database and is visible in the list of 
-current events.
+Point your browser to the {eventapp-url} URL.
 endif::[]
-
 // Cloud hosted guide instruction
 ifdef::cloud-hosted[]
 Select **Launch Application** from the menu of the IDE, 
@@ -114,12 +109,12 @@ type in **9090** to specify the port number for the microservice, and click the 
 You're redirected to a URL similar to **`https://accountname-9090.theiadocker-4.proxy.cognitiveclass.ai`**, 
 where **accountname** is your account name.
 
-The event application does not display any events because no events are stored in the database. 
-Go ahead and click **Create Event**, located in the left navigation bar. 
-After entering an event name, location and time, 
-click **Submit** to persist your event entity to the database. 
-The event is now stored in the database and is visible in the list of current events.
 endif::[]
+The event application does not display any events
+because no events are stored in the database. Go ahead and click `Create Event`, located in the 
+left navigation bar. After entering an event name, location and time, click `Submit` to persist your 
+event entity to the database. The event is now stored in the database and is visible in the list of 
+current events.
 
 Notice that if you stop the Open Liberty server and then restart it, 
 the events created are still displayed in the list of current events. 
