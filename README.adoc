@@ -116,9 +116,9 @@ left navigation bar. After entering an event name, location and time, click `Sub
 event entity to the database. The event is now stored in the database and is visible in the list of 
 current events.
 
-Notice that if you stop the Open Liberty server and then restart it, 
-the events created are still displayed in the list of current events. 
-Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop and then restart the server:
+Notice that if you stop the Open Liberty server and then restart it, the events created
+are still displayed in the list of current events. Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop
+and then restart the server:
 [role=command] 
 ```
 mvn liberty:stop
