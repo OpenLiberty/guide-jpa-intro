@@ -145,6 +145,13 @@ mvn -pl backendServices liberty:stop
 == Defining a JPA entity class
 
 Navigate to the `start` directory to begin.
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-jpa-intro/start
+```
+{: codeblock}
+endif::[]
 
 When you run Open Liberty in dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
