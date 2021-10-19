@@ -85,11 +85,23 @@ mvn liberty:run
 
 Open another command-line session and run the following commands to navigate to the `finish/backendServices` directory and
 deploy the service to Open Liberty:
+// static guide instruction
+ifndef::cloud-hosted[]
 [role="command"]
 ----
 cd finish/backendServices
 mvn liberty:run
 ----
+endif::[]
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-jpa-intro/finish/backendServices
+mvn liberty:run
+```
+{: codeblock}
+endif::[]
+
 
 After you see the following message in both command-line sessions, both your services are ready.
 
@@ -118,11 +130,24 @@ current events.
 Notice that if you stop the Open Liberty server and then restart it, the events created
 are still displayed in the list of current events. Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop
 and then restart the server:
+// static guide instruction
+ifndef::cloud-hosted[]
 [role=command] 
 ```
 mvn liberty:stop
 mvn liberty:run
 ```
+endif::[]
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-jpa-intro/finish/backendServices
+mvn liberty:stop
+mvn liberty:run
+```
+{: codeblock}
+endif::[]
+
 
 The events created are still displayed in the list of current events. The `Update` action link
 located beside each event allows you to make modifications to the persisted entity and the 
@@ -132,11 +157,24 @@ After you are finished checking out the application, stop the Open Liberty serve
 command-line sessions where you ran the `backendServices` and `frontendUI` services.
 Alternatively, you can run the `liberty:stop` goal from the `finish` directory in another command-line session for the `frontendUI`
 and `backendServices` services:
+// static guide instruction
+ifndef::cloud-hosted[]
 [role="command"]
 ----
 mvn -pl frontendUI liberty:stop
 mvn -pl backendServices liberty:stop
 ----
+endif::[]
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-jpa-intro/finish
+mvn -pl frontendUI liberty:stop
+mvn -pl backendServices liberty:stop
+```
+{: codeblock}
+endif::[]
+
 
 // =================================================================================================
 // Defining a JPA entity class
@@ -189,7 +227,7 @@ After you see the following message, your application server in dev mode is read
 
 [role="no_copy"]
 ----
-************************************************************************
+**************************************************************
 *    Liberty is running in dev mode.
 ----
 
