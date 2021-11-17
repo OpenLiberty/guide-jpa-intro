@@ -28,8 +28,12 @@ view it on the https://openliberty.io/guides/{projectid}.html[Open Liberty websi
 
 Learn how to use Java Persistence API (JPA) to access and persist data to a database for your microservices.
 
-:eventapp-url: http://localhost:9090/eventmanager.jsf[http://localhost:9090/eventmanager.jsf^]
-:get-events-url: http://localhost:9090/events[http://localhost:9090/events^]
+:eventapp-url: http://localhost:9090/eventmanager.jsf
+:get-events-url: http://localhost:9090/events
+
+// =================================================================================================
+// Introduction
+// =================================================================================================
 
 == What you'll learn
 
@@ -56,7 +60,7 @@ You will use JPA annotations to define an entity class whose fields are persiste
 database. The interaction between your service and the database is mediated by the persistence 
 context that is managed by an entity manager. In a Java EE environment, you can use an
 application-managed entity manager or a container-managed entity manager. In this guide, 
-you will use a container-managed entity manager that is injected into the DAO so the application  
+you will use a container-managed entity manager that is injected into the DAO so the application
 server manages the opening and closing of the entity manager for you. 
 
 // =================================================================================================
@@ -81,11 +85,23 @@ mvn liberty:run
 
 Open another command-line session and run the following commands to navigate to the `finish/backendServices` directory and
 deploy the service to Open Liberty:
+// static guide instruction
+ifndef::cloud-hosted[]
 [role="command"]
 ----
 cd finish/backendServices
 mvn liberty:run
 ----
+endif::[]
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-jpa-intro/finish/backendServices
+mvn liberty:run
+```
+{: codeblock}
+endif::[]
+
 
 After you see the following message in both command-line sessions, both your services are ready.
 
@@ -94,7 +110,18 @@ After you see the following message in both command-line sessions, both your ser
 The defaultServer server is ready to run a smarter planet.
 ----
 
-Point your browser to the {eventapp-url} URL. The event application does not display any events
+// Static guide instruction
+ifndef::cloud-hosted[]
+Point your browser to the {eventapp-url} URL.
+endif::[]
+// Cloud hosted guide instruction
+ifdef::cloud-hosted[]
+Select **Launch Application** from the menu of the IDE, 
+type in **9090** to specify the port number for the microservice, and click the **OK** button. 
+You're redirected to a URL similar to **`https://accountname-9090.theiadocker-4.proxy.cognitiveclass.ai`**, 
+where **accountname** is your account name.
+endif::[]
+The event application does not display any events
 because no events are stored in the database. Go ahead and click `Create Event`, located in the 
 left navigation bar. After entering an event name, location and time, click `Submit` to persist your 
 event entity to the database. The event is now stored in the database and is visible in the list of 
@@ -103,11 +130,24 @@ current events.
 Notice that if you stop the Open Liberty server and then restart it, the events created
 are still displayed in the list of current events. Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop
 and then restart the server:
+// static guide instruction
+ifndef::cloud-hosted[]
 [role=command] 
 ```
 mvn liberty:stop
 mvn liberty:run
 ```
+endif::[]
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-jpa-intro/finish/backendServices
+mvn liberty:stop
+mvn liberty:run
+```
+{: codeblock}
+endif::[]
+
 
 The events created are still displayed in the list of current events. The `Update` action link
 located beside each event allows you to make modifications to the persisted entity and the 
@@ -117,10 +157,24 @@ After you are finished checking out the application, stop the Open Liberty serve
 command-line sessions where you ran the `backendServices` and `frontendUI` services.
 Alternatively, you can run the `liberty:stop` goal from the `finish` directory in another command-line session for the `frontendUI`
 and `backendServices` services:
+// static guide instruction
+ifndef::cloud-hosted[]
 [role="command"]
 ----
-mvn liberty:stop
+mvn -pl frontendUI liberty:stop
+mvn -pl backendServices liberty:stop
 ----
+endif::[]
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-jpa-intro/finish
+mvn -pl frontendUI liberty:stop
+mvn -pl backendServices liberty:stop
+```
+{: codeblock}
+endif::[]
+
 
 // =================================================================================================
 // Defining a JPA entity class
@@ -133,27 +187,47 @@ Navigate to the `start` directory to begin.
 When you run Open Liberty in dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
 Run the following commands to navigate to the `frontendUI` directory and start the `frontendUI` service in dev mode:
-
+// static guide instruction
+ifndef::cloud-hosted[]
 [role="command"]
 ----
 cd frontendUI
 mvn liberty:dev
 ----
+endif::[]
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-jpa-intro/start/frontendUI
+mvn liberty:dev
+```
+{: codeblock}
+endif::[]
 
 Open another command-line session and run the following commands to navigate to
 the `backendServices` directory and start the service in dev mode:
-
+// static guide instruction
+ifndef::cloud-hosted[]
 [role="command"]
 ----
 cd backendServices
 mvn liberty:dev
 ----
+endif::[]
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-jpa-intro/start/backendServices
+mvn liberty:dev
+```
+{: codeblock}
+endif::[]
 
 After you see the following message, your application server in dev mode is ready:
 
 [role="no_copy"]
 ----
-************************************************************************
+**************************************************************
 *    Liberty is running in dev mode.
 ----
 
@@ -190,12 +264,8 @@ The following table breaks down the new annotations:
 | [hotspot=Table]`@Table`  | Specifies details of the table such as name 
 | [hotspot=NamedQuery]`@NamedQuery` | Specifies a predefined database query that is run by an `EntityManager` instance.
 | [hotspot=Id]`@Id`       |  Declares the primary key of the entity
-| [hotspot=GeneratedValue]`@GeneratedValue`    | Specifies the strategy used for generating the value of the primary key. 
-                        The `strategy = GenerationType.AUTO` code indicates that the generation strategy 
-                        is automatically selected
-                        
-| [hotspot=Column]`@Column`    | Specifies that the field is mapped to a column in the database table. The `name`
-                 attribute is optional and indicates the name of the column in the table
+| [hotspot=GeneratedValue]`@GeneratedValue`    | Specifies the strategy used for generating the value of the primary key. The `strategy = GenerationType.AUTO` code indicates that the generation strategy is automatically selected
+| [hotspot=Column]`@Column`    | Specifies that the field is mapped to a column in the database table. The `name` attribute is optional and indicates the name of the column in the table
 |===
 
 // =================================================================================================
@@ -269,19 +339,11 @@ The persistence context synchronizes with the database when a transaction commit
 
 The [hotspot=EventDao file=0]`EventDao` class has a method for each CRUD operation, so let's break them down:
 
-* The [hotspot=createEvent file=0]`createEvent()` method persists an instance of the [hotspot=Event file=1]`Event` entity class to the data store by
-calling the [hotspot=Persist file=0]`persist()` method on an `EntityManager` instance. The entity instance becomes managed
-and changes to it will be tracked by the entity manager.
+* The [hotspot=createEvent file=0]`createEvent()` method persists an instance of the [hotspot=Event file=1]`Event` entity class to the data store by calling the [hotspot=Persist file=0]`persist()` method on an `EntityManager` instance. The entity instance becomes managed and changes to it will be tracked by the entity manager.
 
-* The [hotspot=readEvent file=0]`readEvent()` method returns an instance of the [hotspot=Event file=1]`Event` entity class with the specified primary 
-key by calling the [hotspot=Find file=0]`find()` method on an `EntityManager` instance. If the event instance is found, it
-is returned in a managed state, but, if the event instance is not found, `null` is returned.
+* The [hotspot=readEvent file=0]`readEvent()` method returns an instance of the [hotspot=Event file=1]`Event` entity class with the specified primary key by calling the [hotspot=Find file=0]`find()` method on an `EntityManager` instance. If the event instance is found, it is returned in a managed state, but, if the event instance is not found, `null` is returned.
 
-* The [hotspot=readAllEvents file=0]`readAllEvents()` method demonstrates an alternative way to retrieve event objects 
-from the database. This method returns a list of instances of the `Event` entity class by 
-using the `Event.findAll` query specified in the [hotspot=NamedQuery file=1]`@NamedQuery` annotation on the [hotspot=Event file=1]`Event` class. 
-Similarly, the [hotspot=findEvent file=0]`findEvent()` method uses the `Event.findEvent` named query to find an event 
-with the given name, location and time. 
+* The [hotspot=readAllEvents file=0]`readAllEvents()` method demonstrates an alternative way to retrieve event objects from the database. This method returns a list of instances of the `Event` entity class by using the `Event.findAll` query specified in the [hotspot=NamedQuery file=1]`@NamedQuery` annotation on the [hotspot=Event file=1]`Event` class. Similarly, the [hotspot=findEvent file=0]`findEvent()` method uses the `Event.findEvent` named query to find an event with the given name, location and time. 
 
 Event.java
 [source, Java, linenums, role='code_column hide_tags=copyright']
@@ -289,15 +351,9 @@ Event.java
 include::finish/backendServices/src/main/java/io/openliberty/guides/event/models/Event.java[]
 ----
 
-* The [hotspot=updateEvent file=0]`updateEvent()` method creates a managed instance of a detached entity instance. 
-The entity manager automatically tracks all managed entity objects in its persistence context 
-for changes and synchronizes them with the database. However, if an entity becomes detached, 
-you must merge that entity into the persistence context by calling the [hotspot=Merge file=0]`merge()` method 
-so that changes to loaded fields of the detached entity are tracked.
+* The [hotspot=updateEvent file=0]`updateEvent()` method creates a managed instance of a detached entity instance. The entity manager automatically tracks all managed entity objects in its persistence context for changes and synchronizes them with the database. However, if an entity becomes detached, you must merge that entity into the persistence context by calling the [hotspot=Merge file=0]`merge()` method so that changes to loaded fields of the detached entity are tracked.
 
-* The [hotspot=deleteEvent file=0]`deleteEvent()` method removes an instance of the [hotspot=Event file=1]`Event` entity class from the database by 
-calling the [hotspot=Remove file=0]`remove()` method on an `EntityManager` instance. The state of the entity is
-changed to removed and is removed from the database upon transaction commit. 
+* The [hotspot=deleteEvent file=0]`deleteEvent()` method removes an instance of the [hotspot=Event file=1]`Event` entity class from the database by calling the [hotspot=Remove file=0]`remove()` method on an `EntityManager` instance. The state of the entity is changed to removed and is removed from the database upon transaction commit. 
 
 The DAO is injected into the [hotspot=DAO file=2]`backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java`
 class and used to access and persist data. The [hotspot=Transactional file=2]`@Transactional` annotation is used in the
@@ -320,7 +376,18 @@ include::finish/backendServices/src/main/java/io/openliberty/guides/event/resour
 [role=command]
 include::{common-includes}/devmode-build.adoc[]
 
+// Static guide instruction
+ifndef::cloud-hosted[]
 When the server is running, go to the {eventapp-url} URL to view the Event Manager application. 
+endif::[]
+
+// Cloud hosted guide instruction
+ifdef::cloud-hosted[]
+When the server is running, select **Launch Application** from the menu of the IDE, 
+type in **9090** to specify the port number for the microservice, and click the **OK** button. 
+You're redirected to a URL similar to **`https://accountname-9090.theiadocker-4.proxy.cognitiveclass.ai`**, 
+where **accountname** is your account name.
+endif::[]
 
 Click `Create Event` in the left navigation bar to create events that are persisted to 
 the database. After you create an event, it is available to view, update, and delete in
@@ -377,12 +444,25 @@ Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
 
 When you are done checking out the services, exit dev mode by pressing CTRL+C in the command-line sessions where you
 ran the `frontendUI` and `backendServices` services,  or by typing `q` and then pressing the `enter/return` key.
-Alternatively, you can run the `liberty:stop` goal from the `finish` directory in another command-line session for the `frontendUI`
+Alternatively, you can run the `liberty:stop` goal from the `start` directory in another command-line session for the `frontendUI`
 and `backendServices` services:
+// static guide instruction
+ifndef::cloud-hosted[]
 [role="command"]
 ----
-mvn liberty:stop
+mvn -pl frontendUI liberty:stop
+mvn -pl backendServices liberty:stop
 ----
+endif::[]
+// cloud hosted instruction
+ifdef::cloud-hosted[]
+```
+cd /home/project/guide-jpa-intro/start
+mvn -pl frontendUI liberty:stop
+mvn -pl backendServices liberty:stop
+```
+{: codeblock}
+endif::[]
 
 // =================================================================================================
 // Great work! You're done!
@@ -390,9 +470,7 @@ mvn liberty:stop
 
 == Great work! You're done!
 
-You learned how to map Java objects to database tables by defining a JPA entity class whose 
-instances are represented as rows in the table. You have injected a container-managed 
-entity manager into a DAO and learned how to perform CRUD operations in your microservice in Open Liberty.
+You learned how to map Java objects to database tables by defining a JPA entity class whose instances are represented as rows in the table. You have injected a container-managed entity manager into a DAO and learned how to perform CRUD operations in your microservice in Open Liberty.
 
 
 include::{common-includes}/attribution.adoc[subs="attributes"]
