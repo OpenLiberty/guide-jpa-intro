@@ -30,7 +30,7 @@
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
             <artifactId>microprofile</artifactId>
-            <version>4.0.1</version>
+            <version>4.1</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -44,13 +44,13 @@
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-client</artifactId>
-            <version>3.4.3</version>
+            <version>3.4.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-extension-providers</artifactId>
-            <version>3.4.3</version>
+            <version>3.4.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -76,13 +76,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.3.2</version>
             </plugin>
             <!-- Enable liberty-maven plugin -->
             <plugin>
                 <groupId>io.openliberty.tools</groupId>
                 <artifactId>liberty-maven-plugin</artifactId>
-                <version>3.3.1</version>
+                <version>3.5.1</version>
                 <configuration>
                     <copyDependencies>
                         <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
