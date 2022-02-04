@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018 IBM Corporation and others.
+ * Copyright (c) 2018, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -22,8 +22,8 @@ import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-import javax.inject.Named;
-import javax.enterprise.context.ApplicationScoped;
+import jakarta.inject.Named;
+import jakarta.enterprise.context.ApplicationScoped;
 
 /**
  * The TimeMap is use to generate the time fields (day, month, year and hour)
