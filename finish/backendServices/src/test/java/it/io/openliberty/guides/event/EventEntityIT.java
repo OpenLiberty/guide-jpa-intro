@@ -20,7 +20,6 @@ import jakarta.ws.rs.client.ClientBuilder;
 import jakarta.ws.rs.core.Form;
 import jakarta.ws.rs.core.Response.Status;
 
-import org.apache.cxf.jaxrs.provider.jsrjsonp.JsrJsonpProvider;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -53,7 +52,6 @@ public class EventEntityIT extends EventIT {
     public void setup() {
         form = new Form();
         client = ClientBuilder.newClient();
-        client.register(JsrJsonpProvider.class);
 
         eventForm = new HashMap<String, String>();
 
