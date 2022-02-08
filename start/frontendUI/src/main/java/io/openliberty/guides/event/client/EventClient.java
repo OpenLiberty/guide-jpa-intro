@@ -39,27 +39,27 @@ public interface EventClient {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray getEvents() throws UnknownUrlException;
+    JsonArray getEvents() throws UnknownUrlException;
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject getEvent(@PathParam("id") int eventId) throws UnknownUrlException;
+    JsonObject getEvent(@PathParam("id") int eventId) throws UnknownUrlException;
 
     @DELETE
     @Path("/{id}")
-    public void deleteEvent(@PathParam("id") int eventId) throws UnknownUrlException;
+    void deleteEvent(@PathParam("id") int eventId) throws UnknownUrlException;
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void addEvent(@FormParam("name") String name,
+    void addEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location) throws
         UnknownUrlException, BadRequestException;
 
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void updateEvent(@FormParam("name") String name,
+    void updateEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location,
         @PathParam("id") int id) throws UnknownUrlException, BadRequestException;
 

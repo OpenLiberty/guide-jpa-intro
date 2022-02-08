@@ -218,7 +218,7 @@ public class EventBean implements Serializable {
     public JsonArray retrieveEventList() {
         try {
             return eventClient.getEvents();
-        } catch (UnknownUrlException e){
+        } catch (UnknownUrlException e) {
             System.err.println("The given URL is unreachable.");
             return null;
         }

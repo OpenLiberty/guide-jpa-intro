@@ -58,7 +58,7 @@ public class EventResource {
     public Response addNewEvent(@FormParam("name") String name,
         @FormParam("time") String time, @FormParam("location") String location) {
         Event newEvent = new Event(name, location, time);
-        if(!eventDAO.findEvent(name, location, time).isEmpty()) {
+        if (!eventDAO.findEvent(name, location, time).isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST)
                            .entity("Event already exists").build();
         }
@@ -78,11 +78,11 @@ public class EventResource {
         @FormParam("time") String time, @FormParam("location") String location,
         @PathParam("id") int id) {
         Event prevEvent = eventDAO.readEvent(id);
-        if(prevEvent == null) {
+        if (prevEvent == null) {
             return Response.status(Response.Status.NOT_FOUND)
                            .entity("Event does not exist").build();
         }
-        if(!eventDAO.findEvent(name, location, time).isEmpty()) {
+        if (!eventDAO.findEvent(name, location, time).isEmpty()) {
             return Response.status(Response.Status.BAD_REQUEST)
                            .entity("Event already exists").build();
         }
@@ -102,7 +102,7 @@ public class EventResource {
     @Transactional
     public Response deleteEvent(@PathParam("id") int id) {
         Event event = eventDAO.readEvent(id);
-        if(event == null) {
+        if (event == null) {
             return Response.status(Response.Status.NOT_FOUND)
                            .entity("Event does not exist").build();
         }
@@ -120,7 +120,7 @@ public class EventResource {
     public JsonObject getEvent(@PathParam("id") int eventId) {
         JsonObjectBuilder builder = Json.createObjectBuilder();
         Event event = eventDAO.readEvent(eventId);
-        if(event != null) {
+        if (event != null) {
             builder.add("name", event.getName()).add("time", event.getTime())
                 .add("location", event.getLocation()).add("id", event.getId());
         }

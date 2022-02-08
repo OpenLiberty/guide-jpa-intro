@@ -102,8 +102,8 @@ public class Event implements Serializable {
         result = prime * result + id;
         result = prime * result + ((location == null) ? 0 : location.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result +
-                 (int) (serialVersionUID ^ (serialVersionUID >>> 32));
+        result = prime * result
+                 + (int) (serialVersionUID ^ (serialVersionUID >>> 32));
         result = prime * result + ((time == null) ? 0 : time.hashCode());
         return result;
     }
