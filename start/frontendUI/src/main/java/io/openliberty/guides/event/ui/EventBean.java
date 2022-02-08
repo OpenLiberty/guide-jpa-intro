@@ -161,7 +161,7 @@ public class EventBean implements Serializable {
             eventClient.addEvent(name, time, location);
             pageDispatcher.showMainPage();
             clear();
-       } catch (UnknownUrlException e) { 
+       } catch (UnknownUrlException e) {
             System.err.println("The given URL is unreachable.");
         } catch (BadRequestException e) {
             displayInvalidEventError();

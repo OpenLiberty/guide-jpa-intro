@@ -63,7 +63,7 @@ public class EventResource {
                            .entity("Event already exists").build();
         }
         eventDAO.createEvent(newEvent);
-        return Response.status(Response.Status.NO_CONTENT).build(); 
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     /**
@@ -91,7 +91,7 @@ public class EventResource {
         prevEvent.setTime(time);
 
         eventDAO.updateEvent(prevEvent);
-        return Response.status(Response.Status.NO_CONTENT).build(); 
+        return Response.status(Response.Status.NO_CONTENT).build();
     }
 
     /**

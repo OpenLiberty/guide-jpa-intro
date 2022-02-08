@@ -63,17 +63,17 @@ public abstract class EventIT {
         form = new Form();
         return response.getStatus();
     }
-    
+
     /**
-     *  Makes a DELETE request to /events/{eventId} endpoint and return the response 
-     *  code 
+     *  Makes a DELETE request to /events/{eventId} endpoint and return the response
+     *  code
      */
     protected int deleteRequest(int eventId) {
         webTarget = client.target(baseUrl + EVENTS + "/" + eventId);
         response = webTarget.request().delete();
         return response.getStatus();
     }
-    
+
     /**
      *  Makes a GET request to the /events endpoint and returns result in a JsonArray
      */
@@ -85,16 +85,16 @@ public abstract class EventIT {
 
     /**
      *  Makes a GET request to the /events/{eventId} endpoint and returns a JsonObject
-     */ 
+     */
     protected JsonObject getIndividualEvent(int eventId) {
         webTarget = client.target(baseUrl + EVENTS + "/" + eventId);
         response = webTarget.request().get();
         return response.readEntity(JsonObject.class);
     }
-    
+
     /**
      *  Makes a GET request to the /events endpoint and returns the event provided
-     *  if it exists. 
+     *  if it exists.
      */
     protected JsonObject findEvent(Event e) {
         JsonArray events = getRequest();

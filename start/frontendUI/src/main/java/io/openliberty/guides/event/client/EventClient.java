@@ -53,14 +53,14 @@ public interface EventClient {
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public void addEvent(@FormParam("name") String name,
-        @FormParam("time") String time, @FormParam("location") String location) throws 
+        @FormParam("time") String time, @FormParam("location") String location) throws
         UnknownUrlException, BadRequestException;
 
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
     public void updateEvent(@FormParam("name") String name,
-        @FormParam("time") String time, @FormParam("location") String location, 
+        @FormParam("time") String time, @FormParam("location") String location,
         @PathParam("id") int id) throws UnknownUrlException, BadRequestException;
 
 }

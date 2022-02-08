@@ -23,12 +23,12 @@ import jakarta.enterprise.context.RequestScoped;
 @RequestScoped
 // tag::EventDao[]
 public class EventDao {
-    
+
     // tag::PersistenceContext[]
     @PersistenceContext(name = "jpa-unit")
     // end::PersistenceContext[]
     private EntityManager em;
-    
+
     // tag::createEvent[]
     public void createEvent(Event event) {
         // tag::Persist[]

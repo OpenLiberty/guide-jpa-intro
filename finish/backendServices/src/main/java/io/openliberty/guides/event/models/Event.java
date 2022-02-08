@@ -94,7 +94,7 @@ public class Event implements Serializable {
     public String getName() {
         return name;
     }
-    
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -107,7 +107,7 @@ public class Event implements Serializable {
         result = prime * result + ((time == null) ? 0 : time.hashCode());
         return result;
     }
-    
+
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
