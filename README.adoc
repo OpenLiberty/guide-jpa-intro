@@ -244,11 +244,7 @@ persistence.xml
 include::finish/backendServices/src/main/resources/META-INF/persistence.xml[]
 ----
 
-<<<<<<< HEAD
-The persistence unit is defined by the [hotspot=persistence-unit file=0]`persistence-unit` XML element. The [hotspot=transaction-type file=0]`name` attribute is required and is used to identify the persistent unit when using the `@PersistenceContext` annotation to inject the entity manager later in this guide. The [hotspot=transaction-type file=0]`transaction-type="JTA"` attribute specifies to use Java Transaction API (JTA) transaction management. Since we are using a container-managed entity manager, JTA transactions must be used. 
-=======
 The persistence unit is defined by the [hotspot=persistence-unit file=0]`persistence-unit` XML element. The [hotspot=transaction-type file=0]`name` attribute is required and is used to identify the persistent unit when using the `@PersistenceContext` annotation to inject the entity manager later in this guide. The [hotspot=transaction-type file=0]`transaction-type="JTA"` attribute specifies to use Java Transaction API (JTA) transaction management. Because of using a container-managed entity manager, JTA transactions must be used. 
->>>>>>> fd654fe2d8160b312b9477b95d61a9fc63b3c6f0
 
 A JTA transaction type requires a JTA data source to be provided. The [hotspot=jta-data file=0]`jta-data-source` element specifies the Java Naming and Directory Interface (JNDI) name of the data source that is used. The [hotspot=data-source file=1]`data source` has already been configured for you in the [hotspot file=1]`backendServices/src/main/liberty/config/server.xml` file. This data source configuration is where the Java Database Connectivity (JDBC) connection is defined along with some database vendor-specific properties.
 
@@ -279,11 +275,7 @@ EventDao.java
 include::finish/backendServices/src/main/java/io/openliberty/guides/event/dao/EventDao.java[]
 ----
 
-<<<<<<< HEAD
-To use the entity manager at runtime, inject it into our CDI bean through the [hotspot=PersistenceContext file=0]`@PersistenceContext` annotation. The entity manager interacts with the persistence context. Every `EntityManager` instance is associated with a persistence context. The persistence context manages a set of entities and is aware of the different states that an entity can have. The persistence context synchronizes with the database when a transaction commits.
-=======
 To use the entity manager at runtime, inject it into the CDI bean through the [hotspot=PersistenceContext file=0]`@PersistenceContext` annotation. The entity manager interacts with the persistence context. Every `EntityManager` instance is associated with a persistence context. The persistence context manages a set of entities and is aware of the different states that an entity can have. The persistence context synchronizes with the database when a transaction commits.
->>>>>>> fd654fe2d8160b312b9477b95d61a9fc63b3c6f0
 
 The [hotspot=EventDao file=0]`EventDao` class has a method for each CRUD operation, so let's break them down:
 
