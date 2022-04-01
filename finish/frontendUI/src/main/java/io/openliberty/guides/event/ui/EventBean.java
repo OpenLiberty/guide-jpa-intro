@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018 IBM Corporation and others.
+ * Copyright (c) 2018, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -14,11 +14,11 @@ package io.openliberty.guides.event.ui;
 
 import java.util.Map;
 
-import javax.json.JsonArray;
-import javax.json.JsonObject;
-import javax.inject.Inject;
-import javax.inject.Named;
-import javax.ws.rs.BadRequestException;
+import jakarta.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.inject.Inject;
+import jakarta.inject.Named;
+import jakarta.ws.rs.BadRequestException;
 
 import io.openliberty.guides.event.ui.facelets.PageDispatcher;
 import io.openliberty.guides.event.ui.util.TimeMapUtil;
@@ -26,15 +26,15 @@ import io.openliberty.guides.event.client.EventClient;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import io.openliberty.guides.event.client.UnknownUrlException;
 
-import javax.faces.component.UIComponent;
-import javax.faces.component.UIInput;
-import javax.faces.component.html.HtmlInputHidden;
-import javax.faces.component.html.HtmlPanelGroup;
-import javax.faces.context.FacesContext;
-import javax.faces.event.ComponentSystemEvent;
-import javax.faces.application.FacesMessage;
-import javax.faces.view.ViewScoped;
-import javax.faces.annotation.ManagedProperty;
+import jakarta.faces.component.UIComponent;
+import jakarta.faces.component.UIInput;
+import jakarta.faces.component.html.HtmlInputHidden;
+import jakarta.faces.component.html.HtmlPanelGroup;
+import jakarta.faces.context.FacesContext;
+import jakarta.faces.event.ComponentSystemEvent;
+import jakarta.faces.application.FacesMessage;
+import jakarta.faces.view.ViewScoped;
+import jakarta.faces.annotation.ManagedProperty;
 
 import java.io.Serializable;
 import java.text.ParseException;
@@ -161,7 +161,7 @@ public class EventBean implements Serializable {
             eventClient.addEvent(name, time, location);
             pageDispatcher.showMainPage();
             clear();
-       } catch (UnknownUrlException e) { 
+       } catch (UnknownUrlException e) {
             System.err.println("The given URL is unreachable.");
         } catch (BadRequestException e) {
             displayInvalidEventError();
@@ -218,7 +218,7 @@ public class EventBean implements Serializable {
     public JsonArray retrieveEventList() {
         try {
             return eventClient.getEvents();
-        } catch (UnknownUrlException e){
+        } catch (UnknownUrlException e) {
             System.err.println("The given URL is unreachable.");
             return null;
         }

@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018 IBM Corporation and others.
+ * Copyright (c) 2018, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -12,23 +12,23 @@
 // end::copyright[]
 package io.openliberty.guides.event.client;
 
-import javax.enterprise.context.Dependent;
-import javax.ws.rs.GET;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
+import jakarta.enterprise.context.Dependent;
+import jakarta.ws.rs.GET;
+import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.POST;
+import jakarta.ws.rs.PUT;
+import jakarta.ws.rs.Path;
+import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.core.MediaType;
 import org.eclipse.microprofile.rest.client.annotation.RegisterProvider;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.FormParam;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.BadRequestException;
+import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.FormParam;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.BadRequestException;
 
-import javax.json.JsonObject;
-import javax.json.JsonArray;
+import jakarta.json.JsonObject;
+import jakarta.json.JsonArray;
 
 @Dependent
 @RegisterRestClient
@@ -39,28 +39,28 @@ public interface EventClient {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonArray getEvents() throws UnknownUrlException;
+    JsonArray getEvents() throws UnknownUrlException;
 
     @GET
     @Path("/{id}")
     @Produces(MediaType.APPLICATION_JSON)
-    public JsonObject getEvent(@PathParam("id") int eventId) throws UnknownUrlException;
+    JsonObject getEvent(@PathParam("id") int eventId) throws UnknownUrlException;
 
     @DELETE
     @Path("/{id}")
-    public void deleteEvent(@PathParam("id") int eventId) throws UnknownUrlException;
+    void deleteEvent(@PathParam("id") int eventId) throws UnknownUrlException;
 
     @POST
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void addEvent(@FormParam("name") String name,
-        @FormParam("time") String time, @FormParam("location") String location) throws 
+    void addEvent(@FormParam("name") String name,
+        @FormParam("time") String time, @FormParam("location") String location) throws
         UnknownUrlException, BadRequestException;
 
     @PUT
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_FORM_URLENCODED)
-    public void updateEvent(@FormParam("name") String name,
-        @FormParam("time") String time, @FormParam("location") String location, 
+    void updateEvent(@FormParam("name") String name,
+        @FormParam("time") String time, @FormParam("location") String location,
         @PathParam("id") int id) throws UnknownUrlException, BadRequestException;
 
 }

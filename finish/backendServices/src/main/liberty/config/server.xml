@@ -1,10 +1,11 @@
 <server description="Sample Liberty server">
 
   <featureManager>
-    <feature>jaxrs-2.1</feature>
-    <feature>jsonp-1.1</feature>
-    <feature>cdi-2.0</feature>
-    <feature>jpa-2.2</feature>
+    <feature>restfulWS-3.0</feature>
+    <feature>jsonb-2.0</feature>
+    <feature>jsonp-2.0</feature>
+    <feature>cdi-3.0</feature>
+    <feature>persistence-3.0</feature>
   </featureManager>
 
   <variable name="default.http.port" defaultValue="5050" />

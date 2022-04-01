@@ -1,6 +1,6 @@
 // tag::copyright[]
 /*******************************************************************************
- * Copyright (c) 2018, 2020 IBM Corporation and others.
+ * Copyright (c) 2018, 2022 IBM Corporation and others.
  * All rights reserved. This program and the accompanying materials
  * are made available under the terms of the Eclipse Public License v1.0
  * which accompanies this distribution, and is available at
@@ -13,22 +13,22 @@
 package io.openliberty.guides.event.dao;
 
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 
 import io.openliberty.guides.event.models.Event;
 
-import javax.enterprise.context.RequestScoped;
+import jakarta.enterprise.context.RequestScoped;
 
 @RequestScoped
 // tag::EventDao[]
 public class EventDao {
-    
+
     // tag::PersistenceContext[]
     @PersistenceContext(name = "jpa-unit")
     // end::PersistenceContext[]
     private EntityManager em;
-    
+
     // tag::createEvent[]
     public void createEvent(Event event) {
         // tag::Persist[]
