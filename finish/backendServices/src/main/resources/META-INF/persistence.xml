@@ -12,10 +12,14 @@
         <jta-data-source>jdbc/eventjpadatasource</jta-data-source>
         <!-- end::jta-data[] -->
         <properties>
-        <!-- tag::eclipse-link[] -->
-            <property name="eclipselink.ddl-generation" value="create-tables"/>
-            <property name="eclipselink.ddl-generation.output-mode" value="both" />
-        <!-- end::eclipse-link[] -->
+        <!-- tag::schema-generation[] -->
+            <property name="jakarta.persistence.schema-generation.database.action"
+                      value="create"/>
+            <property name="jakarta.persistence.schema-generation.scripts.action"
+                      value="create"/>
+            <property name="jakarta.persistence.schema-generation.scripts.create-target"
+                      value="createDDL.ddl"/>
+        <!-- end::schema-generation[] -->
         </properties>
     </persistence-unit>
     <!-- end::persistence-unit[] -->
