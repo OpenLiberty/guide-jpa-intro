@@ -23,3 +23,4 @@ public class UnknownUrlException extends Exception {
     super(message);
   }
 }
+
