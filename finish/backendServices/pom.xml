@@ -12,8 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>1.8</maven.compiler.source>
-        <maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
         <!-- Liberty configuration -->
         <backend.service.http.port>5050</backend.service.http.port>
         <backend.service.https.port>5051</backend.service.https.port>
@@ -24,13 +24,13 @@
         <dependency>
             <groupId>jakarta.platform</groupId>
             <artifactId>jakarta.jakartaee-web-api</artifactId>
-            <version>9.1.0</version>
+            <version>10.0.0</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.eclipse.microprofile</groupId>
             <artifactId>microprofile</artifactId>
-            <version>5.0</version>
+            <version>6.0</version>
             <type>pom</type>
             <scope>provided</scope>
         </dependency>
@@ -38,19 +38,19 @@
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.7.2</version>
+            <version>5.9.2</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-client</artifactId>
-            <version>6.0.0.Final</version>
+            <version>6.2.3.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jboss.resteasy</groupId>
             <artifactId>resteasy-json-binding-provider</artifactId>
-            <version>6.0.0.Final</version>
+            <version>6.2.3.Final</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -66,7 +66,7 @@
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
-            <version>10.14.2.0</version>
+            <version>10.16.1.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -97,13 +97,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0</version>
             </plugin>
             <!-- Plugin to run integration tests -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>3.0.0</version>
                 <configuration>
                     <systemPropertyVariables>
                         <backend.http.port>${backend.service.http.port}</backend.http.port>
