@@ -1,4 +1,4 @@
-// Copyright (c) 2018, 2022 IBM Corporation and others.
+// Copyright (c) 2018, 2023 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -147,7 +147,7 @@ endif::[]
 
 Navigate to the `start` directory to begin.
 
-When you run Open Liberty in dev mode, the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
+When you run Open Liberty in https://openliberty.io/docs/latest/development-mode.html[dev mode^], the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
 Run the following commands to navigate to the `frontendUI` directory and start the `frontendUI` service in dev mode:
 // static guide instruction
