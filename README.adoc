@@ -99,7 +99,7 @@ Click the following button to view the Event Manager application:
 endif::[]
 The event application does not display any events because no events are stored in the database. Go ahead and click `Create Event`, located in the left navigation bar. After entering an event name, location and time, click `Submit` to persist your event entity to the database. The event is now stored in the database and is visible in the list of current events.
 
-Notice that if you stop the Open Liberty server and then restart it, the events created are still displayed in the list of current events. Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop and then restart the server:
+Notice that if you stop the Open Liberty instance and then restart it, the events created are still displayed in the list of current events. Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop and then restart the server:
 // static guide instruction
 ifndef::cloud-hosted[]
 [role=command] 
@@ -120,7 +120,7 @@ endif::[]
 
 The events created are still displayed in the list of current events. The `Update` action link located beside each event allows you to make modifications to the persisted entity and the `Delete` action link allows you to remove entities from the database.
 
-After you are finished checking out the application, stop the Open Liberty servers by pressing CTRL+C in the command-line sessions where you ran the `backendServices` and `frontendUI` services. Alternatively, you can run the `liberty:stop` goal from the `finish` directory in another command-line session for the `frontendUI` and `backendServices` services:
+After you are finished checking out the application, stop the Open Liberty instances by pressing CTRL+C in the command-line sessions where you ran the `backendServices` and `frontendUI` services. Alternatively, you can run the `liberty:stop` goal from the `finish` directory in another command-line session for the `frontendUI` and `backendServices` services:
 // static guide instruction
 ifndef::cloud-hosted[]
 [role="command"]
@@ -147,7 +147,7 @@ endif::[]
 
 Navigate to the `start` directory to begin.
 
-When you run Open Liberty in https://openliberty.io/docs/latest/development-mode.html[dev mode^], the server listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
+When you run Open Liberty in https://openliberty.io/docs/latest/development-mode.html[dev mode^], dev mode listens for file changes and automatically recompiles and deploys your updates whenever you save a new change.
 
 Run the following commands to navigate to the `frontendUI` directory and start the `frontendUI` service in dev mode:
 // static guide instruction
@@ -183,7 +183,7 @@ mvn liberty:dev
 ```
 endif::[]
 
-After you see the following message, your application server in dev mode is ready:
+After you see the following message, your Liberty instance is ready in dev mode:
 
 [role="no_copy"]
 ----
