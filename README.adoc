@@ -42,7 +42,7 @@ JPA is a Jakarta EE specification for representing relational database table dat
 
 The application that you will be working with is an event manager, which is composed of a UI and an event microservice for creating, retrieving, updating, and deleting events. In this guide, you will be focused on the event microservice. The event microservice consists of a JPA entity class whose fields will be persisted to a database. The database logic is implemented in a Data Access Object (DAO) to isolate the database operations from the rest of the service. This DAO accesses and persists JPA entities to the database and can be injected and consumed by other components in the microservice. An Embedded Derby database is used as a data store for all the events.
 
-You will use JPA annotations to define an entity class whose fields are persisted to the database. The interaction between your service and the database is mediated by the persistence context that is managed by an entity manager. In a Jakarta EE environment, you can use an application-managed entity manager or a container-managed entity manager. In this guide, you will use a container-managed entity manager that is injected into the DAO so the application server manages the opening and closing of the entity manager for you. 
+You will use JPA annotations to define an entity class whose fields are persisted to the database. The interaction between your service and the database is mediated by the persistence context that is managed by an entity manager. In a Jakarta EE environment, you can use an application-managed entity manager or a container-managed entity manager. In this guide, you will use a container-managed entity manager that is injected into the DAO so Liberty manages the opening and closing of the entity manager for you. 
 
 // =================================================================================================
 // Getting Started
@@ -99,7 +99,7 @@ Click the following button to view the Event Manager application:
 endif::[]
 The event application does not display any events because no events are stored in the database. Go ahead and click `Create Event`, located in the left navigation bar. After entering an event name, location and time, click `Submit` to persist your event entity to the database. The event is now stored in the database and is visible in the list of current events.
 
-Notice that if you stop the Open Liberty instance and then restart it, the events created are still displayed in the list of current events. Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop and then restart the server:
+Notice that if you stop the Open Liberty instance and then restart it, the events created are still displayed in the list of current events. Ensure you are in the `finish/backendServices` directory and run the following Maven goals to stop and then restart the instance:
 // static guide instruction
 ifndef::cloud-hosted[]
 [role=command] 
@@ -308,12 +308,12 @@ include::{common-includes}/devmode-build.adoc[]
 
 // Static guide instruction
 ifndef::cloud-hosted[]
-When the server is running, go to the {eventapp-url} URL to view the Event Manager application. 
+When Liberty is running, go to the {eventapp-url} URL to view the Event Manager application. 
 endif::[]
 
 // Cloud hosted guide instruction
 ifdef::cloud-hosted[]
-When the server is running, click the following button to view the Event Manager application:
+When Liberty is running, click the following button to view the Event Manager application:
 ::startApplication{port="9090" display="external" name="Visit Event Manager application" route="/"}
 endif::[]
 
