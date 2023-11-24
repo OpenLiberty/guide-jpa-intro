@@ -96,9 +96,7 @@
                 <version>3.8.2</version>
                 <configuration>
                     <!-- tag::copyDependencies[] -->
-                    <!-- tag::copyDependenciesConfig[] -->
                     <copyDependencies>
-                    <!-- end::copyDependencies[] -->
                         <!-- tag::location[] -->
                         <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
                         <!-- end::location[] -->
@@ -117,7 +115,7 @@
                         </dependency>
                         <!-- end::dependencies[] -->
                     </copyDependencies>
-                    <!-- end::copyDependenciesConfig[] -->
+                    <!-- end::copyDependencies[] -->
                 </configuration>
             </plugin>
             <!-- Plugin to run unit tests -->
