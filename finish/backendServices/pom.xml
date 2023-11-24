@@ -95,8 +95,14 @@
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.8.2</version>
                 <configuration>
+                    <!-- tag::copyDependencies[] -->
+                    <!-- tag::copyDependenciesConfig[] -->
                     <copyDependencies>
+                    <!-- end::copyDependencies[] -->
+                        <!-- tag::location[] -->
                         <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
+                        <!-- end::location[] -->
+                        <!-- tag::dependencies[] -->
                         <dependency>
                             <groupId>org.apache.derby</groupId>
                             <artifactId>derby</artifactId>
@@ -109,7 +115,9 @@
                             <groupId>org.apache.derby</groupId>
                             <artifactId>derbytools</artifactId>
                         </dependency>
+                        <!-- end::dependencies[] -->
                     </copyDependencies>
+                    <!-- end::copyDependenciesConfig[] -->
                 </configuration>
             </plugin>
             <!-- Plugin to run unit tests -->
