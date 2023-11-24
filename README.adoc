@@ -305,7 +305,13 @@ include::finish/backendServices/src/main/java/io/openliberty/guides/event/resour
 
 === Third-party libraries for Open Liberty with Maven 
 
-The [hotspot=copyDependencies]`copyDependencies` tag copies the specified third-party [hotspot=dependencies] `dependencies` to a specified location. Multiple dependency parameters can be added to the [hotspot=copyDependenciesConfig]`copyDependencies` configuration. The [hotspot=location]`location` parameter can be added to the copyDependencies to override the default location, which is the lib folder of the target server. 
+In the [hotspot file=0]`pom.xml` configuration file, the [hotspot=copyDependencies]`copyDependencies` tag copies the specified third-party [hotspot=dependencies] `dependencies` to a specified location. Multiple dependency parameters can be added to the [hotspot=copyDependenciesConfig]`copyDependencies` configuration. The [hotspot=location]`location` parameter can be added to the copyDependencies to override the default location, which is the lib folder of the target server. 
+
+pom.xml
+[source, Xml, linenums, role='code_column']
+----
+include::finish/backendServices/pom.xml[]
+----
 
 // =================================================================================================
 // Building and running the application
