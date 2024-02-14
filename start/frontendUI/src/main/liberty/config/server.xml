@@ -6,14 +6,14 @@
     <feature>jsonp-2.1</feature>
     <feature>cdi-4.0</feature>
     <feature>faces-4.0</feature>
-    <feature>mpConfig-3.0</feature>
+    <feature>mpConfig-3.1</feature>
     <feature>mpRestClient-3.0</feature>
   </featureManager>
 
-  <variable name="default.http.port" defaultValue="9090"/>
-  <variable name="default.https.port" defaultValue="9091"/>
+  <variable name="http.port" defaultValue="9090"/>
+  <variable name="https.port" defaultValue="9091"/>
 
-  <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
+  <httpEndpoint httpPort="${http.port}" httpsPort="${https.port}"
     id="defaultHttpEndpoint" host="*" />
 
   <application location="frontendUI.war" context-root="/">
