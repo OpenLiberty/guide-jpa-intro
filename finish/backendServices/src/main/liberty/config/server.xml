@@ -8,10 +8,10 @@
     <feature>persistence-3.1</feature>
   </featureManager>
 
-  <variable name="default.http.port" defaultValue="5050" />
-  <variable name="default.https.port" defaultValue="5051" />
+  <variable name="http.port" defaultValue="5050" />
+  <variable name="https.port" defaultValue="5051" />
 
-  <httpEndpoint httpPort="${default.http.port}" httpsPort="${default.https.port}"
+  <httpEndpoint httpPort="${http.port}" httpsPort="${https.port}"
                 id="defaultHttpEndpoint" host="*" />
 
   <application location="backendServices.war" type="war" context-root="/"></application>
