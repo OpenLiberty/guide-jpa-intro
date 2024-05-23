@@ -56,11 +56,8 @@ jobs:
     - name: Post tests
       if: always()
       run: |
-          logsPath=$(find . -name "console.log" | grep frontendUI);
-          < "$logsPath" grep Launching
-          logsPath=$(find . -name "console.log" | grep backendServices);
-          < "$logsPath" grep Launching
-          sudo chmod -R a+xr $logsPath
+          logsPath=$(sudo find . -name "console.log");
+          sudo cat "$logsPath" | sudo grep Launching
     - name: Archive backend logs if failed
       if: failure()
       uses: actions/upload-artifact@v2
