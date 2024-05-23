@@ -64,11 +64,11 @@ jobs:
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: server-logs
+        name: backendServices-logs
         path: finish/backendServices/target/liberty/wlp/usr/servers/defaultServer/logs/
     - name: Archive frontend logs if failed
       if: always()
       uses: actions/upload-artifact@v2
       with:
-        name: server-logs
+        name: frontendUI-logs
         path: finish/frontendUI/target/liberty/wlp/usr/servers/defaultServer/logs/
