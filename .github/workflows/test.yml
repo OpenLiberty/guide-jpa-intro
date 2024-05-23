@@ -60,13 +60,13 @@ jobs:
           sudo cat $logsPath | sudo grep Launching
           sudo chmod -R a+xr $logsPath
     - name: Archive backend logs if failed
-      if: failure()
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: server-logs
         path: finish/backendServices/target/liberty/wlp/usr/servers/defaultServer/logs/
     - name: Archive frontend logs if failed
-      if: failure()
+      if: always()
       uses: actions/upload-artifact@v2
       with:
         name: server-logs
