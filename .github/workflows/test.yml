@@ -56,7 +56,7 @@ jobs:
     - name: Post tests
       if: always()
       run: |
-          logsPath=$(find . -name "console.log" | grep BackendServices);
+          logsPath=$(find . -name "console.log" | grep backendServices);
           sudo cat "$logsPath" | grep Launching
           logsPath=$(find . -name "console.log" | grep frontendUI);
           sudo cat "$logsPath" | grep Launching
