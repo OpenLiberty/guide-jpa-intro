@@ -253,6 +253,29 @@ include::finish/backendServices/src/main/liberty/config/server.xml[]
 The [hotspot=schema-generation file=0]`jakarta.persistence.schema-generation` properties are used here so that you aren't required to manually create a database table to run this sample application. To learn more about the JPA schema generation and available properties, see https://jakarta.ee/specifications/persistence/3.0/jakarta-persistence-spec-3.0.html#a12917[Schema Generation, Section 9.4 of the JPA Specification]
 
 // =================================================================================================
+// Third-party libraries for Open Liberty with Maven 
+// =================================================================================================
+
+=== Third-party libraries for Open Liberty with Maven 
+
+To use a Derby database, you need to download its library and store it to the Liberty shared resources directory. Configure the Liberty Maven plug-in in the `pom.xml` file.
+
+[role='code_command hotspot file=1', subs="quotes"]
+----
+#Replace the `pom.xml` configuration file.#
+`pom.xml`
+----
+
+// File 1
+pom.xml
+[source, xml, linenums, role='code_column']
+----
+include::finish/backendServices/pom.xml[]
+----
+
+In the [hotspot file=1]`pom.xml` configuration file, the [hotspot=copyDependencies]`copyDependencies` tag copies the specified third-party dependencies to a specified location. The [hotspot=location]`location` parameter can be added to the copyDependencies to override the default location, which is the lib folder of the target server. Multiple [hotspot=dependencies]`dependency` parameters can be added to the `copyDependencies` configuration. 
+
+// =================================================================================================
 // Performing CRUD operations using JPA
 // =================================================================================================
 
@@ -299,19 +322,6 @@ EventResource.java
 include::finish/backendServices/src/main/java/io/openliberty/guides/event/resources/EventResource.java[]
 ----
 
-// =================================================================================================
-// Third-party libraries for Open Liberty with Maven 
-// =================================================================================================
-
-=== Third-party libraries for Open Liberty with Maven 
-
-In the [hotspot file=0]`pom.xml` configuration file, the [hotspot=copyDependencies]`copyDependencies` tag copies the specified third-party dependencies to a specified location. The [hotspot=location]`location` parameter can be added to the copyDependencies to override the default location, which is the lib folder of the target server. Multiple [hotspot=dependencies]`dependency` parameters can be added to the `copyDependencies` configuration. 
-
-pom.xml
-[source, Xml, linenums, role='code_column']
-----
-include::finish/backendServices/pom.xml[]
-----
 
 // =================================================================================================
 // Building and running the application
