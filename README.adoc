@@ -262,11 +262,11 @@ To use a Derby database, you need to download its library and store it to the Li
 
 [role="code_command hotspot", subs="quotes"]
 ----
-#Replace the `pom.xml` configuration file.#
-`pom.xml`
+#Replace the `backendServices/pom.xml` configuration file.#
+`backendServices/pom.xml`
 ----
 
-pom.xml
+backendServices/pom.xml
 [source, xml, linenums, role='code_column']
 ----
 include::finish/backendServices/pom.xml[]
