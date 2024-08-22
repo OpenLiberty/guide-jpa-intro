@@ -272,7 +272,7 @@ backendServices/pom.xml
 include::finish/backendServices/pom.xml[]
 ----
 
-In the `pom.xml` configuration file, the [hotspot=copyDependencies]`copyDependencies` tag copies the specified third-party dependencies to a specified location. The [hotspot=location]`location` parameter can be added to the copyDependencies to override the default location, which is the lib folder of the target server. Multiple [hotspot=dependencies]`dependency` parameters can be added to the `copyDependencies` configuration. 
+In the `pom.xml` configuration file, the [hotspot=copyDependencies]`copyDependencies` tag is used to copy specified third-party dependencies to a designated location. The [hotspot=location]`location` parameter can be added to the copyDependencies to override the default location, which is the `lib` folder of the target server. Multiple [hotspot=dependencies]`dependency` parameters can be included within the `copyDependencies` configuration.
 
 // =================================================================================================
 // Performing CRUD operations using JPA
