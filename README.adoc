@@ -260,20 +260,20 @@ The [hotspot=schema-generation file=0]`jakarta.persistence.schema-generation` pr
 
 To use a Derby database, you need to download its library and store it to the Liberty shared resources directory. Configure the Liberty Maven plug-in in the `pom.xml` file.
 
-[role='code_command hotspot file=1', subs="quotes"]
+[role='code_command hotspot file=2', subs="quotes"]
 ----
 #Replace the `pom.xml` configuration file.#
 `pom.xml`
 ----
 
-// File 1
+// File 2
 pom.xml
 [source, xml, linenums, role='code_column']
 ----
 include::finish/backendServices/pom.xml[]
 ----
 
-In the [hotspot file=1]`pom.xml` configuration file, the [hotspot=copyDependencies]`copyDependencies` tag copies the specified third-party dependencies to a specified location. The [hotspot=location]`location` parameter can be added to the copyDependencies to override the default location, which is the lib folder of the target server. Multiple [hotspot=dependencies]`dependency` parameters can be added to the `copyDependencies` configuration. 
+In the [hotspot file=2]`pom.xml` configuration file, the [hotspot=copyDependencies]`copyDependencies` tag copies the specified third-party dependencies to a specified location. The [hotspot=location]`location` parameter can be added to the copyDependencies to override the default location, which is the lib folder of the target server. Multiple [hotspot=dependencies]`dependency` parameters can be added to the `copyDependencies` configuration. 
 
 // =================================================================================================
 // Performing CRUD operations using JPA
