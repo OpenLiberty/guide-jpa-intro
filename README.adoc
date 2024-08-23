@@ -325,7 +325,7 @@ server.xml
 include::finish/backendServices/src/main/liberty/config/server.xml[]
 ----
 
-In the `pom.xml` configuration file, the [hotspot=copyDependencies file=0]`copyDependencies` configuration instructs the Liberty Maven plug-in to copy the Derby libraries to Liberty shared resources directory, which is referenced by the [hotspot=shared-dir file=1]`derbyJDBCLib` library in the `server.xml`. The [hotspot=location file=0]`location` configuration within copyDependencies can be adjusted to override the default location, typically the `lib` folder of the target server. Then, the [hotspot=dependencies file=0]`dependency` configuration is used to include the three required Derby dependencies and download the Derby libraries locally.
+In the `pom.xml` configuration file, the [hotspot=dependencies file=0]`dependency` configuration is used to include the three required Derby dependencies and download the Derby libraries locally. The [hotspot=copyDependencies file=0]`copyDependencies` configuration instructs the Liberty Maven plug-in to copy the Derby libraries to Liberty shared resources directory, which is referenced by the [hotspot=shared-dir file=1]`derbyJDBCLib` library in the `server.xml`. The [hotspot=location file=0]`location` configuration within copyDependencies specifies the destination for copying the dependencies.
 
 // =================================================================================================
 // Building and running the application
