@@ -305,7 +305,7 @@ include::finish/backendServices/src/main/java/io/openliberty/guides/event/resour
 
 == Configuring the Derby driver and the Liberty
 
-To use a Derby database, you need to download its library and store it to the Liberty shared resources directory. Configure the Liberty Maven plug-in in the `pom.xml` file within the `/backendServices` directory.
+To use a Derby database, you need to download its libraries and store them to the Liberty shared resources directory. Configure the Liberty Maven plug-in in the `pom.xml` file of the `/backendServices` service.
 
 [role="code_command hotspot", subs="quotes"]
 ----
@@ -325,7 +325,8 @@ server.xml
 include::finish/backendServices/src/main/liberty/config/server.xml[]
 ----
 
-In the `pom.xml` configuration file, the [hotspot=dependencies file=0]`dependency` configuration is used to include the three required Derby dependencies and download the Derby libraries locally. The [hotspot=copyDependencies file=0]`copyDependencies` configuration instructs the Liberty Maven plug-in to copy the Derby libraries to Liberty shared resources directory, which is referenced by the [hotspot=shared-dir file=1]`derbyJDBCLib` library in the `server.xml`. The [hotspot=location file=0]`location` configuration within copyDependencies specifies the destination for copying the dependencies.
+Three required Derby dependencies are added to the [hotspot=dependencies file=0]`dependencies` configuration for Maven to download the Derby libraries locally. The [hotspot=copyDependencies file=0]`copyDependencies` configuration instructs the Liberty Maven plug-in to copy the Derby libraries to Liberty shared resources directory that is specified through the [hotspot=location file=0]`location` configuration, and is referenced in the [hotspot=shared-dir file=1]`derbyJDBCLib` `library` configration of the Liberty `server.xml` configuration file.
+
 
 // =================================================================================================
 // Building and running the application
