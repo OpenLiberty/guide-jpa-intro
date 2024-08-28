@@ -327,22 +327,31 @@ include::finish/backendServices/src/main/liberty/config/server.xml[]
 
 This configuration adds three required Derby dependencies to the [hotspot=dependencies file=0]`dependencies` configuration so Maven can download the Derby libraries locally. The [hotspot=copyDependencies file=0]`copyDependencies` configuration instructs the Liberty Maven plug-in to copy the Derby libraries to the Liberty shared resources directory that is specified through the [hotspot=location file=0]`location` configuration, and is referenced in the [hotspot=shared-dir file=1]`derbyJDBCLib` `library` configuration of the `server.xml` file.
 
+In the terminal where you started the `backendServices` microservice, type `r` and press the `enter/return` key to restart the Liberty instance and pick up the Derby libraries.
+
 
 // =================================================================================================
 // Building and running the application
 // =================================================================================================
 
-[role=command]
-include::{common-includes}/devmode-build.adoc[]
+== Running the application
+
+After you see the following message, your Liberty instance is ready in dev mode:
+
+[role="no_copy"]
+----
+**************************************************************
+*    Liberty is running in dev mode.
+----
 
 // Static guide instruction
 ifndef::cloud-hosted[]
-When Liberty is running, go to the {eventapp-url} URL to view the Event Manager application. 
+Go to the {eventapp-url} URL to view the Event Manager application. 
 endif::[]
 
 // Cloud hosted guide instruction
 ifdef::cloud-hosted[]
-When Liberty is running, click the following button to view the Event Manager application:
+Click the following button to view the Event Manager application:
 ::startApplication{port="9090" display="external" name="Visit Event Manager application" route="/"}
 endif::[]
 
