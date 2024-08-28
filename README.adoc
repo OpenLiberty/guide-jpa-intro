@@ -327,7 +327,7 @@ include::finish/backendServices/src/main/liberty/config/server.xml[]
 
 This configuration adds three required Derby dependencies to the [hotspot=dependencies file=0]`dependencies` configuration so Maven can download the Derby libraries locally. The [hotspot=copyDependencies file=0]`copyDependencies` configuration instructs the Liberty Maven plug-in to copy the Derby libraries to the Liberty shared resources directory that is specified through the [hotspot=location file=0]`location` configuration, and is referenced in the [hotspot=shared-dir file=1]`derbyJDBCLib` `library` configuration of the `server.xml` file.
 
-In the terminal where you started dev mode, type `r` and press the `enter/return` key to restart the Liberty instance and pick up the Derby libraries.
+In the terminal where you started the `backendServices` microservice, type `r` and press the `enter/return` key to restart the Liberty instance and pick up the Derby libraries.
 
 
 // =================================================================================================
