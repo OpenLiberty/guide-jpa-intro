@@ -17,9 +17,11 @@
   <application location="backendServices.war" type="war" context-root="/"></application>
 
   <!-- Derby Library Configuration -->
+   <!-- tag::shared-dir[] -->
   <library id="derbyJDBCLib">
     <fileset dir="${shared.resource.dir}/" includes="derby*.jar" />
   </library>
+  <!-- end::shared-dir[] -->
 
   <!-- Datasource Configuration -->
   <!-- tag::data-source[] -->
