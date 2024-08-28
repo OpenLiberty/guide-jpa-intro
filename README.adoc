@@ -303,7 +303,7 @@ include::finish/backendServices/src/main/java/io/openliberty/guides/event/resour
 // Configuring the Derby driver and the Liberty
 // =================================================================================================
 
-== Configuring the Derby driver and the Liberty
+== Configuring the Derby driver and the Liberty Maven plugin
 
 To use a Derby database, you need to download its libraries and store them to the Liberty shared resources directory. Configure the Liberty Maven plug-in in the `pom.xml` file of the `backendServices` service.
 
