@@ -12,8 +12,8 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
         <!-- Liberty configuration -->
         <backend.service.http.port>5050</backend.service.http.port>
         <backend.service.https.port>5051</backend.service.https.port>
@@ -60,8 +60,7 @@
             <scope>test</scope>
         </dependency>
         <!-- Derby from https://mvnrepository.com/artifact/org.apache.derby/derby -->
-        <!-- Use 10.15.2.0 that supports Java 11. -->
-        <!-- If use 10.16+, need to use Java 17+ -->
+         <!-- tag::dependencies[] -->
         <dependency>
             <groupId>org.apache.derby</groupId>
             <artifactId>derby</artifactId>
@@ -80,6 +79,7 @@
             <version>10.17.1.0</version>
             <scope>provided</scope>
         </dependency>
+        <!-- end::dependencies[] -->
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
@@ -95,8 +95,11 @@
                 <artifactId>liberty-maven-plugin</artifactId>
                 <version>3.10.3</version>
                 <configuration>
+                    <!-- tag::copyDependencies[] -->
                     <copyDependencies>
+                        <!-- tag::location[] -->
                         <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
+                        <!-- end::location[] -->
                         <dependency>
                             <groupId>org.apache.derby</groupId>
                             <artifactId>derby</artifactId>
@@ -110,6 +113,7 @@
                             <artifactId>derbytools</artifactId>
                         </dependency>
                     </copyDependencies>
+                    <!-- end::copyDependencies[] -->
                 </configuration>
             </plugin>
             <!-- Plugin to run unit tests -->
