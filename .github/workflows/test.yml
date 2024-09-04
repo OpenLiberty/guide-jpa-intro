@@ -64,13 +64,13 @@ jobs:
           sudo chmod -R a+xr frontendUI/target
     - name: Archive backend logs if failed
       if: failure()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: BackendServices-logs
         path: finish/backendServices/target/liberty/wlp/usr/servers/defaultServer/logs/
     - name: Archive frontend logs if failed
       if: failure()
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: frontendUI-logs
         path: finish/frontendUI/target/liberty/wlp/usr/servers/defaultServer/logs/
