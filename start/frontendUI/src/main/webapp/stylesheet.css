@@ -1,7 +1,7 @@
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
 }
 
 #header-container {
@@ -11,7 +11,7 @@ body {
 }
 
 #header {
-  background: #1D1F3C;
+  background: #1d1f3c;
   height: 100%;
 }
 
@@ -36,24 +36,24 @@ body {
   min-height: 40px;
   width: 90%;
   background-color: #f7f7f7;
-  border: solid #1D1F3C;
+  border: solid #1d1f3c;
   border: 2%;
   font-size: 1.1vw;
   margin-left: 5%;
   margin-top: 8%;
   padding: 0;
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
 }
 
 .button:hover {
-  background-color: #1D1F3C;
+  background-color: #1d1f3c;
   color: white;
   cursor: pointer;
   border: none;
 }
 
 .button:focus {
-  background-color: #1D1F3C;
+  background-color: #1d1f3c;
   color: white;
   outline: 0;
   border: none;
@@ -81,7 +81,7 @@ body {
 }
 
 .forms {
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
   width: 50%;
   border-radius: 5px;
   background-color: #f2f2f2;
@@ -89,47 +89,46 @@ body {
   text-align: center;
 }
 
-.forms input[type=text], input[type=email], input[type=password] {
+.forms input[type='text'], input[type='email'], input[type='password'] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
-  margin: 8px 0;
   text-align: center;
   font-size: 1vw;
 }
 
-.forms input[type=submit], input[type=reset] {
+.forms input[type='submit'], input[type='reset'] {
   width: 100%;
-  background-color: #1D1F3C;
+  background-color: #1d1f3c;
   color: white;
   padding: 14px 20px;
   border: none;
   border-radius: 4px;
   cursor: pointer;
   font-size: 1.1vw;
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
 }
 
-.forms input[type=submit]:hover {
+.forms input[type='submit']:hover {
   background-color: #45498c;
 }
 
-.forms input[type=reset]:hover {
+.forms input[type='reset']:hover {
   background-color: #45498c;
 }
 
-.forms input[type=submit]:focus {
+.forms input[type='submit']:focus {
   outline: 0;
 }
 
-.forms input[type=reset]:focus {
+.forms input[type='reset']:focus {
   outline: 0;
 }
 
-.forms_title {
+.forms-title {
   border-bottom: 2px solid black;
   font-size: 1vw;
 }
@@ -159,7 +158,7 @@ label {
 }
 
 #title h1 {
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
   text-align: center;
   text-decoration: underline;
   color: white;
@@ -201,16 +200,16 @@ h1.list {
 
 .table td:nth-child(1) {
   text-align: right;
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
 }
 
 .table td:nth-child(2) {
   text-align: left;
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
 }
 
-#listOfevents {
-  font-family: 'Asap', sans-serif;
+#list-of-events {
+  font-family: "Asap", sans-serif;
   width: 70%;
   border-radius: 5px;
   background-color: #f2f2f2;
@@ -218,24 +217,24 @@ h1.list {
   text-align: center;
 }
 
-.eventsLink {
+.events-link {
   color: #0080ff;
   cursor: pointer;
   min-width: 100%;
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
 }
 
-.eventsLink:focus {
+.events-link:focus {
   outline: 0;
 }
 
-.eventsLink:hover {
+.events-link:hover {
   color: black;
   cursor: pointer;
 }
 
 .event-table {
-  font-family: 'Asap', sans-serif;
+  font-family: "Asap", sans-serif;
   table-layout: fixed;
   word-wrap: break-word;
   width: 100%;
@@ -258,12 +257,12 @@ h1.list {
   text-align: center;
 }
 
-.formSpacing {
+.form-spacing {
   margin-top: 1%;
   margin-bottom: 1%;
 }
 
-.select_events {
+.select-events {
   border-radius: 5px;
   text-align-last: center;
   text-align: center;
@@ -273,6 +272,6 @@ h1.list {
   margin-bottom: 1%;
 }
 
-.columnEvents {
+.column-events {
   font-size: 0.9vw;
 }
