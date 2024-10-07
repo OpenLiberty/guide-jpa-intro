@@ -89,8 +89,7 @@ body {
   text-align: center;
 }
 
-.forms
-input[type="text"],
+.forms input[type="text"],
 input[type="email"],
 input[type="password"] {
   width: 100%;
@@ -103,8 +102,7 @@ input[type="password"] {
   font-size: 1vw;
 }
 
-.forms
-input[type="submit"],
+.forms input[type="submit"],
 input[type="reset"] {
   width: 100%;
   background-color: #1d1f3c;
@@ -199,7 +197,8 @@ h1.list {
   font-size: 1vw;
 }
 
-.table tr, td {
+.table tr,
+td {
   border: none;
 }
 
@@ -250,7 +249,12 @@ h1.list {
   font-size: 1vw;
 }
 
-.column1, .column2, .column3, .column4, .column5, .column6 {
+.column1,
+.column2,
+.column3,
+.column4,
+.column5,
+.column6 {
   padding: 15px;
   text-align: center;
   color: black;
@@ -258,7 +262,8 @@ h1.list {
   font-size: 0.9vw;
 }
 
-.column5, .column6 {
+.column5,
+.column6 {
   text-align: center;
 }
 
