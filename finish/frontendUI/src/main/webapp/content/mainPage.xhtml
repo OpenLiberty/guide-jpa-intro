@@ -26,8 +26,8 @@
     <h:outputText class="list tab"
       value="&#8226; &#8201; Create a new event" />
     <br />
-    <div id="listOfevents">
-      <div class="forms_title" style="line-height: 0;">
+    <div id="list-of-events">
+      <div class="forms-title" style="line-height: 0;">
         <h2>Current Events</h2>
       </div>
       <br />
@@ -56,7 +56,7 @@
           </h:column>
           <h:column>
             <f:facet name="header"></f:facet>
-            <h:commandLink class="eventsLink" value="Update"
+            <h:commandLink class="events-link" value="Update"
               action="#{eventBean.editEvent()}">
               <f:actionListener binding="#{eventBean.setSelectedId(event.getInt('id'))}" />
               <f:ajax execute="mainform" render=":content header" />
@@ -64,7 +64,7 @@
           </h:column>
           <h:column>
             <f:facet name="header"></f:facet>
-            <h:commandLink class="eventsLink" value="Delete"
+            <h:commandLink class="events-link" value="Delete"
               action="#{eventBean.submitDeletetoService()}">
               <f:actionListener binding="#{eventBean.setSelectedId(event.getInt('id'))}" />
               <f:ajax execute="mainform" render=":content header" />
