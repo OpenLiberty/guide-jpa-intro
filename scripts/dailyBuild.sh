@@ -14,6 +14,11 @@ if [ "$JDK_LEVEL" == "11" ]; then
     exit 0
 fi
 
+if [ "$JDK_LEVEL" == "17" ]; then
+    echo "Test skipped because the guide does not support Java 17."
+    exit 0
+fi
+
 sed -i "\#<artifactId>liberty-maven-plugin</artifactId>#a<configuration><install><runtimeUrl>https://public.dhe.ibm.com/ibmdl/export/pub/software/openliberty/runtime/nightly/$DATE/$DRIVER</runtimeUrl></install></configuration>" frontendUI/pom.xml
 cat frontendUI/pom.xml
 
