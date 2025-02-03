@@ -1,11 +1,12 @@
 <server description="Sample Liberty server">
 
   <featureManager>
-    <feature>restfulWS-3.1</feature>
-    <feature>jsonb-3.0</feature>
-    <feature>jsonp-2.1</feature>
-    <feature>cdi-4.0</feature>
-    <feature>persistence-3.1</feature>
+    <platform>jakartaee-10.0</platform>
+    <feature>restfulWS</feature>
+    <feature>jsonb</feature>
+    <feature>jsonp</feature>
+    <feature>cdi</feature>
+    <feature>persistence</feature>
   </featureManager>
 
   <variable name="http.port" defaultValue="5050" />
