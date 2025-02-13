@@ -1,4 +1,4 @@
-// Copyright (c) 2018, 2024 IBM Corporation and others.
+// Copyright (c) 2018, 2025 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -250,7 +250,7 @@ server.xml
 include::finish/backendServices/src/main/liberty/config/server.xml[]
 ----
 
-The [hotspot=schema-generation file=0]`jakarta.persistence.schema-generation` properties are used here so that you aren't required to manually create a database table to run this sample application. To learn more about the JPA schema generation and available properties, see https://jakarta.ee/specifications/persistence/3.0/jakarta-persistence-spec-3.0.html#a12917[Schema Generation, Section 9.4 of the JPA Specification]
+The [hotspot=schema-generation file=0]`jakarta.persistence.schema-generation` properties are used here so that you aren't required to manually create a database table to run this sample application. To learn more about the JPA schema generation and available properties, see https://jakarta.ee/specifications/persistence/3.1/jakarta-persistence-spec-3.1.html#a12917[Schema Generation, Section 9.4 of the JPA Specification^]
 
 // =================================================================================================
 // Performing CRUD operations using JPA
