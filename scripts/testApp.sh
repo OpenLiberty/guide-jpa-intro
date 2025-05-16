@@ -5,14 +5,14 @@ set -euxo pipefail
 # LMP 3.0+ goals are listed here: https://github.com/OpenLiberty/ci.maven#goals
 
 # Test the backendServices
-cd backendServices
 
 ## Rebuild the application
 #       package                   - Take the compiled code and package it in its distributable format.
 #       liberty:create            - Create a Liberty server.
 #       liberty:install-feature   - Install a feature packaged as a Subsystem Archive (esa) to the Liberty runtime.
 #       liberty:deploy            - Copy applications to the Liberty server's dropins or apps directory.
-./mvnw -ntp -Dhttp.keepAlive=false \
+./mvnw -pl backendServices \
+    -ntp -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
     -q clean package liberty:create liberty:install-feature liberty:deploy
@@ -25,22 +25,28 @@ cd backendServices
 #       failsafe:integration-test - Runs the integration tests of an application.
 #       liberty:stop              - Stop a Liberty server.
 #       failsafe:verify           - Verifies that the integration tests of an application passed.
-./mvnw -ntp liberty:start
-./mvnw -ntp -Dhttp.keepAlive=false \
+./mvnw -pl backendServices \
+    -ntp liberty:start
+./mvnw -pl backendServices \
+    -ntp -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
     failsafe:integration-test liberty:stop
-./mvnw -ntp failsafe:verify
+./mvnw -pl backendServices \
+    -ntp failsafe:verify
 
 # Test the frontendUI
-cd ../frontendUI
-./mvnw -ntp -Dhttp.keepAlive=false \
+./mvnw -pl frontendUI \
+    -ntp -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
     -q clean package liberty:create liberty:install-feature liberty:deploy
-./mvnw -ntp liberty:start
-./mvnw -ntp -Dhttp.keepAlive=false \
+./mvnw -pl frontendUI \
+    -ntp liberty:start
+./mvnw -pl frontendUI \
+    -ntp -Dhttp.keepAlive=false \
     -Dmaven.wagon.http.pool=false \
     -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 \
     failsafe:integration-test liberty:stop
-./mvnw -ntp failsafe:verify
+./mvnw -pl frontendUI \
+    -ntp failsafe:verify
