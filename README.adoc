@@ -86,7 +86,7 @@ cd finish
 ```
 --
 
-Open another command-line session and run the following commands to navigate to the `finish` directory and deploy the service to Open Liberty:
+Open another command-line session and run the following commands to navigate to the `finish` directory and deploy the `backendServices` to Open Liberty:
 // static guide instruction
 ifndef::cloud-hosted[]
 include::{common-includes}/os-tabs.adoc[]
