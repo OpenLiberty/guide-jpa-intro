@@ -144,7 +144,7 @@ ifdef::cloud-hosted[]
 Click the following button to view the Event Manager application:
 ::startApplication{port="9090" display="external" name="Visit Event Manager application" route="/"}
 endif::[]
-The event application does not display any events because no events are stored in the database. Go ahead and click `Create Event`, located in the left navigation bar. After entering an event name, location and time, click `Submit` to persist your event entity to the database. The event is now stored in the database and is visible in the list of current events.
+The event application does not display any events because no events are stored in the database. Go ahead and click `Create Event`, located in the left navigation bar. After entering an event name, location and event date set in the future, click `Submit` to persist your event entity to the database. The event is now stored in the database and is visible in the list of current events.
 
 Notice that if you stop the Open Liberty instance and then restart it, the events created are still displayed in the list of current events. Ensure you are in the `finish` directory and run the following Maven goals to stop and then restart the instance:
 // static guide instruction
