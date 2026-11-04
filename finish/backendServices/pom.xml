@@ -59,24 +59,12 @@
             <version>2.0.1</version>
             <scope>test</scope>
         </dependency>
-        <!-- Derby from https://mvnrepository.com/artifact/org.apache.derby/derby -->
+        <!-- H2 from https://mvnrepository.com/artifact/com.h2database/h2 -->
          <!-- tag::dependencies[] -->
         <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derby</artifactId>
-            <version>10.17.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbyshared</artifactId>
-            <version>10.17.1.0</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.derby</groupId>
-            <artifactId>derbytools</artifactId>
-            <version>10.17.1.0</version>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>2.5.252</version>
             <scope>provided</scope>
         </dependency>
         <!-- end::dependencies[] -->
@@ -101,16 +89,8 @@
                         <location>${project.build.directory}/liberty/wlp/usr/shared/resources</location>
                         <!-- end::location[] -->
                         <dependency>
-                            <groupId>org.apache.derby</groupId>
-                            <artifactId>derby</artifactId>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.derby</groupId>
-                            <artifactId>derbyshared</artifactId>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.derby</groupId>
-                            <artifactId>derbytools</artifactId>
+                            <groupId>com.h2database</groupId>
+                            <artifactId>h2</artifactId>
                         </dependency>
                     </copyDependencies>
                     <!-- end::copyDependencies[] -->

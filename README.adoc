@@ -1,4 +1,4 @@
-// Copyright (c) 2018, 2025 IBM Corporation and others.
+// Copyright (c) 2018, 2026 IBM Corporation and others.
 // Licensed under Creative Commons Attribution-NoDerivatives
 // 4.0 International (CC BY-ND 4.0)
 //   https://creativecommons.org/licenses/by-nd/4.0/
@@ -40,7 +40,7 @@ You will learn how to use the Java Persistence API (JPA) to map Java objects to 
 
 JPA is a Jakarta EE specification for representing relational database table data as Plain Old Java Objects (POJO). JPA simplifies object-relational mapping (ORM) by using annotations to map Java objects to tables in a relational database. In addition to providing an efficient API for performing CRUD operations, JPA also reduces the burden of having to write JDBC and SQL code when performing database operations and takes care of database vendor-specific differences. This capability allows you to focus on the business logic of your application instead of wasting time implementing repetitive CRUD logic.
 
-The application that you will be working with is an event manager, which is composed of a UI and an event microservice for creating, retrieving, updating, and deleting events. In this guide, you will be focused on the event microservice. The event microservice consists of a JPA entity class whose fields will be persisted to a database. The database logic is implemented in a Data Access Object (DAO) to isolate the database operations from the rest of the service. This DAO accesses and persists JPA entities to the database and can be injected and consumed by other components in the microservice. An Embedded Derby database is used as a data store for all the events.
+The application that you will be working with is an event manager, which is composed of a UI and an event microservice for creating, retrieving, updating, and deleting events. In this guide, you will be focused on the event microservice. The event microservice consists of a JPA entity class whose fields will be persisted to a database. The database logic is implemented in a Data Access Object (DAO) to isolate the database operations from the rest of the service. This DAO accesses and persists JPA entities to the database and can be injected and consumed by other components in the microservice. An H2 database is used as a data store for all the events.
 
 You will use JPA annotations to define an entity class whose fields are persisted to the database. The interaction between your service and the database is mediated by the persistence context that is managed by an entity manager. In a Jakarta EE environment, you can use an application-managed entity manager or a container-managed entity manager. In this guide, you will use a container-managed entity manager that is injected into the DAO so Liberty manages the opening and closing of the entity manager for you. 
 
@@ -433,12 +433,12 @@ include::finish/backendServices/src/main/java/io/openliberty/guides/event/resour
 ----
 
 // =================================================================================================
-// Configuring the Derby driver and the Liberty
+// Configuring the H2 driver and the Liberty
 // =================================================================================================
 
-== Configuring the Derby driver and the Liberty Maven plugin
+== Configuring the H2 driver and the Liberty Maven plugin
 
-To use a Derby database, you need to download its libraries and store them to the Liberty shared resources directory. Configure the Liberty Maven plug-in in the `pom.xml` file of the `backendServices` service.
+To use an H2 database, you need to download its library and store it to the Liberty shared resources directory. Configure the Liberty Maven plug-in in the `pom.xml` file of the `backendServices` service.
 
 [role="code_command hotspot", subs="quotes"]
 ----
@@ -458,9 +458,9 @@ server.xml
 include::finish/backendServices/src/main/liberty/config/server.xml[]
 ----
 
-This configuration adds three required Derby dependencies to the [hotspot=dependencies file=0]`dependencies` configuration so Maven can download the Derby libraries locally. The [hotspot=copyDependencies file=0]`copyDependencies` configuration instructs the Liberty Maven plug-in to copy the Derby libraries to the Liberty shared resources directory that is specified through the [hotspot=location file=0]`location` configuration, and is referenced in the [hotspot=shared-dir file=1]`derbyJDBCLib` `library` configuration of the `server.xml` file.
+This configuration adds the required H2 dependency to the [hotspot=dependencies file=0]`dependencies` configuration so Maven can download the H2 library locally. The [hotspot=copyDependencies file=0]`copyDependencies` configuration instructs the Liberty Maven plug-in to copy the H2 library to the Liberty shared resources directory that is specified through the [hotspot=location file=0]`location` configuration, and is referenced in the [hotspot=shared-dir file=1]`h2JDBCLib` `library` configuration of the `server.xml` file.
 
-In the terminal where you started the `backendServices` microservice, type `r` and press the `enter/return` key to restart the Liberty instance and pick up the Derby libraries.
+In the terminal where you started the `backendServices` microservice, type `r` and press the `enter/return` key to restart the Liberty instance and pick up the H2 library.
 
 
 // =================================================================================================
