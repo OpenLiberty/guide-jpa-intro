@@ -13,4 +13,8 @@
         <module>backendServices</module>
         <module>frontendUI</module>
     </modules>
+  <properties>
+    <maven.compiler.release>25</maven.compiler.release>
+  </properties>
+
 </project>
